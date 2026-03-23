@@ -33,7 +33,7 @@ window.onload = function () {
         "hotSpots": [
             {
                 "pitch": 0,
-                "yaw": 340,
+                "yaw": -10,
                 "type": "scene",
                 "text": "Назад в комнату 1",
                 "sceneId": "room1"
