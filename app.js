@@ -1,9 +1,5 @@
+var viewer = pannellum.viewer('panorama', {
 
-window.onload = function() {
-
-    var viewer = pannellum.viewer('panorama', {
-      
-    
 "default": {
     "firstScene": "room1",
     "sceneFadeDuration": 1000,
@@ -20,7 +16,7 @@ window.onload = function() {
         "hotSpots": [
             {
                 "pitch": 0,
-                "yaw": -180,
+                "yaw": 0,
                 "type": "scene",
                 "text": "Перейти в комнату 2",
                 "sceneId": "room2"
@@ -48,13 +44,6 @@ window.onload = function() {
 
 });
 
-
-
-        
-    });
-
-    window.loadScene = function(scene){
-        viewer.loadScene(scene);
-    }
-
-};
+function loadScene(scene){
+    viewer.loadScene(scene);
+}
