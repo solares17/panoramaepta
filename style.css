@@ -16,8 +16,9 @@ html, body {
 /* Окно описания сцены */
 #sceneInfo {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 80px;
+    left: 50px;
+    transform: translateX(-50%);
     max-width: 320px;
     background: rgba(0, 0, 0, 0.7);
     color: white;
