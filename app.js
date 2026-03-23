@@ -1,5 +1,9 @@
-var viewer = pannellum.viewer('panorama', {
 
+window.onload = function() {
+
+    var viewer = pannellum.viewer('panorama', {
+      
+    
 "default": {
     "firstScene": "room1",
     "sceneFadeDuration": 1000,
@@ -44,6 +48,13 @@ var viewer = pannellum.viewer('panorama', {
 
 });
 
-function loadScene(scene){
-    viewer.loadScene(scene);
-}
+
+
+        
+    });
+
+    window.loadScene = function(scene){
+        viewer.loadScene(scene);
+    }
+
+};
