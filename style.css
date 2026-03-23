@@ -1,0 +1,74 @@
+/* Сброс отступов и корректная высота */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Панорама на весь экран */
+#panorama {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Окно описания сцены */
+#sceneInfo {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    max-width: 320px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    z-index: 999;
+
+    /* плавное появление */
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Заголовок */
+#sceneInfo h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+/* Текст */
+#sceneInfo p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Скрытое состояние */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Карта (если используешь меню справа) */
+#map {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 999;
+}
+
+/* Пункты карты */
+#map div {
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+/* Hover эффект */
+#map div:hover {
+    background: rgba(255,255,255,0.2);
+}
