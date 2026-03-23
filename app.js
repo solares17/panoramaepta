@@ -1,4 +1,4 @@
-var.viewer = pannellum.viewer('panorama', {
+var viewer = pannellum.viewer('panorama', {
 "default": {
     "firstScene": "room1",
     "sceneFadeDuration": 1000,
