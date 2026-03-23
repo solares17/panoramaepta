@@ -94,5 +94,9 @@ html, body {
         #sceneInfo p {
             font-size: 16px;
         }
+        
+        .pnlm-hotspot-base {
+        transform: scale(1.8);
+        }
 
     }
