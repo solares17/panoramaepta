@@ -32,7 +32,7 @@ var viewer = pannellum.viewer('panorama', {
         "hotSpots": [
             {
                 "pitch": 0,
-                "yaw": -190,
+                "yaw": 340,
                 "type": "scene",
                 "text": "Назад в комнату 1",
                 "sceneId": "room1"
