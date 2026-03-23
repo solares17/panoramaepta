@@ -48,3 +48,4 @@ window.onload = function () {
 function loadScene(scene){
     viewer.loadScene(scene);
 }
+};
