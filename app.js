@@ -31,6 +31,13 @@ window.onload = function () {
                         "type": "scene",
                         "text": "В комнату 2",
                         "sceneId": "room2"
+                    },
+                    {
+                        "pitch": 0,
+                        "yaw": 180,
+                        "type": "scene",
+                        "text": "Назад в комнату 2",
+                        "sceneId": "room3"
                     }
                 ]
             },
@@ -47,6 +54,13 @@ window.onload = function () {
                         "type": "scene",
                         "text": "Назад в комнату 1",
                         "sceneId": "room1"
+                    },
+                     {
+                        "pitch": 0,
+                        "yaw": 180,
+                        "type": "scene",
+                        "text": "Назад в комнату 2",
+                        "sceneId": "room3"
                     }
                 ]
             },
@@ -63,6 +77,13 @@ window.onload = function () {
                         "type": "scene",
                         "text": "В комнату 2",
                         "sceneId": "room2"
+                    },
+                    {
+                        "pitch": 0,
+                        "yaw": 180,
+                        "type": "scene",
+                        "text": "Назад в комнату 2",
+                        "sceneId": "room1"
                     }
                 ]
             }
