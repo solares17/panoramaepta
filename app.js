@@ -50,14 +50,14 @@ window.onload = function () {
                 "hotSpots": [
                     {
                         "pitch": 0,
-                        "yaw": -10,
+                        "yaw": 30,
                         "type": "scene",
                         "text": "К двери",
                         "sceneId": "room1"
                     },
                      {
                         "pitch": 0,
-                        "yaw": 180,
+                        "yaw": -60,
                         "type": "scene",
                         "text": "Конец комнаты",
                         "sceneId": "room3"
@@ -73,14 +73,14 @@ window.onload = function () {
                 "hotSpots": [
                     {
                         "pitch": 0,
-                        "yaw": 0,
+                        "yaw": 30,
                         "type": "scene",
                         "text": "К окну",
                         "sceneId": "room2"
                     },
                     {
                         "pitch": 0,
-                        "yaw": 180,
+                        "yaw": -30,
                         "type": "scene",
                         "text": "К двери",
                         "sceneId": "room1"
