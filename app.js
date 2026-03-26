@@ -22,7 +22,7 @@ window.onload = function () {
             "room1": {
                 "title": "Комната 1",
                 "type": "equirectangular",
-                "panorama": "room1.jpg",
+                "panorama": "pictures/part1.jpg",
 
                 "hotSpots": [
                     {
@@ -38,7 +38,7 @@ window.onload = function () {
             "room2": {
                 "title": "Комната 2",
                 "type": "equirectangular",
-                "panorama": "room2.jpg",
+                "panorama": "pictures/part2.jpg",
 
                 "hotSpots": [
                     {
@@ -47,6 +47,22 @@ window.onload = function () {
                         "type": "scene",
                         "text": "Назад в комнату 1",
                         "sceneId": "room1"
+                    }
+                ]
+            },
+            
+            "room3": {
+                "title": "Комната 3",
+                "type": "equirectangular",
+                "panorama": "pictures/part3.jpg",
+
+                "hotSpots": [
+                    {
+                        "pitch": 0,
+                        "yaw": 0,
+                        "type": "scene",
+                        "text": "В комнату 2",
+                        "sceneId": "room2"
                     }
                 ]
             }
