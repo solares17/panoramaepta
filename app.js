@@ -20,7 +20,7 @@ window.onload = function () {
         "scenes": {
 
             "room1": {
-                "title": "Комната 1",
+                "title": "У двери",
                 "type": "equirectangular",
                 "panorama": "pictures/part1.jpg",
 
@@ -29,21 +29,21 @@ window.onload = function () {
                         "pitch": 0,
                         "yaw": 0,
                         "type": "scene",
-                        "text": "В комнату 2",
+                        "text": "К окну",
                         "sceneId": "room2"
                     },
                     {
                         "pitch": 0,
                         "yaw": 180,
                         "type": "scene",
-                        "text": "Назад в комнату 2",
+                        "text": "Конец комнаты",
                         "sceneId": "room3"
                     }
                 ]
             },
 
             "room2": {
-                "title": "Комната 2",
+                "title": "Окно",
                 "type": "equirectangular",
                 "panorama": "pictures/part2.jpg",
 
@@ -52,21 +52,21 @@ window.onload = function () {
                         "pitch": 0,
                         "yaw": -10,
                         "type": "scene",
-                        "text": "Назад в комнату 1",
+                        "text": "К двери",
                         "sceneId": "room1"
                     },
                      {
                         "pitch": 0,
                         "yaw": 180,
                         "type": "scene",
-                        "text": "Назад в комнату 2",
+                        "text": "Конец комнаты",
                         "sceneId": "room3"
                     }
                 ]
             },
             
             "room3": {
-                "title": "Комната 3",
+                "title": "Конец комнаты",
                 "type": "equirectangular",
                 "panorama": "pictures/part3.jpg",
 
@@ -75,14 +75,14 @@ window.onload = function () {
                         "pitch": 0,
                         "yaw": 0,
                         "type": "scene",
-                        "text": "В комнату 2",
+                        "text": "К окну",
                         "sceneId": "room2"
                     },
                     {
                         "pitch": 0,
                         "yaw": 180,
                         "type": "scene",
-                        "text": "Назад в комнату 2",
+                        "text": "К двери",
                         "sceneId": "room1"
                     }
                 ]
