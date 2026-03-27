@@ -27,7 +27,7 @@ window.onload = function () {
                 "hotSpots": [
                     {
                         "pitch": 0,
-                        "yaw": -100,
+                        "yaw": -70,
                         "type": "scene",
                         "text": "К окну",
                         "sceneId": "room2"
