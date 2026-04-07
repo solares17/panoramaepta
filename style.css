@@ -121,8 +121,24 @@ html, body {
 }
 
 /* Для телефонов */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+        .nav-toggle {
+        display: block;
+        }
+        header nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: rgba(0,0,0,0.8);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 20px 0;
+        }
 
+        header nav ul.show {
+        display: flex;
+        }
         #sceneInfo {
             bottom: 90px;
             left: 10px;
