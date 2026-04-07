@@ -1,13 +1,6 @@
 window.onload = function () {
 
     // Описание сцен
-    var sceneData = {
-        room2: {
-            title: "Комната 2",
-            desc: "Здесь описание комнаты: мебель, состояние, особенности и т.д."
-        }
-    };
-
     // Инициализация viewer
     window.viewer = pannellum.viewer('panorama', {
 
@@ -88,21 +81,6 @@ window.onload = function () {
                 ]
             }
 
-        }
-
-    });
-
-    // Обработка смены сцены (показ описания)
-    viewer.on('scenechange', function(sceneId) {
-
-        var box = document.getElementById('sceneInfo');
-
-        if (sceneId === "room2") {
-            document.getElementById('sceneTitle').innerText = sceneData.room2.title;
-            document.getElementById('sceneDesc').innerText = sceneData.room2.desc;
-            box.classList.remove('hidden');
-        } else {
-            box.classList.add('hidden');
         }
 
     });
