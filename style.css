@@ -105,7 +105,11 @@ html, body {
 #map div:hover {
     background: rgba(255,255,255,0.2);
 }
-
+.page-content {
+    flex: 1; /* Растягивается, заполняя весь экран, а футер прижимается вниз */
+    display: flex;
+    flex-direction: column;
+}
 /* Для телефонов */
     @media (max-width: 900px) {
         .nav-toggle {
