@@ -31,17 +31,23 @@ html, body {
     letter-spacing: 2px;
 }
 
+
+.main-header .menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;  
+}
+
 .main-header .menu a {
-    margin-left: 25px;
     text-decoration: none;
     color: white;
     font-size: 18px;
+    white-space: nowrap; 
 }
 
 .main-header .menu a:hover {
     text-decoration: underline;
 }
-
 #panoramaContainer {
     width: 100%;
     height: 55vh;    /* Панорама занимает 55% экрана */
