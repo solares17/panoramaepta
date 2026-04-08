@@ -5,12 +5,22 @@ html, body {
     font-family: Arial, sans-serif;
     min-height: 100%;
     width: 100%;
-    overflow-x: hidden; /* горизонтальный скролл запрещён */
+    overflow-x: hidden;
 }
 
 body {
     background: #e9ecef;
 }
+
+/* Контейнер страницы */
+.page-content {
+    min-height: calc(100vh - 70px - 120px);
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px; /* фикс хедер */
+}
+
+/* Белый контейнер с тенью */
 .content-container {
     max-width: 1200px;
     width: 95%;
@@ -20,27 +30,19 @@ body {
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 
-    overflow: hidden; /* чтобы панорама не вылезала за края */
-}
-/* Контейнер страницы — пушит футер вниз */
-.page-content {
-    min-height: calc(100vh - 70px - 120px); /* высота экрана минус хедер и футер */
-    display: flex;
-    flex-direction: column;
-    padding-top: 70px; /* запас под фиксированный хедер */
+    overflow: hidden;
 }
 
+/* Текстовые блоки */
 .info-block {
     padding: 25px 30px;
     color: #333;
     line-height: 1.6;
 }
+.info-block h2 { margin-top: 0; }
 
-.info-block h2 {
-    margin-top: 0;
-}
+/* ---------------- HEADER ---------------- */
 
-/*  HEADER */
 .main-header {
     position: fixed;
     top: 0;
@@ -52,43 +54,45 @@ body {
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* ✨ меню строго по центру */
 
     background: #05a4ba;
     color: #fff;
     z-index: 1000;
 }
 
-/* Лого строго слева */
+/* Лого слева */
 .main-header .logo {
+    position: absolute;
+    left: 20px;
     font-size: 28px;
     font-weight: 700;
     white-space: nowrap;
 }
 
-/* Центрируем меню */
+/* Центрированное меню + скролл на мобилках */
 .menu {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
     display: flex;
     gap: 35px;
+
+    overflow-x: auto;       /* свайп на телефонах */
+    white-space: nowrap;    /* пункты в ряд */
+    scrollbar-width: none;  /* скрыть полосы */
 }
 
-/* Ссылки */
+.menu::-webkit-scrollbar {
+    display: none;
+}
+
 .menu a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
-    white-space: nowrap;
 }
+.menu a:hover { text-decoration: underline; }
 
-.menu a:hover {
-    text-decoration: underline;
-}
+/* ---------------- PANORAMA ---------------- */
 
-/*    PANORAMA      */
 #panoramaContainer {
     width: 100%;
     height: 50vh;
@@ -102,7 +106,8 @@ body {
     height: 100%;
 }
 
-/*  FOOTER   */
+/* ---------------- FOOTER ---------------- */
+
 .main-footer {
     width: 100%;
     text-align: center;
@@ -110,14 +115,11 @@ body {
     font-size: 16px;
     background: #05a4ba url("/images/bg-footer.png") center/cover no-repeat;
     color: #fff;
-    
 }
+.main-footer a { color: #fff; }
 
-.main-footer a {
-    color: white;
-}
+/* ---------------- HOTSPOTS ---------------- */
 
-/*  MAP / HOTSPOTS / ETC */
 #map {
     position: absolute;
     top: 20px;
@@ -134,28 +136,36 @@ body {
     padding: 6px 10px;
     border-radius: 6px;
 }
-
 #map div:hover {
     background: rgba(255,255,255,0.2);
 }
 
-/*  MOBILE  */
+/* ---------------- MOBILE ---------------- */
+
 @media (max-width: 900px) {
 
+    /* Лого скрыть */
+    .main-header .logo {
+        display: none;
+    }
+
+    /* Меню уезжает влево и становится скроллабельным */
     .main-header {
-        padding: 0 20px;
+        justify-content: flex-start;
+        padding-left: 10px;
     }
 
-    .main-header .menu {
-        gap: 15px;
+    .menu {
+        gap: 25px;
     }
 
-    .main-header .menu a {
+    .menu a {
         font-size: 16px;
+        padding-right: 5px;
     }
 
     /* Хоты крупнее */
     .pnlm-hotspot-base {
-        transform: scale(1.6);
+        transform: scale(1.5);
     }
 }
