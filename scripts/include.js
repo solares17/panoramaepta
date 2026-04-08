@@ -1,9 +1,8 @@
-
 fetch("/pages/header.html")
-    .then(resp => resp.text())
-    .then(data => document.getElementById("include-header").innerHTML = data);
+    .then(r => r.text())
+    .then(html => document.getElementById("include-header").innerHTML = html);
 
-// Подключение footer
+// ЗАГРУЗКА ФУТЕРА
 fetch("/pages/footer.html")
-    .then(resp => resp.text())
-    .then(data => document.getElementById("include-footer").innerHTML = data);
+    .then(r => r.text())
+    .then(html => document.getElementById("include-footer").innerHTML = html);
