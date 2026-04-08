@@ -1,5 +1,13 @@
 window.onload = function () {
+    // Подключение header
+fetch("header.html")
+    .then(resp => resp.text())
+    .then(data => document.getElementById("include-header").innerHTML = data);
 
+// Подключение footer
+fetch("footer.html")
+    .then(resp => resp.text())
+    .then(data => document.getElementById("include-footer").innerHTML = data);
     // Описание сцен
     // Инициализация viewer
     window.viewer = pannellum.viewer('panorama', {
