@@ -144,24 +144,27 @@ body {
 
 @media (max-width: 900px) {
 
-    /* Лого скрыть */
-    .main-header .logo {
-        display: none;
-    }
-
-    /* Меню уезжает влево и становится скроллабельным */
     .main-header {
-        justify-content: flex-start;
-        padding-left: 10px;
+        justify-content: flex-start; /* выравниваем начало */
+        padding-left: 20px;
     }
 
+    /* Контейнер меню становится скроллаемым */
     .menu {
+        margin-left: 100px;               /* место для лого */
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;            /* скрыть скроллбар */
         gap: 25px;
+        padding-bottom: 5px;
+    }
+
+    .menu::-webkit-scrollbar {
+        display: none;
     }
 
     .menu a {
         font-size: 16px;
-        padding-right: 5px;
     }
 
     /* Хоты крупнее */
