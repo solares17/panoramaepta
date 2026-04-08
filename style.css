@@ -105,11 +105,12 @@ body {
 /*  FOOTER   */
 .main-footer {
     width: 100%;
-    background: #111;
-    color: #ccc;
     text-align: center;
     padding: 25px 10px;
     font-size: 16px;
+    background: #05a4ba url("/images/bg-footer.png") center/cover no-repeat;
+    color: #fff;
+    
 }
 
 .main-footer a {
