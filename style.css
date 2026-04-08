@@ -94,6 +94,7 @@ body {
     height: 50vh;
     min-height: 300px;
     position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
 }
 
 #panorama {
