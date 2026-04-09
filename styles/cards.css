@@ -68,16 +68,17 @@
     max-height: 500px; 
     margin-top: 15px;
 }
-.card a {
+.card-details a {
     text-decoration: none;  
     color: #000;             
 }
 
-.card a:hover,
-.card a:active,
-.card a:focus {
+.card-details a:hover,
+.card-details a:active,
+.card-details a:focus {
     text-decoration: underline; 
 }
+
 /* Адаптивность */
 @media (max-width: 700px) {
     .card-header {
