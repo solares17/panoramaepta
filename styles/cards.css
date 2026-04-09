@@ -81,3 +81,43 @@
         height: 130px;
     }
 }
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.card-header {
+    display: flex;
+    gap: 20px;
+}
+
+.card-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.card-body ul {
+    margin-top: 15px;
+    padding-left: 20px;
+}
+
+.card-body a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+.card-body a:hover {
+    text-decoration: underline;
+}
