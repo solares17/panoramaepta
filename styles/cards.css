@@ -53,7 +53,7 @@
 .card-details {
     max-height: 0;
     overflow: hidden;
-    margin-top: 0;
+    margin-top: 10px;
     border-top: 1px solid #ccc;
     transition: max-height 0.35s ease, margin-top 0.35s ease;
 }
