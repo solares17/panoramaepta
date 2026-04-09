@@ -1,35 +1,31 @@
-const container = document.querySelector('.cards');
+const list = document.querySelector(".equipment-list");
 
 equipment.forEach(eq => {
-    const card = document.createElement('div');
-    card.classList.add('card');
+    const card = document.createElement("div");
+    card.classList.add("equipment-card");
 
     card.innerHTML = `
         <div class="card-header">
-            <img src="${eq.img}" class="card-img">
-            <div class="card-info">
+            <img src="${eq.img}" class="equip-img">
+            <div class="equip-info">
                 <h3>${eq.title}</h3>
                 <p>${eq.desc}</p>
             </div>
         </div>
 
-        <div class="card-body">
+        <div class="card-details">
             <ul>
-                ${eq.labs.map(lab =>
-                    `<li><a href="${lab.url}">${lab.name}</a></li>`
+                ${eq.labs.map(l =>
+                    `<li><a href="${l.url}" target="_blank">${l.name}</a></li>`
                 ).join("")}
             </ul>
         </div>
     `;
 
-    // скрыть body изначально
-    const body = card.querySelector('.card-body');
-    body.style.display = "none";
-
-    // обработчик клика по карточке
-    card.addEventListener('click', () => {
-        body.style.display = body.style.display === "none" ? "block" : "none";
+    // При клике — раскрытие/сворачивание
+    card.addEventListener("click", () => {
+        card.classList.toggle("active");
     });
 
-    container.appendChild(card);
+    list.appendChild(card);
 });
