@@ -14,7 +14,7 @@ window.onload = function () {
             "room1": {
                 "title": "У двери",
                 "type": "equirectangular",
-                "panorama": "pictures/part1.jpg",
+                "panorama": "images/part1.jpg",
 
                 "hotSpots": [
                     {
@@ -37,7 +37,7 @@ window.onload = function () {
             "room2": {
                 "title": "Окно",
                 "type": "equirectangular",
-                "panorama": "pictures/part2.jpg",
+                "panorama": "images/part2.jpg",
 
                 "hotSpots": [
                     {
@@ -60,7 +60,7 @@ window.onload = function () {
             "room3": {
                 "title": "Конец комнаты",
                 "type": "equirectangular",
-                "panorama": "pictures/part3.jpg",
+                "panorama": "images/part3.jpg",
 
                 "hotSpots": [
                     {
