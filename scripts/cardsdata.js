@@ -1,7 +1,7 @@
 const equipment = [
     {
-        img: "img/oscilloscope.png",
-        title: "Осциллограф",
+        img: "/panoramaepta/images/rupor1.jpg",
+        title: "Рупорные антенны",
         desc: "Устройство для измерения формы сигналов.",
         labs: [
             { name: "ЛР №1 — Измерение амплитуды", url: "labs/lab1.html" },
@@ -10,12 +10,12 @@ const equipment = [
     },
   
     {
-        img: "img/generator.png",
-        title: "Генератор сигналов",
+        img: "/panoramaepta/images/parab1.jpg",
+        title: "Зекрально парабалические антенны",
         desc: "Прибор для формирования периодических сигналов.",
         labs: [
-            { name: "ЛР №3 — Генерация синуса", url: "labs/lab3.html" },
-            { name: "ЛР №4 — Работа с меандром", url: "labs/lab4.html" }
+            { name: "ЛР №1 — Генерация синуса", url: "labs/lab3.html" },
+            { name: "ЛР №2 — Работа с меандром", url: "labs/lab4.html" }
         ]
     }
 ];
