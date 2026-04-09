@@ -1,3 +1,8 @@
+document.querySelectorAll(".equipment-card").forEach(card => {
+    card.addEventListener("click", () => {
+        card.classList.toggle("active");
+    });
+});
 document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".card");
 
