@@ -1,0 +1,83 @@
+/* Большой контейнер */
+.equipment-list {
+    max-width: 1200px;
+    width: 95%;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Карточка оборудования */
+.equipment-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    overflow: hidden;
+}
+
+/* hover-эффект */
+.equipment-card:hover {
+    transform: scale(1.01);
+}
+
+/* Верхняя часть карты */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Картинка */
+.equip-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+/* Текст */
+.equip-info h3 {
+    margin: 0 0 10px 0;
+}
+
+.equip-info p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Скрытая часть */
+.card-details {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    border-top: 1px solid #ccc;
+    transition: max-height 0.35s ease, margin-top 0.35s ease;
+}
+
+.card-details ul {
+    padding: 15px 0 0 20px;
+    margin: 0;
+}
+
+/* Активная раскрытая карточка */
+.equipment-card.active .card-details {
+    max-height: 500px; /* достаточно много для списков */
+    margin-top: 15px;
+}
+
+/* Адаптивность */
+@media (max-width: 700px) {
+    .card-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .equip-img {
+        width: 130px;
+        height: 130px;
+    }
+}
