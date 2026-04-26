@@ -139,81 +139,7 @@ body {
 #map div:hover {
     background: rgba(255,255,255,0.2);
 }
-/* КНОПКА */
-#chat-button {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 60px;
-    height: 60px;
-    background: #05a4ba;
-    color: white;
-    font-size: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    z-index: 1000;
-}
 
-/* ОКНО ЧАТА */
-#chat-window {
-    position: fixed;
-    bottom: 100px;
-    right: 25px;
-    width: 320px;
-    height: 400px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-#chat-window.open {
-    display: flex;
-}
-
-/* HEADER */
-.chat-header {
-    background: #05a4ba;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-/* СООБЩЕНИЯ */
-#chat-messages {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    font-size: 14px;
-}
-
-/* ВВОД */
-.chat-input-area {
-    display: flex;
-    border-top: 1px solid #ddd;
-}
-
-.chat-input-area input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    outline: none;
-}
-
-.chat-input-area button {
-    width: 50px;
-    border: none;
-    background: #05a4ba;
-    color: white;
-    cursor: pointer;
-}
 /* ---------------- MOBILE ---------------- */
 
 @media (max-width: 900px) {
@@ -246,18 +172,5 @@ body {
     .pnlm-hotspot-base {
         transform: scale(1.5);
     }
-        #chat-window {
-        width: 95%;
-        right: 2.5%;
-        bottom: 90px;
-        height: 60vh;
-    }
-
-    #chat-button {
-        width: 55px;
-        height: 55px;
-        font-size: 22px;
-        bottom: 20px;
-        right: 20px;
-    }
+ 
 }
