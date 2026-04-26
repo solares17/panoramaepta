@@ -29,14 +29,21 @@
             </p>
     </div>   
         
-    <div id="chat">
-    <input id="userInput" placeholder="Задай вопрос...">
-    <button onclick="sendMessage()">Отправить</button>
-    <div id="chatBox"></div>
-    </div>
 
     </div>
+<div id="chat-button" onclick="toggleChat()">💬</div>
 
+    <!-- Окно чата -->
+    <div id="chat-window">
+    <div class="chat-header">ИИ помощник</div>
+
+    <div id="chat-messages"></div>
+
+    <div class="chat-input-area">
+        <input id="chat-input" placeholder="Задай вопрос...">
+        <button onclick="sendMessage()">➤</button>
+    </div>
+    </div>
 </div>
 
   
