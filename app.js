@@ -90,3 +90,33 @@ window.onload = function () {
     };
 
 };
+function toggleChat() {
+    const chat = document.getElementById("chat-window");
+    chat.classList.toggle("open");
+}
+
+async function sendMessage() {
+    const input = document.getElementById("chat-input");
+    const text = input.value;
+
+    if (!text) return;
+
+    const box = document.getElementById("chat-messages");
+
+    box.innerHTML += `<p><b>Ты:</b> ${text}</p>`;
+
+    const res = await fetch("https://your-api.onrender.com/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: text })
+    });
+
+    const data = await res.json();
+
+    box.innerHTML += `<p><b>ИИ:</b> ${data.reply}</p>`;
+
+    input.value = "";
+    box.scrollTop = box.scrollHeight;
+}
