@@ -90,33 +90,7 @@ window.onload = function () {
     };
 
 };
-function toggleChat() {
-    const chat = document.getElementById("chat-window");
-    chat.classList.toggle("open");
-}
 
-async function sendMessage() {
-    const input = document.getElementById("chat-input");
-    const text = input.value;
 
-    if (!text) return;
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="4UaLU3TK5JaIxuILKdelv";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 
-    const box = document.getElementById("chat-messages");
-
-    box.innerHTML += `<p><b>Ты:</b> ${text}</p>`;
-
-    const res = await fetch("https://your-api.onrender.com/chat", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ message: text })
-    });
-
-    const data = await res.json();
-
-    box.innerHTML += `<p><b>ИИ:</b> ${data.reply}</p>`;
-
-    input.value = "";
-    box.scrollTop = box.scrollHeight;
-}
