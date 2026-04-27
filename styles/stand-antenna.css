@@ -75,15 +75,18 @@
   .display {
     font-size: 10px;
     padding: 3px;
+    top: 36%
   }
 
   .freq-slider {
-    width: 30%;
+    width: 17%;
+    left: 42.5%;
   }
 
   .attenuator {
     width: 35%;
     gap: 2px;
+    left: 62%;
   }
 
   .attenuator button {
@@ -92,6 +95,8 @@
   }
 
   .power-switch {
-    transform: scale(1.2);
+    transform: scale(2);
+    top: 40%;
+    left: 7%;
   }
 }
