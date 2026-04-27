@@ -19,15 +19,31 @@
     picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
     </iframe>
 
-    <div class="lab-stand">
-    <img src="/panoramaepta/images/stand1.jpg" class="stand-img">
+    <div class="stand-wrapper">
 
-    <!-- элементы управления -->
-    <input type="range" id="freq">
-    <input type="range" id="attenuator">
+      <!-- картинка стенда -->
+      <img src="Stand1.jpg" class="stand-img">
 
-    <!-- выходные данные -->
-    <div id="fieldStrength"></div>
+      <!-- ВКЛ/ВЫКЛ -->
+      <input type="checkbox" id="power" class="power-switch">
+
+      <!-- Частота -->
+      <input type="range" id="freq" min="1" max="10" step="0.1" class="slider freq-slider">
+      <div class="display freq-display">0 ГГц</div>
+
+      <!-- Напряженность -->
+      <div class="display field-display">0</div>
+
+      <!-- Аттенюатор -->
+      <div class="attenuator">
+        <button data-db="5">-5</button>
+        <button data-db="10">-10</button>
+        <button data-db="15">-15</button>
+        <button data-db="20">-20</button>
+        <button data-db="25">-25</button>
+        <button data-db="30">-30</button>
+      </div>
+
     </div>
     
 </div>
