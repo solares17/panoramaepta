@@ -77,7 +77,12 @@
     padding: 3px;
     top: 36%
   }
-
+  .field-display {
+  left: 27%;
+  }
+  .freq-display {
+  left: 46%;
+  }
   .freq-slider {
     width: 17%;
     left: 42.5%;
