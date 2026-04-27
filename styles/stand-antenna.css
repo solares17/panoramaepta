@@ -1,3 +1,15 @@
+.video-container {
+  max-width: 800px;      /* ограничение ширины */
+  margin: 0 auto;        /* центрирование */
+  padding: 0 16px;       /* отступы на мобилках */
+}
+
+.video-container iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;  /* ключ для адаптивности */
+  border: none;
+  display: block;
+}
 .stand-wrapper {
   position: relative;
   width: 100%;
