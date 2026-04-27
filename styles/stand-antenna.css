@@ -1,0 +1,97 @@
+.stand-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.stand-bg {
+  background: url("/panoramaepta/images/Stand1.jpg") no-repeat center/contain;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.stand-img {
+  width: 100%;
+  height: auto;
+}
+
+/* ВКЛ/ВЫКЛ */
+.power-switch {
+  position: absolute;
+  top: 12%;
+  left: 8%;
+  transform: scale(1.5);
+}
+
+/* Частота */
+.freq-slider {
+  position: absolute;
+  top: 65%;
+  left: 45%;
+  width: 20%;
+}
+
+.freq-display {
+  position: absolute;
+  top: 35%;
+  left: 47%;
+}
+
+/* Напряженность */
+.field-display {
+  position: absolute;
+  top: 35%;
+  left: 25%;
+}
+
+/* Аттенюатор */
+.attenuator {
+  position: absolute;
+  top: 65%;
+  left: 70%;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  width: 25%;
+}
+
+.attenuator button {
+  flex: 1 1 30%;
+  font-size: 10px;
+}
+
+/* Дисплеи */
+.display {
+  background: #222;
+  color: #0f0;
+  padding: 5px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+  .display {
+    font-size: 10px;
+    padding: 3px;
+  }
+
+  .freq-slider {
+    width: 30%;
+  }
+
+  .attenuator {
+    width: 35%;
+    gap: 2px;
+  }
+
+  .attenuator button {
+    font-size: 8px;
+    padding: 2px;
+  }
+
+  .power-switch {
+    transform: scale(1.2);
+  }
+}
