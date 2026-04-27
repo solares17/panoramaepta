@@ -18,9 +18,9 @@
 /* ВКЛ/ВЫКЛ */
 .power-switch {
   position: absolute;
-  top: 12%;
-  left: 8%;
-  transform: scale(1.5);
+  top: 42%;
+  left: 8.5%;
+  transform: scale(5);
 }
 
 /* Частота */
@@ -33,15 +33,15 @@
 
 .freq-display {
   position: absolute;
-  top: 35%;
-  left: 47%;
+  top: 38%;
+  left: 48%;
 }
 
 /* Напряженность */
 .field-display {
   position: absolute;
-  top: 35%;
-  left: 25%;
+  top: 38%;
+  left: 28%;
 }
 
 /* Аттенюатор */
@@ -65,7 +65,7 @@
   background: #222;
   color: #0f0;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 2px;
   font-family: monospace;
   font-size: 14px;
 }
