@@ -26,9 +26,9 @@
 /* Частота */
 .freq-slider {
   position: absolute;
-  top: 65%;
-  left: 45%;
-  width: 20%;
+  top: 75%;
+  left: 44%;
+  width: 15%;
 }
 
 .freq-display {
