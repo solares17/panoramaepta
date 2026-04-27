@@ -62,8 +62,8 @@
 
 /* Дисплеи */
 .display {
-  background: #222;
-  color: #0f0;
+  
+  color: #fff;
   padding: 5px;
   border-radius: 2px;
   font-family: monospace;
