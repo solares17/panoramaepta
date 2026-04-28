@@ -4,7 +4,7 @@
     color: #333;
     line-height: 1.6;
 }
-.infoh2 { text-align: center; }
+.info h2 { text-align: center; }
 .video-container {
   max-width: 800px;      /* ограничение ширины */
   margin: 0 auto;        /* центрирование */
