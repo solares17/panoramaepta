@@ -13,7 +13,7 @@ const modes = {
 
 function getDetector() {
   return document.querySelector('input[name="detector"]:checked').value;
-}
+};
 function update() {
   const f_c = +fc.value;
   const f_g = +fg.value;
@@ -30,12 +30,12 @@ function update() {
   document.getElementById("fg_val").innerText = f_g + " кГц";
   document.getElementById("uc_val").innerText = U_c + " В";
 
-  render(modeSelect.value, f_if1, f_if2, U_if, U_out);
+  render(modeSelect.value, f_if1, f_if2, U_if, U_out,detetor);
 }
 
 
 
-function render(mode, f_if1, f_if2, U_if, U_out) {
+function render(mode, f_if1, f_if2, U_if, U_out,detector) {
   let html = "";
   
   if (mode == 1) {
@@ -61,29 +61,29 @@ function render(mode, f_if1, f_if2, U_if, U_out) {
   if (mode == 5) {
     html += `Uп.ч = ${U_if} В`;
   }
+  let U_if, U_out;
 
+  if (detector == 1) {
+    U_if = (U_c * 0.8).toFixed(3);
+    U_out = (U_c * 0.6).toFixed(3);
+  }
+
+  if (detector == 2) {
+    U_if = (U_c * 0.5).toFixed(3);
+    U_out = (U_c * 0.4).toFixed(3);
+  }
+
+  if (detector == 3) {
+    U_if = (U_c * 0.3).toFixed(3);
+    U_out = (U_c * 0.2).toFixed(3);
+  }
 
 
   screen.innerHTML = html;
   html += `Детектор: ${detector}<br><br>`;
 }
 
-let U_if, U_out;
 
-if (detector == 1) {
-  U_if = (U_c * 0.8).toFixed(3);
-  U_out = (U_c * 0.6).toFixed(3);
-}
-
-if (detector == 2) {
-  U_if = (U_c * 0.5).toFixed(3);
-  U_out = (U_c * 0.4).toFixed(3);
-}
-
-if (detector == 3) {
-  U_if = (U_c * 0.3).toFixed(3);
-  U_out = (U_c * 0.2).toFixed(3);
-}
 
 fc.oninput = update;
 fg.oninput = update;
