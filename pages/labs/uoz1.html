@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="/panoramaepta/style.css">
 <link rel="stylesheet" href="/panoramaepta/styles/stand-antenna.css">
+<link rel="stylesheet" href="/panoramaepta/styles/uoz.css">
 </head>
 
 <body>
@@ -35,7 +36,51 @@
         Эмуляция лабораторного стенда:
         </p>
         </div> 
-       
+       <div class="uos">
+
+  <h2>Преобразователь частоты УОС-01</h2>
+
+  <!-- Управление -->
+  <div class="controls">
+
+    <div class="block">
+      <h3>Сигнал</h3>
+      <label>Частота (кГц)</label>
+      <input type="range" id="fc" min="250" max="6500" value="1000">
+      <span id="fc_val"></span>
+
+      <label>Амплитуда (В)</label>
+      <input type="range" id="uc" min="0" max="0.35" step="0.01">
+      <span id="uc_val"></span>
+    </div>
+
+    <div class="block">
+      <h3>Гетеродин</h3>
+      <label>Частота (кГц)</label>
+      <input type="range" id="fg" min="500" max="6500" value="1500">
+      <span id="fg_val"></span>
+
+      <p>Амплитуда: 0.4 В</p>
+    </div>
+
+    <div class="block">
+      <h3>Лабораторная работа</h3>
+      <select id="mode">
+        <option value="1">Работа 1</option>
+        <option value="2">Работа 2</option>
+        <option value="3">Работа 3</option>
+        <option value="4">Работа 4</option>
+        <option value="5">Работа 5</option>
+      </select>
+    </div>
+
+  </div>
+
+  <!-- Экран -->
+  <div class="screen" id="screen">
+  </div>
+
+</div>
 
     
     </div>
@@ -45,6 +90,6 @@
 <div id="include-footer"></div>
 <script src="/panoramaepta/scripts/stand-antenna.js"></script>
 <script src="/panoramaepta/scripts/include.js"></script>
-
+<script src="/panoramaepta/scripts/uoz.js"></script>
 </body>
 </html>
