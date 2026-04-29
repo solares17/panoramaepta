@@ -60,7 +60,13 @@ function render(mode, f_if1, f_if2, U_if, U_out) {
     html += `Uп.ч = ${U_if} В`;
   }
 
-  let U_if, U_out;
+
+
+  screen.innerHTML = html;
+  html += `Детектор: ${detector}<br><br>`;
+}
+
+let U_if, U_out;
 
 if (detector == 1) {
   U_if = (U_c * 0.8).toFixed(3);
@@ -75,10 +81,6 @@ if (detector == 2) {
 if (detector == 3) {
   U_if = (U_c * 0.3).toFixed(3);
   U_out = (U_c * 0.2).toFixed(3);
-}
-
-  screen.innerHTML = html;
-  html += `Детектор: ${detector}<br><br>`;
 }
 
 fc.oninput = update;
