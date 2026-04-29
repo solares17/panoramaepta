@@ -37,6 +37,7 @@
     height: 170px;
     border-radius: 20px;
     object-fit: cover;
+    flex-shrink: 0; 
 }
 
 /* Текст */
