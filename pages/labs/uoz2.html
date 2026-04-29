@@ -32,16 +32,25 @@
         <div class="stand-container">
 
         <!-- Сигнал -->
+
         <div class="panel">
         <h3>Сигнал</h3>
-            <input type="number" id="freq" min="30" max="15000" value="1000">
+        <label>Частота сигнала (Гц)</label>
+        <input type="number" id="freq" min="30" max="15000" value="1000">
+
+        <label>Амплитуда сигнала (В)</label>
+        <input type="number" id="sigAmp" min="0.1" max="1" step="0.1" value="0.3">
         <button id="toggleSignal">Включить</button>
         </div>
 
+            
         <!-- Гетеродин -->
         <div class="panel">
         <h3>Гетеродин</h3>
-        <p>465 кГц</p>
+
+        <p>Частота: <b>465 кГц</b></p>
+
+        <label>Амплитуда гетеродина (В)</label>
         <input type="number" id="amp" min="0.1" max="1" step="0.1" value="0.5">
         </div>
 
@@ -58,17 +67,17 @@
         <!-- Нагрузка -->
         <div class="panel">
         <h3>Нагрузка</h3>
-        <button onclick="setLoad('R1')" id="R1">R1</button>
-        <button onclick="setLoad('R2')" id="R2">R2</button>
-        <br>
-        <button onclick="setLoad('C1')" id="C1">C1</button>
-        <button onclick="setLoad('C2')" id="C2">C2</button>
+        <label><input type="checkbox" id="R1"> R1</label><br>
+        <label><input type="checkbox" id="R2"> R2</label><br>
+        <label><input type="checkbox" id="C1"> C1</label><br>
+        <label><input type="checkbox" id="C2"> C2</label>
+
         </div>
 
         <!-- Задание -->
         <div class="panel">
         <h3>Задание</h3>
-            <select id="task">
+        <select id="task">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -78,10 +87,13 @@
         </div>
 
         <!-- Выход -->
-        <div class="panel">
-        <h3>Выход</h3>
+        <div class="panel screen-panel">
+        <h3>Экран</h3>
+
+        <div class="screen">
         <p>U = <span id="U">0</span> мВ</p>
         <p>Uc = <span id="Uc">0</span> мВ</p>
+        </div>
         </div>
     
         </div>
