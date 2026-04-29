@@ -81,3 +81,46 @@ input, select {
   background: #05a4ba;
   color: white;
 }
+
+/* UOZ-02*/
+
+.stand-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.panel {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h3 {
+    margin-top: 0;
+    color: #05a4ba;
+}
+
+input, select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+button {
+    padding: 6px 10px;
+    margin: 3px;
+    border: none;
+    background: #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.active {
+    background: #05a4ba;
+    color: white;
+}
+
