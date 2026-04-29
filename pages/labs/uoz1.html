@@ -30,67 +30,68 @@
         Эмуляция лабораторного стенда:
         </p>
         </div> 
-       <div class="uos">
+<div class="uos">
 
   <h2>Преобразователь частоты УОС-01</h2>
 
-  <!-- Управление -->
   <div class="controls">
 
+    <!-- Сигнал -->
     <div class="block">
       <h3>Сигнал</h3>
-      <label>Частота (кГц)</label>
-      <input type="range" id="fc" min="250" max="6500" value="1000">
-      <span id="fc_val"></span>
 
-      <label>Амплитуда (В)</label>
-      <input type="range" id="uc" min="0" max="0.35" step="0.01">
-      <span id="uc_val"></span>
+      <div class="control-row">
+        <label>Частота (кГц)</label>
+        <input type="number" id="fc" min="250" max="6500" value="1000">
+      </div>
+
+      <div class="control-row">
+        <label>Амплитуда (В)</label>
+        <input type="number" id="uc" min="0" max="0.35" step="0.01" value="0.2">
+      </div>
     </div>
 
+    <!-- Гетеродин -->
     <div class="block">
       <h3>Гетеродин</h3>
-      <label>Частота (кГц)</label>
-      <input type="range" id="fg" min="500" max="6500" value="1500">
-      <span id="fg_val"></span>
 
-      <p>Амплитуда: 0.4 В</p>
+      <div class="control-row">
+        <label>Частота (кГц)</label>
+        <input type="number" id="fg" min="500" max="6500" value="1500">
+      </div>
+
+      <div class="fixed">
+        Амплитуда: 0.4 В
+      </div>
     </div>
+
+    <!-- Детектор -->
     <div class="block">
-  <h3>Детектор</h3>
+      <h3>Детектор</h3>
 
-  <label class="det-btn">
-    <input type="radio" name="detector" value="1" checked>
-    Детектор 1
-  </label>
+      <div class="detector-group">
+        <button data-det="1" class="det active">1</button>
+        <button data-det="2" class="det">2</button>
+        <button data-det="3" class="det">3</button>
+      </div>
+    </div>
 
-  <label class="det-btn">
-    <input type="radio" name="detector" value="2">
-    Детектор 2
-  </label>
-
-  <label class="det-btn">
-    <input type="radio" name="detector" value="3">
-    Детектор 3
-  </label>
-
-</div>
+    <!-- Режим -->
     <div class="block">
-      <h3>Лабораторная работа</h3>
+      <h3>Работа</h3>
       <select id="mode">
-        <option value="1">Работа 1</option>
-        <option value="2">Работа 2</option>
-        <option value="3">Работа 3</option>
-        <option value="4">Работа 4</option>
-        <option value="5">Работа 5</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
       </select>
     </div>
 
   </div>
 
   <!-- Экран -->
-  <div class="screen" id="screen">
-  </div>
+  <div class="screen" id="screen"></div>
 
 </div>
 
