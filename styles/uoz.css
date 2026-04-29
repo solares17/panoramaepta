@@ -1,0 +1,32 @@
+.uos {
+  max-width: 900px;
+  margin: auto;
+  background: #2b2b2b;
+  color: #00ff88;
+  font-family: monospace;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.controls {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.block {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.screen {
+  margin-top: 20px;
+  background: black;
+  padding: 20px;
+  min-height: 120px;
+  border-radius: 8px;
+  font-size: 18px;
+}
