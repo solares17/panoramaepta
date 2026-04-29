@@ -91,36 +91,57 @@ input, select {
     justify-content: center;
 }
 
+/* карточки */
 .panel {
-    background: #fff;
-    border-radius: 10px;
+    background: #dcdcdc;
+    border-radius: 12px;
     padding: 15px;
-    width: 250px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 260px;
 }
 
 h3 {
     margin-top: 0;
-    color: #05a4ba;
 }
 
-input, select {
+/* подписи */
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+input[type="number"], select {
     width: 100%;
-    margin-bottom: 10px;
     padding: 5px;
+    margin-bottom: 10px;
 }
 
+/* кнопка */
 button {
     padding: 6px 10px;
-    margin: 3px;
     border: none;
-    background: #ddd;
-    border-radius: 5px;
+    border-radius: 6px;
+    background: #bbb;
     cursor: pointer;
 }
 
 button.active {
     background: #05a4ba;
     color: white;
+}
+
+/* экран */
+.screen-panel {
+    width: 100%;
+    max-width: 800px;
+}
+
+.screen {
+    background: #1e2b2f;
+    color: #00d4ff;
+    padding: 15px;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 18px;
 }
 
