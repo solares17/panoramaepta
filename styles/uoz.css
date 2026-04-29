@@ -30,3 +30,22 @@
   border-radius: 8px;
   font-size: 18px;
 }
+.det-btn {
+  display: block;
+  margin: 5px 0;
+  padding: 8px;
+  background: #111;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #444;
+}
+
+.det-btn input {
+  display: none;
+}
+
+.det-btn:has(input:checked) {
+  background: #00ff88;
+  color: black;
+  font-weight: bold;
+}
