@@ -10,6 +10,10 @@ const modes = {
   4: { show: ["U_if"] },
   5: { show: ["U_if"] }
 };
+
+function getDetector() {
+  return document.querySelector('input[name="detector"]:checked').value;
+}
 function update() {
   const f_c = +fc.value;
   const f_g = +fg.value;
@@ -29,9 +33,7 @@ function update() {
   render(modeSelect.value, f_if1, f_if2, U_if, U_out);
 }
 
-function getDetector() {
-  return document.querySelector('input[name="detector"]:checked').value;
-}
+
 
 function render(mode, f_if1, f_if2, U_if, U_out) {
   let html = "";
