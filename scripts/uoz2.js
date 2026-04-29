@@ -1,5 +1,4 @@
 let signalOn = false;
-let currentLoad = "R1";
 
 // кнопка сигнала
 document.getElementById("toggleSignal").onclick = function () {
@@ -9,27 +8,17 @@ document.getElementById("toggleSignal").onclick = function () {
     calculate();
 };
 
-// выбор нагрузки
-function setLoad(load) {
-    currentLoad = load;
-
-    ["R1","R2","C1","C2"].forEach(id=>{
-        document.getElementById(id).classList.remove("active");
-    });
-
-    document.getElementById(load).classList.add("active");
-    calculate();
-}
-
-// обработка изменений
+// слушатели
 document.querySelectorAll("input, select").forEach(el=>{
     el.addEventListener("input", calculate);
 });
 
+// расчёт
 function calculate() {
 
     let freq = parseFloat(document.getElementById("freq").value);
-    let amp = parseFloat(document.getElementById("amp").value);
+    let sigAmp = parseFloat(document.getElementById("sigAmp").value);
+    let hetAmp = parseFloat(document.getElementById("amp").value);
     let detector = document.getElementById("detector").value;
     let task = document.getElementById("task").value;
 
@@ -38,21 +27,23 @@ function calculate() {
         return;
     }
 
-    // коэффициенты
+    // детектор
     let kDet = {
         diode: 0.8,
         sync: 1.0,
         env: 0.9
     }[detector];
 
-    let kLoad = {
-        R1: 1.0,
-        R2: 0.7,
-        C1: 1.2,
-        C2: 0.9
-    }[currentLoad];
+    // нагрузка (множественная!)
+    let kLoad = 1;
 
-    let base = amp * 1000 * kDet * kLoad;
+    if (document.getElementById("R1").checked) kLoad *= 1.0;
+    if (document.getElementById("R2").checked) kLoad *= 0.7;
+    if (document.getElementById("C1").checked) kLoad *= 1.2;
+    if (document.getElementById("C2").checked) kLoad *= 0.9;
+
+    // базовый уровень
+    let base = sigAmp * hetAmp * 1000 * kDet * kLoad;
 
     let U = 0;
     let Uc = 0;
