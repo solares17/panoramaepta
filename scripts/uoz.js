@@ -1,3 +1,8 @@
+// =======================
+// УОС-01 Эмулятор (JS)
+// =======================
+
+// --- элементы ---
 const fc = document.getElementById("fc");
 const fg = document.getElementById("fg");
 const uc = document.getElementById("uc");
@@ -6,7 +11,18 @@ const screen = document.getElementById("screen");
 
 let detector = 1;
 
-// 🔘 выбор детектора
+// =======================
+// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+// =======================
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+// =======================
+// ВЫБОР ДЕТЕКТОРА
+// =======================
+
 document.querySelectorAll(".det").forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll(".det").forEach(b => b.classList.remove("active"));
@@ -16,17 +32,43 @@ document.querySelectorAll(".det").forEach(btn => {
   };
 });
 
-// 🔄 основная функция
+// =======================
+// ОСНОВНАЯ ЛОГИКА
+// =======================
+
 function update() {
-  const f_c = +fc.value;
-  const f_g = +fg.value;
-  const U_c = +uc.value;
+
+  let f_c = +fc.value;
+  let f_g = +fg.value;
+  let U_c = +uc.value;
   const mode = +modeSelect.value;
 
+  // --- защита от NaN ---
+  if (isNaN(f_c)) f_c = 250;
+  if (isNaN(f_g)) f_g = 500;
+  if (isNaN(U_c)) U_c = 0;
+
+  // --- ограничения ---
+  f_c = clamp(f_c, 250, 6500);
+  f_g = clamp(f_g, 500, 6500);
+  U_c = clamp(U_c, 0, 0.35);
+
+  // --- округление ---
+  f_c = Math.round(f_c);
+  f_g = Math.round(f_g);
+  U_c = +U_c.toFixed(2);
+
+  // --- возвращаем в input ---
+  fc.value = f_c;
+  fg.value = f_g;
+  uc.value = U_c;
+
+  // --- вычисления ---
   const f_if1 = f_g - f_c;
   const f_if2 = f_c - f_g;
+  const f_if_abs = Math.abs(f_if1);
 
-  // пока заглушка под детекторы
+  // --- временная модель детекторов ---
   let U_if, U_out;
 
   if (detector === 1) {
@@ -42,51 +84,63 @@ function update() {
     U_out = U_c * 0.2;
   }
 
-  render(mode, f_if1, f_if2, U_if, U_out);
+  // --- отрисовка ---
+  render(mode, f_if1, f_if2, f_if_abs, U_if, U_out);
 }
 
-// 🖥️ отображение (вот тут вся логика работ)
-function render(mode, f_if1, f_if2, U_if, U_out) {
+// =======================
+// ОТРИСОВКА ЭКРАНА
+// =======================
 
-  let html = `Детектор: ${detector}<br><br>`;
+function render(mode, f_if1, f_if2, f_if_abs, U_if, U_out) {
 
-  switch (mode) {
+  let html = `<b>Детектор:</b> ${detector}<br><br>`;
 
-    case 1:
-      html += `fп.ч = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
-      html += `Uсигнала выходного = ${U_out.toFixed(3)} В`;
-      break;
+  if (mode === 1) {
+    html += `fп.ч = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
+    html += `Uсигнала выходного = ${U_out.toFixed(3)} В`;
+  }
 
-    case 2:
-      html += `fп.ч = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
-      html += `Uп.ч = ${U_if.toFixed(3)} В`;
-      break;
+  if (mode === 2) {
+    html += `fп.ч = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
+    html += `Uп.ч = ${U_if.toFixed(3)} В`;
+  }
 
-    case 3:
-      html += `fп.ч1 = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
-      html += `fп.ч2 = fс – fг = ${f_if2.toFixed(1)} кГц<br>`;
-      html += `Uп.ч = ${U_if.toFixed(3)} В`;
-      break;
+  if (mode === 3) {
+    html += `fп.ч1 = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
+    html += `fп.ч2 = fс – fг = ${f_if2.toFixed(1)} кГц<br>`;
+    html += `Uп.ч = ${U_if.toFixed(3)} В`;
+  }
 
-    case 4:
-      html += `Uп.ч = ${U_if.toFixed(3)} В<br>`;
-      html += `(доп. логика будет позже)`;
-      break;
+  if (mode === 4) {
+    html += `Uп.ч = ${U_if.toFixed(3)} В<br>`;
+    html += `Доп. параметр: ...`;
+  }
 
-    case 5:
-      html += `Uп.ч = ${U_if.toFixed(3)} В<br>`;
-      html += `(доп. логика будет позже)`;
-      break;
+  if (mode === 5) {
+    html += `Uп.ч = ${U_if.toFixed(3)} В<br>`;
+    html += `Доп. параметр: ...`;
   }
 
   screen.innerHTML = html;
 }
 
-// 🎛️ события
+// =======================
+// СОБЫТИЯ
+// =======================
+
 fc.oninput = update;
 fg.oninput = update;
 uc.oninput = update;
 modeSelect.onchange = update;
 
-// старт
+// фиксация при потере фокуса
+[fc, fg, uc].forEach(el => {
+  el.addEventListener("blur", update);
+});
+
+// =======================
+// СТАРТ
+// =======================
+
 update();
