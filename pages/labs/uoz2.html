@@ -16,89 +16,61 @@
 <div class="page-content">
 
     
-    <div class="content-container">
-        <div class="info-text">
-        <h2>Лабораторная работа №1 - Измерение КУ и фазовых сдвигов</h2>
-        <p>
-        Для выполнения лабораторной работы ознакомьтесь с видео:
-        </p>
-        </div> 
+    <div class="panel">
 
-        <div class="info-text">
-        <p>
-        Эмуляция лабораторного стенда:
-        </p>
-        </div> 
-        <div class="stand-container">
+  <h2>УОС-02 — Амплитудный детектор</h2>
 
-        <!-- Сигнал -->
+  <!-- РЕЖИМ -->
+  <div class="block">
+    <label>Задание:</label>
+    <select id="mode">
+      <option value="1">Задание 1</option>
+      <option value="2">Задание 2</option>
+      <option value="3">Задание 3</option>
+      <option value="4">Задание 4</option>
+      <option value="5">Задание 5</option>
+    </select>
+  </div>
 
-        <div class="panel">
-        <h3>Сигнал</h3>
-        <label>Частота сигнала (Гц)</label>
-        <input type="number" id="freq" min="30" max="15000" value="1000">
+  <!-- ДЕТЕКТОРЫ -->
+  <div class="block">
+    <label>Тип детектора:</label>
+    <div class="buttons">
+      <button class="det active" data-det="1">Тип 1</button>
+      <button class="det" data-det="2">Тип 2</button>
+      <button class="det" data-det="3">Тип 3</button>
+    </div>
+  </div>
 
-        <label>Амплитуда сигнала (В)</label>
-        <input type="number" id="sigAmp" min="0.1" max="1" step="0.1" value="0.3">
-        <button id="toggleSignal">Включить</button>
-        </div>
+  <!-- НАГРУЗКА -->
+  <div class="block">
+    <label>Нагрузка:</label>
+    <div class="buttons">
+      <button class="load" data-load="R1">R1</button>
+      <button class="load" data-load="R2">R2</button>
+      <button class="load" data-load="C1">C1</button>
+      <button class="load" data-load="C2">C2</button>
+    </div>
+  </div>
 
-            
-        <!-- Гетеродин -->
-        <div class="panel">
-        <h3>Гетеродин</h3>
+  <!-- ВХОДНЫЕ ПАРАМЕТРЫ -->
+  <div class="block inputs">
+    <label>fс (кГц)</label>
+    <input id="fc" type="number" value="1000">
 
-        <p>Частота: <b>465 кГц</b></p>
+    <label>fг (кГц)</label>
+    <input id="fg" type="number" value="1465">
 
-        <label>Амплитуда гетеродина (В)</label>
-        <input type="number" id="amp" min="0.1" max="1" step="0.1" value="0.5">
-        </div>
+    <label>Uc (В)</label>
+    <input id="uc" type="number" step="0.001" value="0.1">
 
-        <!-- Детектор -->
-        <div class="panel">
-        <h3>Детектор</h3>
-        <select id="detector">
-        <option value="diode">Диодный</option>
-        <option value="sync">Синхронный</option>
-        <option value="env">Огибающий</option>
-        </select>
-        </div>
+    <label>Fm (кГц)</label>
+    <input id="fm" type="number" value="1">
+  </div>
 
-        <!-- Нагрузка -->
-        <div class="panel">
-        <h3>Нагрузка</h3>
-        <label><input type="checkbox" id="R1"> R1</label><br>
-        <label><input type="checkbox" id="R2"> R2</label><br>
-        <label><input type="checkbox" id="C1"> C1</label><br>
-        <label><input type="checkbox" id="C2"> C2</label>
+  <!-- ЭКРАН -->
+  <div id="screen" class="screen"></div>
 
-        </div>
-
-        <!-- Задание -->
-        <div class="panel">
-        <h3>Задание</h3>
-        <select id="task">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        </select>
-        </div>
-
-        <!-- Выход -->
-        <div class="panel screen-panel">
-        <h3>Экран</h3>
-
-        <div class="screen">
-        <p>U = <span id="U">0</span> мВ</p>
-        <p>Uc = <span id="Uc">0</span> мВ</p>
-        </div>
-        </div>
-    
-        </div>
-
-    
     </div>
 </div>
 
