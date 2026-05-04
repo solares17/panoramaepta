@@ -1,5 +1,5 @@
 // =======================
-// УОС-01 Эмулятор (JS)
+// УОС-01 Эмулятор (с таблицами)
 // =======================
 
 // --- элементы ---
@@ -12,15 +12,101 @@ const screen = document.getElementById("screen");
 let detector = 1;
 
 // =======================
-// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+// ДАННЫЕ (исправленные)
 // =======================
 
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
+const data = {
+
+1: {
+  det1: [
+    { fc:1000, fg:1468, uc:0.15, U_if:1.965 },
+    { fc:1000, fg:1468, uc:0.14, U_if:1.999 },
+    { fc:1000, fg:1468, uc:0.13, U_if:2.012 },
+    { fc:1000, fg:1468, uc:0.12, U_if:2.019 },
+    { fc:1000, fg:1468, uc:0.11, U_if:2.030 },
+    { fc:1000, fg:1468, uc:0.10, U_if:2.019 },
+    { fc:1000, fg:1468, uc:0.09, U_if:1.955 },
+    { fc:1000, fg:1468, uc:0.08, U_if:1.826 },
+    { fc:1000, fg:1468, uc:0.07, U_if:1.708 },
+    { fc:1000, fg:1468, uc:0.06, U_if:1.600 },
+    { fc:1000, fg:1468, uc:0.05, U_if:1.439 },
+    { fc:1000, fg:1468, uc:0.04, U_if:1.224 },
+    { fc:1000, fg:1468, uc:0.03, U_if:1.009 }
+  ],
+  det2: [
+    { fc:1000, fg:1468, uc:0.15, U_if:1.729 },
+    { fc:1000, fg:1468, uc:0.14, U_if:1.708 },
+    { fc:1000, fg:1468, uc:0.13, U_if:1.697 },
+    { fc:1000, fg:1468, uc:0.12, U_if:1.686 },
+    { fc:1000, fg:1468, uc:0.11, U_if:1.675 },
+    { fc:1000, fg:1468, uc:0.10, U_if:1.665 },
+    { fc:1000, fg:1468, uc:0.09, U_if:1.654 },
+    { fc:1000, fg:1468, uc:0.08, U_if:1.654 },
+    { fc:1000, fg:1468, uc:0.07, U_if:1.643 },
+    { fc:1000, fg:1468, uc:0.06, U_if:1.611 },
+    { fc:1000, fg:1468, uc:0.05, U_if:1.568 },
+    { fc:1000, fg:1468, uc:0.04, U_if:1.353 },
+    { fc:1000, fg:1468, uc:0.03, U_if:1.246 }
+  ],
+  det3: [
+    { fc:1000, fg:1468, uc:0.15, U_if:3.480 },
+    { fc:1000, fg:1468, uc:0.14, U_if:3.405 },
+    { fc:1000, fg:1468, uc:0.13, U_if:3.211 },
+    { fc:1000, fg:1468, uc:0.12, U_if:3.104 },
+    { fc:1000, fg:1468, uc:0.11, U_if:2.868 },
+    { fc:1000, fg:1468, uc:0.10, U_if:2.696 },
+    { fc:1000, fg:1468, uc:0.09, U_if:2.535 },
+    { fc:1000, fg:1468, uc:0.08, U_if:2.288 },
+    { fc:1000, fg:1468, uc:0.07, U_if:2.030 },
+    { fc:1000, fg:1468, uc:0.06, U_if:1.804 },
+    { fc:1000, fg:1468, uc:0.05, U_if:1.523 },
+    { fc:1000, fg:1468, uc:0.04, U_if:1.095 },
+    { fc:1000, fg:1468, uc:0.03, U_if:0.851 }
+  ]
+},
+
+// остальные задания оставляем как есть, но фиксируем channel строкой
+3: {
+  det1: [
+    { fc:535, fg:1000, channel:"main", U_if:1.127 },
+    { fc:1465, fg:1000, channel:"mirror", U_if:0.406 }
+  ]
+}
+
+// (остальные можно оставить — добавим обработку ниже)
+
+};
+
+// =======================
+// ПОИСК ЗНАЧЕНИЯ
+// =======================
+
+function findValue(mode, detector, fc, fg, uc) {
+
+  const table = data[mode]?.["det" + detector];
+  if (!table) return 0;
+
+  let closest = table[0];
+  let minDiff = Infinity;
+
+  table.forEach(row => {
+    let diff = 0;
+
+    if (row.fc !== undefined) diff += Math.abs(row.fc - fc);
+    if (row.fg !== undefined) diff += Math.abs(row.fg - fg);
+    if (row.uc !== undefined) diff += Math.abs(row.uc - uc);
+
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = row;
+    }
+  });
+
+  return closest.U_if;
 }
 
 // =======================
-// ВЫБОР ДЕТЕКТОРА
+// ДЕТЕКТОРЫ UI
 // =======================
 
 document.querySelectorAll(".det").forEach(btn => {
@@ -36,91 +122,48 @@ document.querySelectorAll(".det").forEach(btn => {
 // ОСНОВНАЯ ЛОГИКА
 // =======================
 
+function clamp(v, min, max) {
+  return Math.min(Math.max(v, min), max);
+}
+
 function update() {
 
-  let f_c = +fc.value;
-  let f_g = +fg.value;
-  let U_c = +uc.value;
+  let f_c = clamp(+fc.value || 250, 250, 6500);
+  let f_g = clamp(+fg.value || 500, 500, 6500);
+  let U_c = clamp(+uc.value || 0, 0, 0.35);
   const mode = +modeSelect.value;
 
-  // --- защита от NaN ---
-  if (isNaN(f_c)) f_c = 250;
-  if (isNaN(f_g)) f_g = 500;
-  if (isNaN(U_c)) U_c = 0;
+  fc.value = Math.round(f_c);
+  fg.value = Math.round(f_g);
+  uc.value = U_c.toFixed(2);
 
-  // --- ограничения ---
-  f_c = clamp(f_c, 250, 6500);
-  f_g = clamp(f_g, 500, 6500);
-  U_c = clamp(U_c, 0, 0.35);
+  const f_if = f_g - f_c;
 
-  // --- округление ---
-  f_c = Math.round(f_c);
-  f_g = Math.round(f_g);
-  U_c = +U_c.toFixed(2);
+  const U_if = findValue(mode, detector, f_c, f_g, U_c);
 
-  // --- возвращаем в input ---
-  fc.value = f_c;
-  fg.value = f_g;
-  uc.value = U_c;
-
-  // --- вычисления ---
-  const f_if1 = f_g - f_c;
-  const f_if2 = f_c - f_g;
-  const f_if_abs = Math.abs(f_if1);
-
-  // --- временная модель детекторов ---
-  let U_if, U_out;
-
-  if (detector === 1) {
-    U_if = U_c * 0.8;
-    U_out = U_c * 0.6;
-  }
-  if (detector === 2) {
-    U_if = U_c * 0.5;
-    U_out = U_c * 0.4;
-  }
-  if (detector === 3) {
-    U_if = U_c * 0.3;
-    U_out = U_c * 0.2;
-  }
-
-  // --- отрисовка ---
-  render(mode, f_if1, f_if2, f_if_abs, U_if, U_out);
+  render(mode, f_c, f_g, f_if, U_c, U_if);
 }
 
 // =======================
-// ОТРИСОВКА ЭКРАНА
+// ОТРИСОВКА
 // =======================
 
-function render(mode, f_if1, f_if2, f_if_abs, U_if, U_out) {
+function render(mode, f_c, f_g, f_if, U_c, U_if) {
 
   let html = `<b>Детектор:</b> ${detector}<br><br>`;
 
-  if (mode === 1) {
-    html += `fп.ч = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
-    html += `Uсигнала выходного = ${U_out.toFixed(3)} В`;
+  if (mode <= 3) {
+    html += `fс = ${f_c} кГц<br>`;
+    html += `fп.ч = ${f_if.toFixed(1)} кГц<br><br>`;
   }
 
-  if (mode === 2) {
-    html += `fп.ч = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
-    html += `Uп.ч = ${U_if.toFixed(3)} В`;
+  if (mode >= 4) {
+    html += `fг = ${f_g} кГц<br>`;
+    html += `fс = ${f_c} кГц<br><br>`;
   }
 
-  if (mode === 3) {
-    html += `fп.ч1 = fг – fс = ${f_if1.toFixed(1)} кГц<br>`;
-    html += `fп.ч2 = fс – fг = ${f_if2.toFixed(1)} кГц<br>`;
-    html += `Uп.ч = ${U_if.toFixed(3)} В`;
-  }
-
-  if (mode === 4) {
-    html += `Uп.ч = ${U_if.toFixed(3)} В<br>`;
-    html += `Доп. параметр: ...`;
-  }
-
-  if (mode === 5) {
-    html += `Uп.ч = ${U_if.toFixed(3)} В<br>`;
-    html += `Доп. параметр: ...`;
-  }
+  html += `Uс = ${U_c.toFixed(2)} В<br>`;
+  html += `Uп.ч = ${U_if.toFixed(3)} В`;
 
   screen.innerHTML = html;
 }
@@ -133,14 +176,5 @@ fc.oninput = update;
 fg.oninput = update;
 uc.oninput = update;
 modeSelect.onchange = update;
-
-// фиксация при потере фокуса
-[fc, fg, uc].forEach(el => {
-  el.addEventListener("blur", update);
-});
-
-// =======================
-// СТАРТ
-// =======================
 
 update();
