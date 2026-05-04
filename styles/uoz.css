@@ -1,116 +1,83 @@
-/* =======================
-   БАЗА ДЛЯ ВСЕХ УОС
-   ======================= */
-
 body {
-  background: #f5f7f9;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  background: #e9ecef;
 }
 
-/* панель стенда */
-.panel {
-  width: 420px;
-  margin: 40px auto;
-  background: #ffffff;
+.uos {
+  max-width: 900px;
+  margin: auto;
+  background: #f5f6f7;
   padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+  border-radius: 12px;
+  font-family: sans-serif;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* заголовок */
 h2 {
   text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
+  color: #333;
 }
 
-/* блоки */
-.block {
-  margin-bottom: 16px;
-}
-
-/* подписи */
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 13px;
-  color: #555;
-}
-
-/* инпуты */
-.inputs input,
-select {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 7px;
-  border-radius: 8px;
-  border: 1px solid #d0d5da;
-  background: #fafbfc;
-  font-size: 14px;
-}
-
-/* кнопки */
-.buttons {
+.controls {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-button {
-  flex: 1;
-  padding: 9px;
+.block {
+  background: #ffffff;
+  padding: 15px;
   border-radius: 10px;
-  border: none;
-  background: #e4e7eb;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid #ddd;
 }
 
-button:hover {
-  background: #d6dbe0;
+.control-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-button.active {
-  background: #05a4ba;
-  color: white;
+input, select {
+  width: 100px;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-/* экран */
+.fixed {
+  margin-top: 10px;
+  color: #666;
+}
+
 .screen {
   margin-top: 20px;
-  padding: 15px;
-  background: #eef2f4;
-  border-radius: 12px;
+  background: #1f2a2e;
+  color: #05a4ba;
+  padding: 20px;
+  border-radius: 10px;
   min-height: 120px;
   font-family: monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #222;
 }
 
-/* =======================
-   ДОПОЛНЕНИЕ ДЛЯ УОС-02
-   ======================= */
+/* Детекторы */
 
-/* кнопки нагрузки */
-.load {
-  font-size: 13px;
+.detector-group {
+  display: flex;
+  gap: 10px;
 }
 
-/* активные нагрузки */
-.load.active {
+.det {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.det.active {
   background: #05a4ba;
   color: white;
-}
-
-/* чуть плотнее экран */
-.screen {
-  line-height: 1.6;
-}
-
-/* Fm поле можно визуально выделить */
-#fm {
-  background: #f0f6f8;
 }
