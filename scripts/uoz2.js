@@ -1,63 +1,130 @@
-let signalOn = false;
+// =======================
+// УОС-02 базовая модель
+// =======================
 
-// кнопка сигнала
-document.getElementById("toggleSignal").onclick = function () {
-    signalOn = !signalOn;
-    this.classList.toggle("active");
-    this.textContent = signalOn ? "Выключить" : "Включить";
-    calculate();
-};
+const fc = document.getElementById("fc");
+const fg = document.getElementById("fg");
+const uc = document.getElementById("uc");
+const fm = document.getElementById("fm");
+const modeSelect = document.getElementById("mode");
+const screen = document.getElementById("screen");
 
-// слушатели
-document.querySelectorAll("input, select").forEach(el=>{
-    el.addEventListener("input", calculate);
+let detector = 1;
+let loads = new Set();
+
+// =======================
+// ДЕТЕКТОРЫ
+// =======================
+
+document.querySelectorAll(".det").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".det").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    detector = +btn.dataset.det;
+    update();
+  };
 });
 
-// расчёт
-function calculate() {
+// =======================
+// НАГРУЗКА (multi-select)
+// =======================
 
-    let freq = parseFloat(document.getElementById("freq").value);
-    let sigAmp = parseFloat(document.getElementById("sigAmp").value);
-    let hetAmp = parseFloat(document.getElementById("amp").value);
-    let detector = document.getElementById("detector").value;
-    let task = document.getElementById("task").value;
+document.querySelectorAll(".load").forEach(btn => {
+  btn.onclick = () => {
+    const val = btn.dataset.load;
 
-    if (!signalOn) {
-        update(0,0);
-        return;
+    if (loads.has(val)) {
+      loads.delete(val);
+      btn.classList.remove("active");
+    } else {
+      loads.add(val);
+      btn.classList.add("active");
     }
 
-    // детектор
-    let kDet = {
-        diode: 0.8,
-        sync: 1.0,
-        env: 0.9
-    }[detector];
+    update();
+  };
+});
 
-    // нагрузка (множественная!)
-    let kLoad = 1;
+// =======================
+// ЗАГЛУШКА МОДЕЛИ
+// =======================
 
-    if (document.getElementById("R1").checked) kLoad *= 1.0;
-    if (document.getElementById("R2").checked) kLoad *= 0.7;
-    if (document.getElementById("C1").checked) kLoad *= 1.2;
-    if (document.getElementById("C2").checked) kLoad *= 0.9;
+function calculate(mode, detector, loads, uc, fm) {
 
-    // базовый уровень
-    let base = sigAmp * hetAmp * 1000 * kDet * kLoad;
+  // пока просто имитация
+  let Udc = uc * 0.6;
+  let Uac = uc * 0.3;
 
-    let U = 0;
-    let Uc = 0;
+  // влияние детектора
+  if (detector === 2) {
+    Udc *= 0.8;
+    Uac *= 0.7;
+  }
 
-    if (task === "1" || task === "2" || task === "3") {
-        U = base * (freq / 10000);
-        Uc = base * 0.5;
-    }
+  if (detector === 3) {
+    Udc *= 1.2;
+    Uac *= 1.1;
+  }
 
-    update(U, Uc);
+  // влияние нагрузки
+  if (loads.has("R1")) Udc *= 1.1;
+  if (loads.has("R2")) Udc *= 0.9;
+  if (loads.has("C1")) Uac *= 0.7;
+  if (loads.has("C2")) Uac *= 1.2;
+
+  return { Udc, Uac };
 }
 
-// вывод
-function update(U, Uc) {
-    document.getElementById("U").textContent = Math.round(U);
-    document.getElementById("Uc").textContent = Math.round(Uc);
+// =======================
+// ОБНОВЛЕНИЕ
+// =======================
+
+function update() {
+
+  const f_c = +fc.value;
+  const f_g = +fg.value;
+  const U_c = +uc.value;
+  const Fm = +fm.value;
+  const mode = +modeSelect.value;
+
+  const res = calculate(mode, detector, loads, U_c, Fm);
+
+  render(mode, f_c, f_g, U_c, Fm, res);
 }
+
+// =======================
+// ВЫВОД
+// =======================
+
+function render(mode, fc, fg, uc, fm, res) {
+
+  let html = `<b>Детектор:</b> ${detector}<br>`;
+  html += `<b>Нагрузка:</b> ${[...loads].join(", ") || "нет"}<br><br>`;
+
+  if (mode <= 3) {
+    html += `Uc = ${uc.toFixed(3)} В<br>`;
+    html += `U (пост.) = ${res.Udc.toFixed(3)} В`;
+  } else {
+    html += `Uc = ${uc.toFixed(3)} В<br>`;
+    html += `Fm = ${fm} кГц<br>`;
+    html += `U~ = ${res.Uac.toFixed(3)} В`;
+  }
+
+  screen.innerHTML = html;
+}
+
+// =======================
+// СОБЫТИЯ
+// =======================
+
+fc.oninput = update;
+fg.oninput = update;
+uc.oninput = update;
+fm.oninput = update;
+modeSelect.onchange = update;
+
+// =======================
+// СТАРТ
+// =======================
+
+update();
