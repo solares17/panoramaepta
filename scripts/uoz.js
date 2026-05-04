@@ -257,9 +257,7 @@ function update() {
   let U_c = clamp(+uc.value || 0, 0, 0.35);
   const mode = +modeSelect.value;
 
-  fc.value = Math.round(f_c);
-  fg.value = Math.round(f_g);
-  uc.value = U_c.toFixed(3);
+  
 
   const f_if = f_g - f_c;
 
