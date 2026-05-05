@@ -81,3 +81,17 @@ input, select {
   background: #05a4ba;
   color: white;
 }
+
+input[type="checkbox"] {
+  width: 20px;       /* Переопределяем 100px из общих стилей */
+  height: 20px;
+  cursor: pointer;
+  accent-color: #05a4ba; /* Фирменный цвет активных элементов */
+  margin: 0;
+}
+
+/* Выравнивание текста относительно чекбокса */
+.control-row label {
+  cursor: pointer;
+  align-self: center; /* Центрируем текст по вертикали */
+}
