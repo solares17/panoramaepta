@@ -36,18 +36,13 @@
 
   <div class="controls">
 
-    <!-- Входной ЧМ-сигнал -->
+    <!-- Сигнал -->
     <div class="block">
-      <h3>Входной ЧМ-сигнал</h3>
+      <h3>Сигнал</h3>
 
       <div class="control-row">
-        <label>Несущая частота (кГц)</label>
-        <input type="number" id="fc" min="100" max="6500" value="1000">
-      </div>
-
-      <div class="control-row">
-        <label>Девиация (кГц)</label>
-        <input type="number" id="dev" min="0" max="150" step="1" value="50">
+        <label>Частота (кГц)</label>
+        <input type="number" id="fc" min="250" max="6500" value="1000">
       </div>
 
       <div class="control-row">
@@ -56,34 +51,29 @@
       </div>
     </div>
 
-    <!-- Модулирующий сигнал -->
+    <!-- Добротность -->
     <div class="block">
-      <h3>Модулирующий сигнал</h3>
+      <h3>Добротность</h3>
 
       <div class="control-row">
-        <label>Частота (Гц)</label>
-        <input type="number" id="fm" min="100" max="5000" step="100" value="1000">
+        <label for="q1">Контур Q1</label>
+        <input type="checkbox" id="q1" value="1" checked>
       </div>
-      
-      <div class="fixed">
-        Форма: Синус
+
+      <div class="control-row">
+        <label for="q2">Контур Q2</label>
+        <input type="checkbox" id="q2" value="1">
       </div>
     </div>
 
-    <!-- Тип детектора / Настройка контура -->
+    <!-- Детектор -->
     <div class="block">
-      <h3>Параметры детектора</h3>
+      <h3>Детектор</h3>
 
-      <div class="control-row">
-        <label>Частота контура (кГц)</label>
-        <input type="number" id="f0" min="100" max="6500" step="10" value="1000">
-      </div>
-
-      <!-- Использована та же группа кнопок, но под типы ЧД (или фильтры) -->
       <div class="detector-group">
-        <button data-det="1" class="det active" title="Одиночный контур">Одиночный</button>
-        <button data-det="2" class="det" title="Балансный детектор">Балансный</button>
-        <button data-det="3" class="det" title="Дробный детектор">Дробный</button>
+        <button data-det="1" class="det active">1</button>
+        <button data-det="2" class="det">2</button>
+        <button data-det="3" class="det">3</button>
       </div>
     </div>
 
@@ -91,9 +81,9 @@
     <div class="block">
       <h3>Режим работы</h3>
       <select id="mode">
-        <option value="1">Задание 1 (Статическая характеристика)</option>
-        <option value="2">Задание 2 (Динамический режим)</option>
-        <option value="3">Задание 3 (Ограничение амплитуды)</option>
+        <option value="1">Задание 1</option>
+        <option value="2">Задание 2</option>
+        <option value="3">Задание 3</option>
         <option value="4">Задание 4</option>
         <option value="5">Задание 5</option>
       </select>
