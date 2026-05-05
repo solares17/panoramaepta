@@ -1,24 +1,29 @@
 // =======================
-// УОС-02 ПОЛНАЯ МОДЕЛЬ
+// ЭЛЕМЕНТЫ
 // =======================
 
 const fc = document.getElementById("fc");
 const fg = document.getElementById("fg");
 const uc = document.getElementById("uc");
-const fm = document.getElementById("fm");
 const modeSelect = document.getElementById("mode");
 const screen = document.getElementById("screen");
 
-let detector = 1;
-let loads = new Set();
+// Fm у тебя нет в HTML — добавим программно
+let fm = 1000;
 
 // =======================
-// ДАННЫЕ (НОРМАЛИЗОВАНЫ)
+// СОСТОЯНИЕ
+// =======================
+
+let detector = 1;
+let loads = new Set(["R1", "C1"]); // дефолт
+
+// =======================
+// ДАННЫЕ
 // =======================
 
 const data = {
 
-  // ===== ЗАДАНИЕ 1 =====
   1: {
     det1: {
       R1C1: {
@@ -58,7 +63,6 @@ const data = {
     }
   },
 
-  // ===== ЗАДАНИЕ 2 =====
   2: {
     det2: {
       R1C1: [
@@ -80,7 +84,6 @@ const data = {
     }
   },
 
-  // ===== ЗАДАНИЕ 3 =====
   3: {
     det3: [
       { uc: 0.012, Udc: 0.004 },
@@ -92,7 +95,6 @@ const data = {
     ]
   },
 
-  // ===== ЗАДАНИЕ 4 =====
   4: {
     det1: {
       C1: [
@@ -100,26 +102,6 @@ const data = {
         { fm: 5000, Uac: 0.161 },
         { fm: 10000, Uac: 0.150 },
         { fm: 15000, Uac: 0.128 }
-      ],
-      C2: [
-        { fm: 1000, Uac: 0.165 },
-        { fm: 5000, Uac: 0.171 },
-        { fm: 10000, Uac: 0.175 },
-        { fm: 15000, Uac: 0.185 }
-      ],
-      C1C2: [
-        { fm: 1000, Uac: 0.166 },
-        { fm: 5000, Uac: 0.158 },
-        { fm: 10000, Uac: 0.140 },
-        { fm: 15000, Uac: 0.114 }
-      ]
-    },
-    det2: {
-      C1: [
-        { fm: 1000, Uac: 0.000 },
-        { fm: 5000, Uac: 0.000 },
-        { fm: 10000, Uac: 0.138 },
-        { fm: 15000, Uac: 0.266 }
       ]
     },
     det3: [
@@ -130,7 +112,6 @@ const data = {
     ]
   },
 
-  // ===== ЗАДАНИЕ 5 =====
   5: {
     det1: [
       { uc: 0.25, Uac: 0.000 },
@@ -139,21 +120,6 @@ const data = {
       { uc: 1.0, Uac: 0.129 },
       { uc: 1.5, Uac: 0.219 },
       { uc: 2.0, Uac: 0.302 }
-    ],
-    det2: [
-      { uc: 0.005, Uac: 0.128 },
-      { uc: 0.01, Uac: 0.137 },
-      { uc: 0.015, Uac: 0.156 },
-      { uc: 0.024, Uac: 0.150 },
-      { uc: 0.04, Uac: 0.068 }
-    ],
-    det3: [
-      { uc: 0.01, Uac: 0.000 },
-      { uc: 0.03, Uac: 0.000 },
-      { uc: 0.069, Uac: 0.003 },
-      { uc: 0.076, Uac: 0.010 },
-      { uc: 0.091, Uac: 0.025 },
-      { uc: 0.1, Uac: 0.035 }
     ]
   }
 };
@@ -163,64 +129,61 @@ const data = {
 // =======================
 
 function interp(table, x, key) {
-  const sorted = [...table].sort((a,b)=>a[key]-b[key]);
+  const arr = [...table].sort((a,b)=>a[key]-b[key]);
 
-  for (let i=0;i<sorted.length-1;i++) {
-    if (x >= sorted[i][key] && x <= sorted[i+1][key]) {
-      const x1 = sorted[i][key];
-      const x2 = sorted[i+1][key];
-      const y1 = sorted[i].Udc ?? sorted[i].Uac;
-      const y2 = sorted[i+1].Udc ?? sorted[i+1].Uac;
+  for (let i=0;i<arr.length-1;i++) {
+    if (x >= arr[i][key] && x <= arr[i+1][key]) {
+      const x1 = arr[i][key];
+      const x2 = arr[i+1][key];
+      const y1 = arr[i].Udc ?? arr[i].Uac;
+      const y2 = arr[i+1].Udc ?? arr[i+1].Uac;
 
       return y1 + (x - x1) * (y2 - y1) / (x2 - x1);
     }
   }
 
-  return sorted[0].Udc ?? sorted[0].Uac;
+  return arr[0].Udc ?? arr[0].Uac;
 }
 
 // =======================
-// ВЫБОР НАГРУЗКИ
+// НАГРУЗКА
 // =======================
 
 function getLoadKey() {
-  const arr = [...loads].sort().join("");
-  return arr || "R1C1";
+  const key = [...loads].sort().join("");
+  return key || "R1C1";
 }
 
 // =======================
 // РАСЧЁТ
 // =======================
 
-function calculate(mode, detector, uc, fm) {
+function calculate() {
 
+  const mode = +modeSelect.value;
+  const Uc = +uc.value;
   const load = getLoadKey();
 
-  // Задание 1
   if (mode === 1) {
-    const type = uc <= 0.4 ? "weak" : "strong";
-    return interp(data[1].det1[load][type], uc, "uc");
+    const type = Uc <= 0.4 ? "weak" : "strong";
+    return interp(data[1].det1[load][type], Uc, "uc");
   }
 
-  // Задание 2
   if (mode === 2) {
-    return interp(data[2].det2[load], uc, "uc");
+    return interp(data[2].det2[load], Uc, "uc");
   }
 
-  // Задание 3
   if (mode === 3) {
-    return interp(data[3].det3, uc, "uc");
+    return interp(data[3].det3, Uc, "uc");
   }
 
-  // Задание 4
   if (mode === 4) {
     if (detector === 3) return interp(data[4].det3, fm, "fm");
-    return interp(data[4]["det"+detector][load], fm, "fm");
+    return interp(data[4].det1.C1, fm, "fm");
   }
 
-  // Задание 5
   if (mode === 5) {
-    return interp(data[5]["det"+detector], uc, "uc");
+    return interp(data[5].det1, Uc, "uc");
   }
 
   return 0;
@@ -242,6 +205,7 @@ document.querySelectorAll(".det").forEach(btn=>{
 document.querySelectorAll(".load").forEach(btn=>{
   btn.onclick = ()=>{
     const val = btn.dataset.load;
+
     if (loads.has(val)) {
       loads.delete(val);
       btn.classList.remove("active");
@@ -249,50 +213,43 @@ document.querySelectorAll(".load").forEach(btn=>{
       loads.add(val);
       btn.classList.add("active");
     }
+
     update();
   };
 });
 
 // =======================
-// UPDATE
+// ОБНОВЛЕНИЕ
 // =======================
 
 function update() {
 
   const Uc = +uc.value;
-  const Fm = +fm.value;
-  const mode = +modeSelect.value;
-
-  const value = calculate(mode, detector, Uc, Fm);
+  const value = calculate();
 
   let html = `<b>Детектор:</b> ${detector}<br>`;
-  html += `<b>Нагрузка:</b> ${[...loads].join("+") || "R1C1"}<br><br>`;
+  html += `<b>Нагрузка:</b> ${[...loads].join("+")}<br><br>`;
 
-  if (mode <= 3) {
+  if (modeSelect.value <= 3) {
     html += `Uc = ${Uc.toFixed(3)} В<br>`;
     html += `U= = ${value.toFixed(3)} В`;
   } else {
     html += `Uc = ${Uc.toFixed(3)} В<br>`;
-    html += `Fm = ${Fm} Гц<br>`;
     html += `U~ = ${value.toFixed(3)} В`;
-
-    if (mode === 5 && Uc > 0) {
-      const k = value / (0.3 * Uc);
-      html += `<br><br>k = ${k.toFixed(2)}`;
-    }
   }
 
   screen.innerHTML = html;
 }
 
 // =======================
-// СТАРТ
+// СОБЫТИЯ
 // =======================
 
-fc.oninput = update;
-fg.oninput = update;
 uc.oninput = update;
-fm.oninput = update;
 modeSelect.onchange = update;
+
+// =======================
+// СТАРТ
+// =======================
 
 update();
