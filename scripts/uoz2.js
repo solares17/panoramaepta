@@ -159,34 +159,57 @@ function getLoadKey() {
 // =======================
 
 function calculate() {
+    const mode = +modeSelect.value;
+    const Uc = +uc.value;
+    let load = getLoadKey(); // Получаем строку типа "C1R1"
 
-  const mode = +modeSelect.value;
-  const Uc = +uc.value;
-  const load = getLoadKey();
+    // Привязываем fm к значению из инпута частоты fc для 4 задания
+    fm = +fc.value;
 
-  if (mode === 1) {
-    const type = Uc <= 0.4 ? "weak" : "strong";
-    return interp(data[1].det1[load][type], Uc, "uc");
-  }
+    try {
+        // --- ЗАДАНИЕ 1 ---
+        if (mode === 1) {
+            // Если в данных нет такой комбинации нагрузок, откатываемся к базовой R1C1
+            const currentData = data[1].det1[load] || data[1].det1["R1C1"];
+            const type = Uc <= 0.4 ? "weak" : "strong";
+            return interp(currentData[type], Uc, "uc");
+        }
 
-  if (mode === 2) {
-    return interp(data[2].det2[load], Uc, "uc");
-  }
+        // --- ЗАДАНИЕ 2 ---
+        if (mode === 2) {
+            // Детектор 2 также зависит от нагрузки
+            const currentData = data[2].det2[load] || data[2].det2["R1C1"];
+            return interp(currentData, Uc, "uc");
+        }
 
-  if (mode === 3) {
-    return interp(data[3].det3, Uc, "uc");
-  }
+        // --- ЗАДАНИЕ 3 ---
+        if (mode === 3) {
+            // Детектор 3 не зависит от нагрузки в твоем объекте data
+            return interp(data[3].det3, Uc, "uc");
+        }
 
-  if (mode === 4) {
-    if (detector === 3) return interp(data[4].det3, fm, "fm");
-    return interp(data[4].det1.C1, fm, "fm");
-  }
+        // --- ЗАДАНИЕ 4 ---
+        if (mode === 4) {
+            // Зависимость от частоты fm
+            if (detector === 3) {
+                return interp(data[4].det3, fm, "fm");
+            }
+            // Для остальных детекторов в задании 4 используем таблицу det1.C1
+            return interp(data[4].det1.C1, fm, "fm");
+        }
 
-  if (mode === 5) {
-    return interp(data[5].det1, Uc, "uc");
-  }
+        // --- ЗАДАНИЕ 5 ---
+        if (mode === 5) {
+            // Зависимость переменной составляющей Uac от Uc
+            return interp(data[5].det1, Uc, "uc");
+        }
 
-  return 0;
+    } catch (error) {
+        console.warn("Ошибка при расчете. Проверьте наличие данных для режима:", mode, load);
+        return 0;
+    }
+
+    return 0;
 }
 
 // =======================
