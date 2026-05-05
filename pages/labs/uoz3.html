@@ -24,18 +24,65 @@
         </p>
         </div> 
 
-        
-        <div class="video-container">
-            <iframe width="560" height="450" src="https://www.youtube.com/embed/JF2TPR4Tkzw?si=ZqzvlIrDDrn9vQCP" 
-            title="YouTube video player"  frameborder="0" allowfullscreenn>
-            </iframe>
-        </div>
+    
         <div class="info-text">
         <p>
         Эмуляция лабораторного стенда:
         </p>
         </div> 
-       
+       <div class="uos">
+  <h2>Амплитудный детектор УОС-02</h2>
+  
+  <div class="controls">  
+    <div class="block">
+      <h3>Сигнал</h3>
+      <div class="control-row">
+        <label>Частота (кГц)</label>
+        <!-- Изменил id на fc для соответствия JS -->
+        <input type="number" id="fc" min="250" max="6500" value="1000">
+      </div>
+      <div class="control-row">
+        <label>Амплитуда (В)</label>
+        <!-- Увеличил max до 2.0, чтобы работал режим strong -->
+        <input type="number" id="uc" min="0" max="2.0" step="0.01" value="0.2">
+      </div>
+    </div>
+
+    <div class="block">
+      <label>Нагрузка</label>
+      <div class="buttons">
+        <!-- Добавил active тем, что в Set по умолчанию -->
+        <button class="load active" data-load="R1">R1</button>
+        <button class="load" data-load="R2">R2</button>
+        <button class="load active" data-load="C1">C1</button>
+        <button class="load" data-load="C2">C2</button>
+      </div>
+    </div>
+      
+    <div class="block">
+      <h3>Детектор</h3>
+      <div class="detector-group">
+        <button class="det active" data-det="1">1</button>
+        <button class="det" data-det="2">2</button>
+        <button class="det" data-det="3">3</button>
+      </div>
+    </div>
+      
+    <div class="block">
+      <label>Режим работы</label>
+      <select id="mode">
+        <option value="1">Задание 1 (Udc от Uc)</option>
+        <option value="2">Задание 2 (Детектор 2)</option>
+        <option value="3">Задание 3 (Детектор 3)</option>
+        <option value="4">Задание 4 (Uac от Fmod)</option>
+        <option value="5">Задание 5 (Uac от Uc)</option>
+      </select>
+    </div>
+  </div>  
+  <div id="screen" class="screen"></div>
+</div>
+
+</div> 
 
     
     </div>
