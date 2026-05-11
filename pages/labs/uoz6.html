@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="/panoramaepta/style.css">
-<link rel="stylesheet" href="/panoramaepta/styles/stand-antenna.css">
+<link rel="stylesheet" href="/panoramaepta/styles/uoz.css">
 </head>
 
 <body>
@@ -25,17 +25,82 @@
         </div> 
 
         
-        <div class="video-container">
-            <iframe width="560" height="450" src="https://www.youtube.com/embed/JF2TPR4Tkzw?si=ZqzvlIrDDrn9vQCP" 
-            title="YouTube video player"  frameborder="0" allowfullscreenn>
-            </iframe>
-        </div>
         <div class="info-text">
         <p>
         Эмуляция лабораторного стенда:
         </p>
         </div> 
-       
+       <div class="uos" id="uos-06-container"> 
+  <h2>Автоматическая регулировка усиления УОС-06</h2> 
+
+  <div class="controls"> 
+
+    <div class="block"> 
+      <h3>Сигнал (ГВЧ)</h3> 
+      <div class="control-row"> 
+        <label>Амплитуда Uc (мВ)</label> 
+        <input type="number" id="uc_06" min="3" max="300" value="50"> 
+      </div> 
+      <div class="fixed">
+        Частота Fc: 520 кГц (фикс.)
+      </div>
+    </div> 
+
+    <div class="block"> 
+      <h3>Модуляция</h3> 
+      <div class="control-row"> 
+        <label>Ген. импульсов</label> 
+        <input type="checkbox" id="g_gen_06"> 
+      </div> 
+      <div class="fixed">
+        Частота Fг: 40 Гц
+      </div>
+    </div> 
+
+    <div class="block"> 
+      <h3>ФНЧ</h3> 
+      <div class="control-row"> 
+        <select id="fnch_06" style="width: 100%;"> 
+          <option value="1">ФНЧ 1 (1-й порядок)</option> 
+          <option value="2">ФНЧ 2 (2-й порядок)</option> 
+        </select> 
+      </div> 
+    </div> 
+
+    <div class="block"> 
+      <h3>Порог АРУ (Uп)</h3> 
+      <div class="control-row"> 
+        <select id="porog_06" style="width: 100%;"> 
+          <option value="0">Вариант 1 (U0)</option> 
+          <option value="1">Вариант 2 (U1)</option> 
+          <option value="2">Вариант 3 (U2)</option> 
+        </select> 
+      </div> 
+    </div> 
+
+    <div class="block"> 
+      <h3>Усиление (ОС)</h3> 
+      <div class="detector-group"> 
+        <button data-k="1" class="det det-k-06 active">К1</button> 
+        <button data-k="2" class="det det-k-06">К2</button> 
+        <button data-k="3" class="det det-k-06">К3</button> 
+      </div> 
+    </div> 
+
+    <div class="block"> 
+      <h3>Режим работы</h3> 
+      <select id="mode_06" style="width: 100%;"> 
+        <option value="1">Задание 1</option> 
+        <option value="2">Задание 2</option> 
+        <option value="3">Задание 3</option> 
+        <option value="4">Задание 4</option> 
+      </select> 
+    </div> 
+
+  </div> 
+
+  <div class="screen" id="screen_06"></div> 
+</div>
 
     
     </div>
@@ -43,7 +108,7 @@
 
   
 <div id="include-footer"></div>
-<script src="/panoramaepta/scripts/stand-antenna.js"></script>
+<script src="/panoramaepta/scripts/uoz6.js"></script>
 <script src="/panoramaepta/scripts/include.js"></script>
 
 </body>
