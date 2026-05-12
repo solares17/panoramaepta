@@ -1,8 +1,3 @@
-// =======================
-// УОС-01 Эмулятор (финал)
-// =======================
-
-// --- UI ---
 const fc = document.getElementById("fc");
 const fg = document.getElementById("fg");
 const uc = document.getElementById("uc");
@@ -10,10 +5,6 @@ const modeSelect = document.getElementById("mode");
 const screen = document.getElementById("screen");
 
 let detector = 1;
-
-// =======================
-// ДАННЫЕ (твои)
-// =======================
 
 const data = {
 
@@ -117,8 +108,8 @@ const data = {
     { fc:3000, fg:1000, uc:0.027, channel:"p4", U_if:0.004 }
   ],
 
-  det2: [ /* аналогично */ ],
-  det3: [ /* аналогично */ ]
+  det2: [ ],
+  det3: [ ]
 },
 
 5: {
@@ -140,23 +131,15 @@ const data = {
 
 };
 
-// =======================
-// УТИЛИТЫ
-// =======================
-
 function clamp(v, min, max) {
   return Math.min(Math.max(v, min), max);
 }
 
-// линейная интерполяция
+
 function lerp(x1, y1, x2, y2, x) {
   if (x2 === x1) return y1;
   return y1 + (x - x1) * (y2 - y1) / (x2 - x1);
 }
-
-// =======================
-// ЗАДАНИЕ 1 (по Uc)
-// =======================
 
 function getTask1(table, uc) {
   const sorted = [...table].sort((a,b)=>a.uc-b.uc);
@@ -174,9 +157,6 @@ function getTask1(table, uc) {
   return sorted[0].U_if;
 }
 
-// =======================
-// ЗАДАНИЕ 2 (по fc)
-// =======================
 
 function getTask2(table, fc) {
   const sorted = [...table].sort((a,b)=>a.fc-b.fc);
@@ -194,9 +174,6 @@ function getTask2(table, fc) {
   return sorted[0].U_if;
 }
 
-// =======================
-// ЗАДАНИЯ 3–5 (дискрет)
-// =======================
 
 function getDiscrete(table, fc, fg) {
 
@@ -218,9 +195,6 @@ function getDiscrete(table, fc, fg) {
   return closest.U_if;
 }
 
-// =======================
-// ГЛАВНАЯ ФУНКЦИЯ
-// =======================
 
 function getUif(mode, detector, fc, fg, uc) {
 
@@ -233,9 +207,6 @@ function getUif(mode, detector, fc, fg, uc) {
   return getDiscrete(table, fc, fg);
 }
 
-// =======================
-// UI ДЕТЕКТОРЫ
-// =======================
 
 document.querySelectorAll(".det").forEach(btn => {
   btn.onclick = () => {
@@ -246,9 +217,7 @@ document.querySelectorAll(".det").forEach(btn => {
   };
 });
 
-// =======================
-// ОБНОВЛЕНИЕ
-// =======================
+
 
 function update() {
 
@@ -266,9 +235,6 @@ function update() {
   render(mode, f_c, f_g, f_if, U_c, U_if);
 }
 
-// =======================
-// ВЫВОД
-// =======================
 
 function render(mode, f_c, f_g, f_if, U_c, U_if) {
 
@@ -285,7 +251,7 @@ function render(mode, f_c, f_g, f_if, U_c, U_if) {
   html += `Uс = ${U_c.toFixed(3)} В<br>`;
   html += `Uп.ч = ${U_if.toFixed(3)} В`;
 
-  // коэффициент преобразования (задание 2)
+
   if (mode === 2 && U_c > 0) {
     const K = U_if / U_c;
     html += `<br><br>Kпр = ${K.toFixed(2)}`;
@@ -294,17 +260,10 @@ function render(mode, f_c, f_g, f_if, U_c, U_if) {
   screen.innerHTML = html;
 }
 
-// =======================
-// СОБЫТИЯ
-// =======================
 
 fc.oninput = update;
 fg.oninput = update;
 uc.oninput = update;
 modeSelect.onchange = update;
-
-// =======================
-// СТАРТ
-// =======================
 
 update();
