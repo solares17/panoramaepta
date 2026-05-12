@@ -1,6 +1,5 @@
-
 document.addEventListener("DOMContentLoaded", () => {
-  // --- БАЗА ДАННЫХ ИЗ МЕТОДИЧКИ ---
+ 
   const data = {
     task1: [
       { fc: 2281, Usm: 0.06 }, { fc: 2493, Usm: 1.1 }, { fc: 2578, Usm: 2.95 },
@@ -93,22 +92,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // --- ФУНКЦИЯ ЛИНЕЙНОЙ ИНТЕРПОЛЯЦИИ ---
-  // Находит промежуточные значения, если введенных данных нет в таблице
+  
   function interpolate(x, array, xKey, yKey) {
     if (!array || array.length === 0) return 0;
     
-    // Если вышли за пределы (меньше минимума или больше максимума)
+   
     if (x <= array[0][xKey]) return array[0][yKey];
     if (x >= array[array.length - 1][xKey]) return array[array.length - 1][yKey];
 
-    // Ищем между какими точками находится x
+  
     for (let i = 0; i < array.length - 1; i++) {
       let p1 = array[i];
       let p2 = array[i + 1];
       
       if (x >= p1[xKey] && x <= p2[xKey]) {
-        // Формула линейной интерполяции
+       
         let ratio = (x - p1[xKey]) / (p2[xKey] - p1[xKey]);
         return p1[yKey] + ratio * (p2[yKey] - p1[yKey]);
       }
@@ -116,10 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return 0;
   }
 
-  // --- ПОЛУЧЕНИЕ ЭЛЕМЕНТОВ DOM ---
+  
   const fcInput = document.getElementById("fc");
   const ucInput = document.getElementById("uc");
-  const fmInput = document.getElementById("fm"); // Убедись, что добавил его в HTML!
+  const fmInput = document.getElementById("fm"); 
   const modeSelect = document.getElementById("mode");
   const q1Check = document.getElementById("q1");
   const q2Check = document.getElementById("q2");
@@ -128,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeDetector = "1";
 
-  // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
+
   detButtons.forEach(btn => {
     btn.addEventListener("click", (e) => {
       detButtons.forEach(b => b.classList.remove("active"));
@@ -146,14 +144,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // --- ГЛАВНАЯ ЛОГИКА ОБНОВЛЕНИЯ ЭКРАНА ---
+
   function updateScreen() {
     const mode = modeSelect.value;
     const fc = parseFloat(fcInput.value) || 0;
     const uc = parseFloat(ucInput.value) || 0;
     const fm = fmInput ? (parseFloat(fmInput.value) || 1000) : 1000;
     
-    // Определяем состояние добротности (Q)
+    
     let qState = "none";
     if (q1Check.checked && q2Check.checked) qState = "q1q2";
     else if (q1Check.checked) qState = "q1";
@@ -163,32 +161,32 @@ document.addEventListener("DOMContentLoaded", () => {
     let outputText = "";
 
     switch (mode) {
-      case "1": // Задание 1: Зависимость Uсм от fc
+      case "1":
         result = interpolate(fc, data.task1, "fc", "Usm");
         outputText = `Задание 1\nUсм = ${result.toFixed(2)} В\nfс = ${fc} кГц`;
         break;
 
-      case "2": // Задание 2: Зависимость U= от fc (с учетом Q)
+      case "2": 
         result = interpolate(fc, data.task2[qState], "fc", "Uconst");
         outputText = `Задание 2\nfс = ${fc} кГц\nU= = ${result.toFixed(2)} В`;
         break;
 
-      case "3": // Задание 3: Зависимость U= от fc (с учетом Q)
+      case "3": 
         result = interpolate(fc, data.task3[qState], "fc", "Uconst");
         outputText = `Задание 3\nfс = ${fc} кГц\nU= = ${result.toFixed(2)} В`;
         break;
 
-      case "4": // Задание 4: Зависимость U= от fc (без Q)
+      case "4": 
         result = interpolate(fc, data.task4, "fc", "Uconst");
         outputText = `Задание 4\nfс = ${fc} кГц\nU= = ${result.toFixed(2)} В`;
         break;
 
-      case "5": // Задание 5: Зависимость Uomega от Fm (с учетом детектора)
+      case "5": 
         result = interpolate(fm, data.task5[`det${activeDetector}`], "Fm", "Uomega");
         outputText = `Задание 5\nfс = ${fc} кГц\nUм = ${uc} В\nFм = ${fm} Гц\nUω = ${result.toFixed(3)} В`;
         break;
 
-      case "6": // Задание 6: Зависимость Uomega от uc (с учетом детектора)
+      case "6": 
         result = interpolate(uc, data.task6[`det${activeDetector}`], "uc", "Uomega");
         outputText = `Задание 6\nfс = ${fc} кГц\nUм = ${uc} В\nUω = ${result.toFixed(3)} В`;
         break;
@@ -200,6 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
     screen.innerText = outputText;
   }
 
-  // Запуск при инициализации
+
   updateScreen();
 });
