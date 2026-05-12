@@ -5,7 +5,6 @@ if (manualsList) {
         const card = document.createElement("div");
         card.classList.add("manual-card");
 
-        // Обрати внимание на тег <img> и класс .download-btn
         card.innerHTML = `
             <div class="card-header">
                 <img src="${manual.img}" class="equip-img" alt="${manual.title}">
@@ -17,7 +16,7 @@ if (manualsList) {
             <div class="card-details">
                 <p>${manual.text}</p>
                 <a href="${manual.downloadUrl}" download target="_blank" class="download-btn">
-                    Скачать PDF методичку
+                    Скачать методичку
                 </a>
             </div>
         `;
