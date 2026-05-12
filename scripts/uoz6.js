@@ -8,15 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const kButtons06 = document.querySelectorAll('.det-k-06');
 
   if (!screen06) return;
-
   let currentK06 = 1;
-
-  // ==========================================================
-  // БАЗА ДАННЫХ СТЕНДА (С учетом ограничений Uпч < 0.166 В)
-  // Все значения Uc переведены в милливольты (мВ)
-  // ==========================================================
+  
   const uos06_data = {
-    // ЗАДАНИЕ 1: Разомкнутая петля
+ 
     task1: [
       { uc: 0,     upch: 0.000 },
       { uc: 21.4,  upch: 0.145 },
@@ -27,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
       { uc: 300.0, upch: 1.920 },
       { uc: 322.9, upch: 2.060 } 
     ],
-
-    // ЗАДАНИЕ 2: Простая АРУ (Порог U0 = 0)
     task2: {
       k1: [
         { uc: 0, upch: 0.000 }, { uc: 30, upch: 0.161 }, { uc: 80, upch: 0.165 },
@@ -44,8 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { uc: 200, upch: 0.042 }, { uc: 300, upch: 0.043 }, { uc: 322.9, upch: 0.043 }
       ]
     },
-
-    // ЗАДАНИЕ 3: АРУ с задержкой (Прогноз с ограничением Uпч < 0.166 В)
     task3: {
       porog_U1: {
         k1: [ { uc: 0, upch: 0 }, { uc: 15, upch: 0.100 }, { uc: 50, upch: 0.145 }, { uc: 100, upch: 0.155 }, { uc: 322.9, upch: 0.162 } ],
@@ -58,8 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         k3: [ { uc: 0, upch: 0 }, { uc: 25, upch: 0.040 }, { uc: 100, upch: 0.041 }, { uc: 200, upch: 0.042 }, { uc: 322.9, upch: 0.043 } ]
       }
     },
-
-    // ЗАДАНИЕ 4: Переходная характеристика (Up для внешнего осциллографа при Uc = 50 мВ)
     task4: {
       fnch1: {
         k1: { upch: 0.164, up: 1.25 },
@@ -74,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Функция линейной интерполяции
   function getInterpolatedUpch(targetUc, dataset) {
     if (targetUc <= dataset[0].uc) return dataset[0].upch;
     if (targetUc >= dataset[dataset.length - 1].uc) return dataset[dataset.length - 1].upch;
@@ -89,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return 0;
   }
 
-  // Обработчик кнопок усиления (К1, К2, К3)
+ 
   kButtons06.forEach(btn => {
     btn.addEventListener('click', (e) => {
       kButtons06.forEach(b => b.classList.remove('active'));
@@ -99,16 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Привязка событий на изменение инпутов
   [modeSelect06, ucInput06, gGenCheckbox06, porogSelect06, fnchSelect06].forEach(el => {
     el.addEventListener('input', updateScreen06);
     el.addEventListener('change', updateScreen06);
   });
 
-  // Основная функция отрисовки
   function updateScreen06() {
     const mode = modeSelect06.value;
-    // Ограничиваем Uc максимумом 322.9 мВ
+    
     let uc = parseFloat(ucInput06.value) || 0;
     if (uc > 322.9) uc = 322.9; 
 
@@ -150,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     } 
     else if (mode === '4') {
-      // Для 4 задания фиксируем Uc = 50 мВ для корректного отображения параметров (по методичке)
       let displayUc = 50.0;
       let fnchKey = fnch === 1 ? 'fnch1' : 'fnch2';
       let data = uos06_data.task4[fnchKey][kKey];
