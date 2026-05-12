@@ -22,7 +22,6 @@ equipment.forEach(eq => {
         </div>
     `;
 
-    // При клике — раскрытие/сворачивание
     card.addEventListener("click", () => {
         card.classList.toggle("active");
     });
