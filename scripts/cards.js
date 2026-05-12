@@ -13,10 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
         header.addEventListener("click", () => {
             const isOpen = body.style.display === "block";
 
-            // Закрыть все другие
             document.querySelectorAll(".card-body").forEach(b => b.style.display = "none");
 
-            // Открыть текущую, если была закрыта
             if (!isOpen) {
                 body.style.display = "block";
             }
