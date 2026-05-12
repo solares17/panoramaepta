@@ -16,3 +16,98 @@
     cursor: pointer;
     /* Сюда можно добавить стили рамок, отступов и т.д. */
 }
+/* Контейнер для всех карточек (сетка) */
+.manuals-list {
+    display: grid;
+    /* Карточки будут автоматически подстраиваться под ширину экрана. Минимум 280px, максимум - сколько влезет */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px; /* Расстояние между карточками */
+    padding: 20px;
+    background-color: #f4f6f9; /* Светло-серый фон страницы (по желанию) */
+}
+
+/* Сама карточка */
+.manual-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden; /* Чтобы картинка не вылезала за скругленные углы */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Эффект при наведении на карточку */
+.manual-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Картинка внутри карточки */
+.manual-card .equip-img {
+    width: 100%;
+    height: 180px; /* Фиксированная высота для всех картинок */
+    object-fit: cover; /* Картинка будет обрезаться, но сохранит пропорции без искажений */
+    border-bottom: 1px solid #eee;
+}
+
+/* Блок с заголовком */
+.manual-card .equip-info {
+    padding: 15px;
+}
+
+.manual-card .equip-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* Скрытый блок с текстом и кнопкой (показывается при клике) */
+.manual-card .card-details {
+    display: none;
+    padding: 0 15px 15px 15px;
+    /* margin-top: auto прижимает этот блок к низу карточки, если высота карточек разная */
+    margin-top: auto; 
+}
+
+/* Когда на карточку нажали (появился класс active) */
+.manual-card.active {
+    /* Можно добавить синюю рамку активной карточке, как на твоем макете */
+    border: 2px solid #0056b3; 
+}
+
+.manual-card.active .card-details {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.manual-card .card-details p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+/* Кнопка скачивания */
+.download-btn {
+    display: block;
+    text-align: center;
+    background-color: #0056b3;
+    color: #ffffff !important;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.download-btn:hover {
+    background-color: #004494;
+}
+
+/* Анимация плавного появления текста */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
