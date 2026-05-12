@@ -1,4 +1,3 @@
-<script>
 const uos05Data = {
   // Твои данные...
   task1_ACHH: [
@@ -150,4 +149,3 @@ inputs.forEach(i => i.onchange = update);
 
 // Запуск при загрузке
 update();
-</script>
