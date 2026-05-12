@@ -1,5 +1,4 @@
 const uos05Data = {
-  // Твои данные...
   task1_ACHH: [
     { fc: 410, U: 0.097 },
     { fc: 457, U: 0.292 },
@@ -35,16 +34,14 @@ const uos05Data = {
   }
 };
 
-// Состояние эмулятора
+
 let is_locked = false;
 let selected_C = 'C1'; 
 let selected_R = 'R1';
 
-// Элементы интерфейса
 const screen = document.getElementById('screen');
 const inputs = document.querySelectorAll('input, select');
 
-// Обработчики кнопок C1/C2 и R1/R2
 document.querySelectorAll('.cap').forEach(btn => {
     btn.onclick = () => {
         document.querySelectorAll('.cap').forEach(b => b.classList.remove('active'));
@@ -63,7 +60,6 @@ document.querySelectorAll('.res').forEach(btn => {
     };
 });
 
-// Функция интерполяции для 1 задания (чтобы плавно менять напряжение между точками)
 function getU_Sigma(fc) {
     const data = uos05Data.task1_ACHH;
     if (fc <= data[0].fc) return data[0].U;
@@ -78,30 +74,25 @@ function getU_Sigma(fc) {
     return 0;
 }
 
-// Главная функция обновления экрана
 function update() {
     const fc = parseFloat(document.getElementById('fc').value);
     const uc = parseFloat(document.getElementById('uc').value);
     
-    // Безопасное получение шума (если инпута вдруг нет)
     const un_input = document.getElementById('un');
     const un = un_input ? parseFloat(un_input.value) : 0;
     
-    // Переводим выбор из селекта (1.5 или 1.0) в ключи K1 / K2
     const gain_val = document.getElementById('gain').value;
     const gain = (gain_val === "1.5" || gain_val === "K1") ? "K1" : "K2";
     
     const mode = document.getElementById('mode').value;
     const lpf = document.getElementById('lpf_en') && document.getElementById('lpf_en').checked;
     const pif = document.getElementById('pif_en') && document.getElementById('pif_en').checked;
-
-    // Определяем текущие границы захвата и удержания
-    let limits = uos05Data.task3_NoFilter[gain]; // По умолчанию - без фильтров
+  
+    let limits = uos05Data.task3_NoFilter[gain]; 
 
     if (mode === "5") {
-        // Для 5 задания берем массив влияния шума
         let noiseData = uos05Data.task5_Noise.LPF_K1_C1; 
-        // Ищем ближайший уровень шума в таблице
+        
         limits = noiseData.reduce((prev, curr) => Math.abs(curr.Ush - un) < Math.abs(prev.Ush - un) ? curr : prev);
     } else if (pif) {
         let key = `PIF_${gain}_${selected_C}${selected_R}`;
@@ -110,8 +101,7 @@ function update() {
         let key = `LPF_${gain}_${selected_C}`;
         if (uos05Data.task4_Filters[key]) limits = uos05Data.task4_Filters[key];
     }
-
-    // ЛОГИКА ГИСТЕРЕЗИСА (Срыв и Захват)
+  
     if (!is_locked) {
         if (fc >= limits.f_z_low && fc <= limits.f_z_high) is_locked = true;
     } else {
@@ -120,7 +110,6 @@ function update() {
 
     let display_f_gun = is_locked ? fc : uos05Data.f_g0;
 
-    // ВЫВОД НА ЭКРАН
     let output = "";
     switch(mode) {
         case "1":
@@ -143,9 +132,7 @@ function update() {
     screen.innerText = output;
 }
 
-// Привязываем события ко всем элементам управления
 inputs.forEach(i => i.oninput = update);
 inputs.forEach(i => i.onchange = update);
 
-// Запуск при загрузке
 update();
