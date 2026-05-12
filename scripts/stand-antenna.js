@@ -31,7 +31,6 @@ function update() {
 
   let field = calculateField(f, attenuator);
 
-  // добавим "реализм"
   field += (Math.random() - 0.5) * 5;
 
   fieldDisplay.innerText = field.toFixed(1);
