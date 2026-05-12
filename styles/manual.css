@@ -1,0 +1,18 @@
+/* Скрываем детали по умолчанию */
+.manual-card .card-details {
+    display: none;
+    padding-top: 15px;
+    border-top: 1px solid #ccc; /* визуальное отделение */
+    margin-top: 10px;
+}
+
+/* Показываем детали, когда у карточки есть класс active */
+.manual-card.active .card-details {
+    display: block;
+}
+
+/* Меняем курсор на указатель, чтобы было понятно, что карточка кликабельна */
+.manual-card {
+    cursor: pointer;
+    /* Сюда можно добавить стили рамок, отступов и т.д. */
+}
