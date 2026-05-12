@@ -1,25 +1,16 @@
-// =======================
-// ЭЛЕМЕНТЫ
-// =======================
 const fc = document.getElementById("fc");
 const uc = document.getElementById("uc");
 const modeSelect = document.getElementById("mode");
 const screen = document.getElementById("screen");
 
-// Переменная частоты модуляции (привязана к fc)
+
 let fm = 1000;
 
-// =======================
-// СОСТОЯНИЕ
-// =======================
+
 let detector = 1;
-// Инициализируем нагрузки из тех кнопок, у которых уже есть класс active в HTML
 let loads = new Set();
 document.querySelectorAll(".load.active").forEach(btn => loads.add(btn.dataset.load));
 
-// =======================
-// ДАННЫЕ
-// =======================
 const data = {
   1: {
     det1: {
@@ -89,14 +80,12 @@ const data = {
   }
 };
 
-// =======================
-// ИНТЕРПОЛЯЦИЯ
-// =======================
+
 function interp(table, x, key) {
   if (!table || table.length === 0) return 0;
   const arr = [...table].sort((a, b) => a[key] - b[key]);
 
-  // Если x за пределами таблицы
+
   if (x <= arr[0][key]) return arr[0].Udc ?? arr[0].Uac;
   if (x >= arr[arr.length - 1][key]) return arr[arr.length - 1].Udc ?? arr[arr.length - 1].Uac;
 
@@ -112,18 +101,14 @@ function interp(table, x, key) {
   return 0;
 }
 
-// =======================
-// НАГРУЗКА (Ключ)
-// =======================
+
 function getLoadKey() {
-  // Сортируем в обратном порядке, чтобы R шло перед C (R1C1)
+  
   const key = [...loads].sort().reverse().join("");
   return key || "R1C1";
 }
 
-// =======================
-// РАСЧЁТ
-// =======================
+
 function calculate() {
   const mode = +modeSelect.value;
   const Uc = +uc.value;
@@ -163,9 +148,7 @@ function calculate() {
   return 0;
 }
 
-// =======================
-// ОБНОВЛЕНИЕ UI
-// =======================
+
 function update() {
   const Uc = +uc.value;
   const value = calculate();
@@ -177,7 +160,7 @@ function update() {
     html += `Uc = ${Uc.toFixed(3)} В<br>`;
     html += `U= = ${value.toFixed(3)} В`;
   } else {
-    // В 4 режиме выводим частоту модуляции
+   
     if (+modeSelect.value === 4) html += `Fm = ${fm} Гц<br>`;
     else html += `Uc = ${Uc.toFixed(3)} В<br>`;
     
@@ -187,9 +170,7 @@ function update() {
   screen.innerHTML = html;
 }
 
-// =======================
-// СОБЫТИЯ
-// =======================
+
 document.querySelectorAll(".det").forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll(".det").forEach(b => b.classList.remove("active"));
@@ -214,8 +195,7 @@ document.querySelectorAll(".load").forEach(btn => {
 });
 
 uc.oninput = update;
-fc.oninput = update; // Обновление при смене частоты
+fc.oninput = update; 
 modeSelect.onchange = update;
 
-// СТАРТ
 update();
