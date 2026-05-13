@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="/panoramaepta/style.css">
 <link rel="stylesheet" href="/panoramaepta/styles/uoz.css">
+<link rel="stylesheet" href="/panoramaepta/styles/uos5.css">
 </head>
 
 <body>
@@ -19,16 +20,330 @@
     <div class="content-container">
         <div class="info-text">
         <h2>Лабораторная работа №1 - Измерение КУ и фазовых сдвигов</h2>
-        <p>
-        Для выполнения лабораторной работы ознакомьтесь с видео:
-        </p>
         </div> 
 
-        <div class="info-text">
-        <p>
-        Эмуляция лабораторного стенда:
-        </p>
-        </div> 
+        
+<div class="uoz-lab-meta">
+
+  <div class="uoz-section-header">
+    <span class="uoz-tag">УОС-05</span>
+    <h2>Усилитель радиосигналов</h2>
+  </div>
+
+  <!-- ===== 1. ТЕОРИЯ ===== -->
+  <div class="uoz-card" id="card-theory5">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-theory5')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-theory">🔊</span>
+      <span class="uoz-card-title">
+        Теоретические сведения
+        <span class="uoz-card-subtitle">Параметры УРС, Y-параметры транзистора, обратная связь, устойчивость, схемы усилителей</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <h3>Общие сведения</h3>
+      <p>
+        <strong>Усилитель радиосигналов (УРС)</strong> — первый активный каскад
+        усилительно-преобразовательного тракта УПОС. Осуществляет усиление ВЧ-колебаний
+        в заданной полосе частот с минимальным шумом и максимальной устойчивостью.
+        В составе: усилительный прибор (транзистор), частотно-избирательная цепь
+        (один или два LC-контура) и согласующие цепи.
+      </p>
+
+      <h3>Основные характеристики и параметры</h3>
+      <table class="uoz-table">
+        <thead>
+          <tr><th>Параметр</th><th>Определение</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>(K<sub>U</sub>)<sub>рез</sub></td>
+            <td>Резонансный коэффициент усиления: U<sub>вых</sub>/U<sub>вх</sub> при f = f<sub>0</sub></td>
+          </tr>
+          <tr>
+            <td>K<sub>ро</sub></td>
+            <td>Резонансный коэф. по мощности: K<sub>ро</sub> = (K<sub>U</sub>)<sub>рез</sub>² · q<sub>н</sub>/q<sub>вх</sub></td>
+          </tr>
+          <tr>
+            <td>ΔF<sub>0.707</sub></td>
+            <td>Полоса пропускания по уровню 0,707 (−3 дБ)</td>
+          </tr>
+          <tr>
+            <td>k<sub>п</sub></td>
+            <td>Коэф. прямоугольности: ΔF<sub>0.707</sub>/ΔF<sub>0.1</sub> &lt; 1</td>
+          </tr>
+          <tr>
+            <td>K<sub>ш</sub></td>
+            <td>Коэф. шума: P<sub>ш.вых</sub>/P<sub>ш.ид</sub></td>
+          </tr>
+          <tr>
+            <td>k<sub>у</sub></td>
+            <td>Коэф. устойчивости: (G<sub>э1</sub>+G<sub>oc</sub>)/G<sub>э1</sub> → 0…1</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Типы схем усилителей</h3>
+      <div class="uoz-grid">
+        <div class="uoz-vcard">
+          <strong>Блок I — ОЭ (биполярный)</strong>
+          <span>Схема с общим эмиттером на БТ. Максимальный K<sub>U</sub>,
+          но значительная обратная проводимость Y<sub>12</sub> через C<sub>к</sub>
+          вызывает деформацию АЧХ и может привести к самовозбуждению.</span>
+          <span class="uoz-pro">＋ Наибольшее K<sub>U</sub> на СВ/ДВ-диапазонах</span>
+          <span class="uoz-con">− Требует нейтрализации или ограничения крутизны</span>
+        </div>
+        <div class="uoz-vcard">
+          <strong>Блок II — ОИ (полевой)</strong>
+          <span>Схема с общим истоком на ПТ. Высокое входное Z,
+          малые токи управления, меньший вклад Y<sub>12</sub>
+          по сравнению с БТ при тех же частотах.</span>
+          <span class="uoz-pro">＋ Малые нелинейные искажения, высокое Z<sub>вх</sub></span>
+          <span class="uoz-con">− K<sub>U</sub> несколько ниже, чем у ОЭ</span>
+        </div>
+        <div class="uoz-vcard">
+          <strong>Блок III — Каскод (БТ+БТ)</strong>
+          <span>VT1 (ОЭ) + VT2 (ОБ). Эквивалентная Y<sub>12</sub> пары
+          на 2–3 порядка меньше одиночного транзистора.
+          VT2 с заземлённой базой — электростатический экран.</span>
+          <span class="uoz-pro">＋ Наибольшая устойчивость, высокое усиление без нейтрализации</span>
+          <span class="uoz-con">− Сложнее схема, два транзистора</span>
+        </div>
+      </div>
+
+      <h3>Y-параметры транзистора (ОЭ)</h3>
+      <p>
+        В диапазоне f ≪ f<sub>гр</sub> транзистор описывается системой Y-параметров.
+        Коэффициент усиления:
+      </p>
+      <div class="uoz-formula">K<sub>U</sub> = −Y<sub>21</sub> / (Y<sub>22</sub> + Y<sub>2</sub>) ≈ −S / (g<sub>22</sub> + Y<sub>2</sub>)</div>
+      <p>
+        Резонансный коэффициент при автотрансформаторном включении контура (m, n — коэф. включения):
+      </p>
+      <div class="uoz-formula">K<sub>U</sub> = m·n·S·R<sub>э2</sub> / √[1 + (ωτ<sub>б</sub>)²]</div>
+
+      <h3>Обратная связь и деформация АЧХ</h3>
+      <p>
+        Проводимость обратной передачи Y<sub>12</sub> ≈ −jωC<sub>к</sub>
+        создаёт на входе контура динамическую проводимость G<sub>oc</sub>:
+      </p>
+      <div class="uoz-formula">G<sub>oc</sub> ≈ R<sub>э2</sub>·ωC<sub>к</sub>·S·ξ / (1 + ξ²)</div>
+      <p>
+        При ξ &lt; 0 (ниже резонанса): G<sub>oc</sub> &lt; 0 → <em>подъём</em> АЧХ слева.
+        При ξ &gt; 0 (выше резонанса): G<sub>oc</sub> &gt; 0 → <em>спад</em> АЧХ справа.
+        Результат — несимметричная АЧХ.
+      </p>
+      <p>
+        При резонансной нагрузке реактивная составляющая B<sub>oc</sub> сдвигает
+        резонансную частоту контура, что объясняет смещение f<sub>рез</sub> в задании 4.
+      </p>
+
+      <h3>АЧХ трёх типов УРС (качественно)</h3>
+      <div class="uoz-svg-wrap">
+        <svg viewBox="0 0 560 160" xmlns="http://www.w3.org/2000/svg"
+             width="540" height="160" font-family="'JetBrains Mono',monospace" font-size="9">
+
+          <!-- Общие оси -->
+          <!-- === Блок I: ОЭ — несимметричная АЧХ === -->
+          <line x1="20"  y1="130" x2="165" y2="130" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="165,130 159,127 159,133" fill="#252d3d"/>
+          <line x1="92"  y1="145" x2="92"  y2="15"  stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="92,15 89,21 95,21" fill="#252d3d"/>
+          <!-- Несимметричная кривая: подъём слева -->
+          <path d="M25,128 C40,128 55,115 70,95 C80,80 88,30 92,22 C96,30 104,70 118,100 C132,120 152,128 162,128"
+                fill="none" stroke="#ff6b6b" stroke-width="2"/>
+          <!-- Уровень 0.707 -->
+          <line x1="20" y1="69" x2="165" y2="69" stroke="#252d3d" stroke-width=".8" stroke-dasharray="3,3"/>
+          <text x="5"  y="72"  fill="#6b7a99" font-size="7.5">0.7</text>
+          <text x="22" y="17"  fill="#ff6b6b" font-size="8">Блок I: ОЭ</text>
+          <text x="22" y="27"  fill="#ff6b6b" font-size="8">(биполярный)</text>
+          <text x="166" y="133" fill="#6b7a99" font-size="8">f</text>
+          <text x="76"  y="17"  fill="#6b7a99" font-size="7.5">K<tspan font-size="6" dy="1">U</tspan></text>
+          <!-- Стрелка подъёма -->
+          <text x="28" y="95" fill="#ff6b6b" font-size="7.5">подъём</text>
+          <text x="28" y="104" fill="#ff6b6b" font-size="7.5">↑G<tspan font-size="6" dy="1">oc</tspan><tspan dy="-1">&lt;0</tspan></text>
+
+          <!-- === Блок II: ОИ — симметричнее === -->
+          <line x1="195" y1="130" x2="345" y2="130" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="345,130 339,127 339,133" fill="#252d3d"/>
+          <line x1="270" y1="145" x2="270" y2="15"  stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="270,15 267,21 273,21" fill="#252d3d"/>
+          <!-- Почти симметричная кривая -->
+          <path d="M200,128 C218,128 238,110 256,78 C263,60 268,28 270,22 C272,28 277,60 284,78 C302,110 322,128 340,128"
+                fill="none" stroke="#3ddb8a" stroke-width="2"/>
+          <line x1="195" y1="69" x2="345" y2="69" stroke="#252d3d" stroke-width=".8" stroke-dasharray="3,3"/>
+          <text x="5"  y="72" fill="transparent" font-size="7.5">0.7</text>
+          <text x="200" y="17" fill="#3ddb8a" font-size="8">Блок II: ОИ</text>
+          <text x="200" y="27" fill="#3ddb8a" font-size="8">(полевой)</text>
+          <text x="346" y="133" fill="#6b7a99" font-size="8">f</text>
+          <text x="254" y="17" fill="#6b7a99" font-size="7.5">K<tspan font-size="6" dy="1">U</tspan></text>
+          <text x="200" y="95"  fill="#3ddb8a" font-size="7.5">≈ симм.</text>
+
+          <!-- === Блок III: Каскод === -->
+          <line x1="375" y1="130" x2="535" y2="130" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="535,130 529,127 529,133" fill="#252d3d"/>
+          <line x1="455" y1="145" x2="455" y2="15"  stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="455,15 452,21 458,21" fill="#252d3d"/>
+          <!-- Очень симметричная, крутая -->
+          <path d="M380,128 C400,128 425,118 442,88 C450,68 453,32 455,22 C457,32 460,68 468,88 C485,118 510,128 530,128"
+                fill="none" stroke="#3d8bff" stroke-width="2"/>
+          <line x1="375" y1="69" x2="535" y2="69" stroke="#252d3d" stroke-width=".8" stroke-dasharray="3,3"/>
+          <text x="380" y="17" fill="#3d8bff" font-size="8">Блок III: Каскод</text>
+          <text x="380" y="27" fill="#3d8bff" font-size="8">(БТ + БТ)</text>
+          <text x="536" y="133" fill="#6b7a99" font-size="8">f</text>
+          <text x="439" y="17" fill="#6b7a99" font-size="7.5">K<tspan font-size="6" dy="1">U</tspan></text>
+          <text x="380" y="95"  fill="#3d8bff" font-size="7.5">симм., устойч.</text>
+
+        </svg>
+      </div>
+      <p class="uoz-svg-caption">Рис. — Качественные АЧХ трёх типов УРС: Блок I — деформация из-за Y<sub>12</sub>; Блок II — ПТ, симметричнее; Блок III — каскод, наибольшая симметрия</p>
+
+      <h3>Условие устойчивости</h3>
+      <p>
+        УРС устойчив, если полная эквивалентная проводимость входного контура положительна:
+      </p>
+      <div class="uoz-formula">k<sub>у</sub> = (G<sub>э1</sub> + G<sub>oc</sub>) / G<sub>э1</sub> &gt; 0</div>
+      <p>
+        Максимально устойчивый коэффициент усиления при ϕ ≈ π/2:
+      </p>
+      <div class="uoz-formula">K<sub>U уст</sub> ≤ 2(k<sub>у</sub>−1)·S / (ωC<sub>к</sub>)</div>
+      <p>
+        Рост S (регулятор «КРУТИЗНА») → рост K<sub>U</sub> → возможная деформация АЧХ
+        и смещение f<sub>рез</sub> (реактивная составляющая G<sub>oc</sub>).
+        Исследуется в задании 4.
+      </p>
+
+      <h3>Состав установки</h3>
+      <p>
+        Генератор ГВЧ, входной контур, три блока УРС (I — ОЭ/БТ, II — ОИ/ПТ, III — Каскод).
+        Диапазоны: <span class="uoz-badge">Д1: 700–1200 кГц</span> <span class="uoz-badge">Д2: 1200–1500 кГц</span>.
+        Уровни: <span class="uoz-badge">5 мВ</span> и <span class="uoz-badge">50 мВ</span>.
+        Регулятор «КРУТИЗНА» — плавное изменение тока эмиттера БТ (Блок I).
+        Кнопки «K<sub>f</sub>» — подключение конденсаторов (смена f<sub>0</sub>),
+        «K<sub>н</sub>» — подключение резисторов (резистивная нагрузка контура).
+      </p>
+
+    </div>
+  </div><!-- /card-theory5 -->
+
+
+  <!-- ===== 2. ЗАДАНИЯ ===== -->
+  <div class="uoz-card" id="card-tasks5">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-tasks5')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-task">🔬</span>
+      <span class="uoz-card-title">
+        Задания к лабораторной работе
+        <span class="uoz-card-subtitle">4 задания — АЧХ трёх типов УРС, влияние нагрузки и крутизны на деформацию характеристики</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <p style="margin-top:.7rem">
+        Цель работы: исследование АЧХ усилителей на биполярном (ОЭ), полевом (ОИ)
+        и каскодном (ОЭ+ОБ) транзисторах; влияния обратной связи на деформацию АЧХ
+        и устойчивость. Уровень входного сигнала U<sub>c</sub> = <strong>50 мВ</strong>
+        (задания 1–3) и <strong>5 мВ</strong> (задание 4). Снимать резонансные кривые в
+        7–9 точках до нормированного уровня 0,2–0,3.
+      </p>
+
+      <ul class="uoz-task-list">
+
+        <li>
+          <span class="uoz-task-num">1</span>
+          <div>
+            <strong>АЧХ УРС на биполярном транзисторе (Блок I).</strong>
+            Крутизна — минимальная («КРУТИЗНА» в крайнем левом положении).
+            Выполнить 4 измерения U<sub>вых</sub>(f<sub>c</sub>):
+            <br><em>1.1</em> Резистивная нагрузка (K<sub>н</sub> вкл.), f<sub>0</sub> = (f<sub>0</sub>)<sub>max</sub>
+            (Д2 вкл., K<sub>f</sub> откл.).
+            <br><em>1.2</em> Резонансная нагрузка (K<sub>н</sub> откл.), f<sub>0</sub> = (f<sub>0</sub>)<sub>max</sub>.
+            <br><em>1.3</em> Резистивная нагрузка, f<sub>0</sub> = (f<sub>0</sub>)<sub>min</sub>
+            (Д1 вкл., K<sub>f</sub> вкл.).
+            <br><em>1.4</em> Резонансная нагрузка, f<sub>0</sub> = (f<sub>0</sub>)<sub>min</sub>.
+            <br>Результаты — в таблицы; построить K<sub>U</sub> = f(ξ) для четырёх кривых.
+          </div>
+        </li>
+
+        <li>
+          <span class="uoz-task-num">2</span>
+          <div>
+            <strong>АЧХ УРС на полевом транзисторе (Блок II).</strong>
+            Провести измерения U<sub>вых</sub>(f<sub>c</sub>) по пп. 1.1–1.4 (смена нагрузки и f<sub>0</sub>).
+            Сравнить форму АЧХ с результатами задания 1.
+          </div>
+        </li>
+
+        <li>
+          <span class="uoz-task-num">3</span>
+          <div>
+            <strong>АЧХ каскодного УРС (Блок III).</strong>
+            Провести измерения U<sub>вых</sub>(f<sub>c</sub>) по пп. 1.1–1.4.
+            Убедиться в высокой симметрии АЧХ. Сравнить с Блоком I.
+          </div>
+        </li>
+
+        <li>
+          <span class="uoz-task-num">4</span>
+          <div>
+            <strong>Зависимость K<sub>U</sub> от крутизны — Блок I, U<sub>c</sub> = 5 мВ.</strong>
+            Резонансная нагрузка (K<sub>н</sub> откл.), f<sub>0</sub> = (f<sub>0</sub>)<sub>min</sub> (Д1, K<sub>f</sub> откл.).
+            <br><em>4.1</em> Снять резонансную кривую при минимальной крутизне. Определить (K<sub>U</sub>)<sub>рез</sub>, (f<sub>c</sub>)<sub>рез</sub>.
+            <br><em>4.2</em> Увеличить (K<sub>U</sub>)<sub>рез</sub> в 1,5 раза. Подстроить резонанс. Снять кривую.
+            <br><em>4.3</em> Увеличить (K<sub>U</sub>)<sub>рез</sub> в 2–2,5 раза. Снять кривую.
+            <br><em>4.4</em> Довести (K<sub>U</sub>)<sub>рез</sub> до значения 3–3,5. Снять кривую.
+            <br><em>4.5</em> Повторить 4.1–4.4 для f<sub>0</sub> = (f<sub>0</sub>)<sub>max</sub>.
+            <br>Построить: K<sub>U</sub>/( K<sub>U</sub>)<sub>рез</sub> = f((f<sub>c</sub>−f<sub>рез</sub>)/f<sub>c</sub>);
+            ΔF<sub>0.7</sub> = f(K<sub>U</sub>); смещение f<sub>рез</sub> = f(K<sub>U</sub>).
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </div><!-- /card-tasks5 -->
+
+
+  <!-- ===== 3. КОНТРОЛЬНЫЕ ВОПРОСЫ ===== -->
+  <div class="uoz-card" id="card-questions5">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-questions5')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-q">❓</span>
+      <span class="uoz-card-title">
+        Контрольные вопросы
+        <span class="uoz-card-subtitle">9 вопросов для допуска и защиты работы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+      <ol class="uoz-q-list">
+        <li>Каково назначение усилителя радиосигналов в составе УПОС?</li>
+        <li>Каковы основные характеристики и параметры усилителей радиосигналов?</li>
+        <li>Каковы методы анализа работы УРС с использованием Y-параметров транзистора?</li>
+        <li>Как проводимость обратной передачи Y<sub>12</sub> влияет на форму АЧХ усилителя радиосигналов?</li>
+        <li>Чем определяется устойчивость УРС и как вычислить коэффициент устойчивости k<sub>у</sub>?</li>
+        <li>Каковы основные схемы УРС на биполярных и полевых транзисторах? Чем каскодная схема выгодно отличается от схемы с ОЭ?</li>
+        <li>Как уменьшить влияние проводимости обратной передачи на деформацию АЧХ УРС?</li>
+        <li>С чем связано смещение резонансной частоты настройки УРС при резонансной нагрузке и при изменении крутизны?</li>
+        <li>Каковы основные достоинства каскодного усилителя радиосигналов по сравнению с однотранзисторным усилителем с ОЭ?</li>
+      </ol>
+    </div>
+  </div><!-- /card-questions5 -->
+
+</div><!-- /uoz-lab-meta -->
+
+<script>
+  function uozToggle(id) {
+    var card = document.getElementById(id);
+    var btn  = card.querySelector('.uoz-card-toggle');
+    var isOpen = card.classList.toggle('uoz-open');
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+</script>
+
+
+
+        
        
 <div class="uos">
   <h2>Фазовая автоподстройка частоты УОС-05</h2>
