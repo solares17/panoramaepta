@@ -19,18 +19,337 @@
     <div class="content-container">
         <div class="info-text">
         <h2>Лабораторная работа №1 - Измерение КУ и фазовых сдвигов</h2>
-        <p>
-        Для выполнения лабораторной работы ознакомьтесь с видео:
-        </p>
         </div> 
 
 
-        <div class="info-text">
-        <p>
-        Эмуляция лабораторного стенда:
-        </p>
-        </div> 
-       <div class="uos">
+        
+<div class="uoz-lab-meta">
+
+  <div class="uoz-section-header">
+    <span class="uoz-tag">УОС-04</span>
+    <h2>Входная цепь</h2>
+  </div>
+
+  <!-- ===== 1. ТЕОРИЯ ===== -->
+  <div class="uoz-card" id="card-theory4">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-theory4')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-theory">📡</span>
+      <span class="uoz-card-title">
+        Теоретические сведения
+        <span class="uoz-card-subtitle">Назначение ВЦ, характеристики, виды связи, влияние частоты настройки</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <h3>Общие сведения</h3>
+      <p>
+        <strong>Входная цепь (ВЦ)</strong> — пассивный четырёхполюсник, связывающий антенну
+        с последующими каскадами (УРС или ПЧ). Функции ВЦ:
+        передача энергии сигнала из антенны и предварительная фильтрация помех,
+        в первую очередь — сигналов зеркального канала (f<sub>з</sub> = f<sub>c</sub> + 2f<sub>пч</sub>)
+        и прямого прохождения (f = f<sub>пч</sub>).
+      </p>
+      <p>
+        В установке: антенна — эквивалент ненастроенной антенны с ёмкостью C<sub>A</sub>;
+        контур перестраивается варикапом в диапазоне <strong>250–2000 кГц</strong>.
+        Связь с антенной коммутируется кнопками: C1, C2, C3 (ёмкостная) и M (индуктивная).
+      </p>
+
+      <h3>Основные характеристики</h3>
+      <table class="uoz-table">
+        <thead>
+          <tr><th>Характеристика</th><th>Определение</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>K<sub>u</sub>(f)</td>
+            <td>Коэффициент передачи по напряжению: U<sub>вых</sub>/E<sub>A</sub></td>
+          </tr>
+          <tr>
+            <td>K<sub>u0</sub></td>
+            <td>Резонансный K<sub>u</sub> — при f = f<sub>0</sub> (максимум)</td>
+          </tr>
+          <tr>
+            <td>δ(f)</td>
+            <td>Частотная селективность: |K<sub>u</sub>(f)| / K<sub>u0</sub></td>
+          </tr>
+          <tr>
+            <td>ΔF<sub>0.707</sub></td>
+            <td>Полоса пропускания по уровню 0,707 (−3 дБ)</td>
+          </tr>
+          <tr>
+            <td>K<sub>д</sub></td>
+            <td>Коэффициент перекрытия диапазона: f<sub>c max</sub> / f<sub>c min</sub></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Оптимальный коэффициент включения антенны, обеспечивающий максимум K<sub>u0</sub>
+        при G<sub>1</sub> ≥ G<sub>2</sub> + g:
+      </p>
+      <div class="uoz-formula">p<sub>1 opt</sub> = √[(G<sub>2</sub> + g) / G<sub>1</sub>]</div>
+      <p>
+        При этом максимальный резонансный коэффициент передачи:
+      </p>
+      <div class="uoz-formula">K<sub>u0 max</sub> = 1 / [2·r'<sub>A</sub>·√(g + G<sub>2</sub>)]</div>
+      <p>
+        На практике выбирают a = p<sub>1</sub>/p<sub>1 opt</sub> ≈ 0,5, при этом
+        K<sub>u0</sub> ≈ 0,8·K<sub>u0 max</sub>, а избирательность близка к ненагруженному контуру.
+      </p>
+
+      <h3>Виды связи антенны с контуром</h3>
+      <div class="uoz-grid">
+        <div class="uoz-vcard">
+          <strong>Внешнеёмкостная (C1, C2, C3)</strong>
+          <span>p<sub>1</sub> = C<sub>св</sub>/(C<sub>A</sub>+C<sub>св</sub>) ≈ C<sub>св</sub>/C<sub>A</sub>.
+          K<sub>u0</sub> ∝ f<sub>c</sub>² — резкий рост с частотой.
+          При K<sub>д</sub> ≫ 1,5 неравномерность становится неприемлемой.</span>
+          <span class="uoz-pro">＋ Простота, широкое применение</span>
+          <span class="uoz-con">− Большая неравномерность K<sub>u0</sub> по диапазону</span>
+        </div>
+        <div class="uoz-vcard">
+          <strong>Индуктивная (M)</strong>
+          <span>p<sub>1</sub> = M/L. Режим удлинённой антенны (f<sub>A</sub> &lt; f<sub>c min</sub>):
+          K<sub>u0</sub> ≈ const по диапазону. Оптимально: f<sub>A</sub> ≈ (0,5–0,7)·f<sub>c min</sub>.</span>
+          <span class="uoz-pro">＋ Высокое постоянство K<sub>u0</sub> в режиме удлинения</span>
+          <span class="uoz-con">− Нужна катушка связи, сложнее конструктивно</span>
+        </div>
+        <div class="uoz-vcard">
+          <strong>Комбинированная (M + C1)</strong>
+          <span>Сочетает ёмкостную (K<sub>u0</sub> растёт с частотой) и индуктивную
+          (K<sub>u0</sub> убывает) связи. При правильном выборе соотношения —
+          компенсация неравномерности, K<sub>u0</sub> ≈ const.</span>
+          <span class="uoz-pro">＋ Наилучшая равномерность в диапазоне</span>
+          <span class="uoz-con">− Требует точного согласования двух видов связи</span>
+        </div>
+      </div>
+
+      <h3>Зависимость K<sub>u0</sub> от частоты (качественно)</h3>
+      <div class="uoz-svg-wrap">
+        <svg viewBox="0 0 540 150" xmlns="http://www.w3.org/2000/svg"
+             width="520" height="150" font-family="'JetBrains Mono',monospace" font-size="9">
+
+          <!-- Общая ось X -->
+          <text x="8" y="130" fill="#6b7a99" font-size="8">f<tspan font-size="6" dy="1">min</tspan></text>
+          <text x="488" y="130" fill="#6b7a99" font-size="8">f<tspan font-size="6" dy="1">max</tspan></text>
+
+          <!-- === Ёмкостная связь === -->
+          <line x1="20" y1="125" x2="170" y2="125" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="170,125 164,122 164,128" fill="#252d3d"/>
+          <line x1="20" y1="125" x2="20"  y2="20"  stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="20,20 17,26 23,26" fill="#252d3d"/>
+          <!-- Парабола вверх -->
+          <path d="M25,118 Q70,118 95,80 Q120,42 165,22"
+                fill="none" stroke="#00b4d8" stroke-width="2"/>
+          <text x="30" y="15" fill="#00b4d8" font-size="8">Ёмкостная</text>
+          <text x="30" y="25" fill="#00b4d8" font-size="8">C₁ &lt; C₂ &lt; C₃</text>
+          <text x="170" y="128" fill="#6b7a99" font-size="8">f</text>
+          <text x="5"   y="23"  fill="#6b7a99" font-size="7.5">K<tspan font-size="6" dy="1">u0</tspan></text>
+          <!-- Стрелка "растёт" -->
+          <text x="110" y="52" fill="#00b4d8" font-size="7.5">∝ f²</text>
+
+          <!-- === Индуктивная связь (удлинение) === -->
+          <line x1="195" y1="125" x2="350" y2="125" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="350,125 344,122 344,128" fill="#252d3d"/>
+          <line x1="195" y1="125" x2="195" y2="20"  stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="195,20 192,26 198,26" fill="#252d3d"/>
+          <!-- Почти горизонтальная линия с небольшим ростом у fmin -->
+          <path d="M200,60 Q225,52 250,50 Q290,48 345,46"
+                fill="none" stroke="#3ddb8a" stroke-width="2"/>
+          <!-- Резонанс антенны ниже диапазона -->
+          <line x1="195" y1="125" x2="195" y2="115" stroke="#f5a623" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="185" y="135" fill="#f5a623" font-size="7">f<tspan font-size="5.5" dy="1">A</tspan></text>
+          <text x="205" y="15" fill="#3ddb8a" font-size="8">Индуктивная</text>
+          <text x="205" y="25" fill="#3ddb8a" font-size="8">(удлинение)</text>
+          <text x="350" y="128" fill="#6b7a99" font-size="8">f</text>
+          <text x="180" y="23" fill="#6b7a99" font-size="7.5">K<tspan font-size="6" dy="1">u0</tspan></text>
+          <text x="270" y="40" fill="#3ddb8a" font-size="7.5">≈ const</text>
+
+          <!-- === Комбинированная === -->
+          <line x1="375" y1="125" x2="530" y2="125" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="530,125 524,122 524,128" fill="#252d3d"/>
+          <line x1="375" y1="125" x2="375" y2="20"  stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="375,20 372,26 378,26" fill="#252d3d"/>
+          <!-- Ёмкостная составляющая (штрих) -->
+          <path d="M380,115 Q420,100 455,70 Q480,48 525,38"
+                fill="none" stroke="#00b4d8" stroke-width="1.2" stroke-dasharray="4,3" opacity=".6"/>
+          <!-- Индуктивная составляющая (штрих) -->
+          <path d="M380,38 Q420,45 455,60 Q480,70 525,85"
+                fill="none" stroke="#3ddb8a" stroke-width="1.2" stroke-dasharray="4,3" opacity=".6"/>
+          <!-- Суммарная -->
+          <path d="M380,72 Q415,65 455,63 Q490,61 525,58"
+                fill="none" stroke="#f5a623" stroke-width="2.2"/>
+          <text x="383" y="15" fill="#f5a623" font-size="8">Комбинированная</text>
+          <text x="530" y="128" fill="#6b7a99" font-size="8">f</text>
+          <text x="360" y="23" fill="#6b7a99" font-size="7.5">K<tspan font-size="6" dy="1">u0</tspan></text>
+
+          <!-- Легенда комб. -->
+          <line x1="383" y1="100" x2="398" y2="100" stroke="#00b4d8" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <text x="402" y="103" fill="#6b7a99" font-size="7.5">ёмк.</text>
+          <line x1="383" y1="112" x2="398" y2="112" stroke="#3ddb8a" stroke-width="1.2" stroke-dasharray="3,2"/>
+          <text x="402" y="115" fill="#6b7a99" font-size="7.5">инд.</text>
+          <line x1="383" y1="123" x2="398" y2="123" stroke="#f5a623" stroke-width="2"/>
+          <text x="402" y="126" fill="#6b7a99" font-size="7.5">сумм.</text>
+        </svg>
+      </div>
+      <p class="uoz-svg-caption">Рис. — Зависимость K<sub>u0</sub> от f<sub>c</sub> для трёх видов связи (качественно)</p>
+
+      <h3>Избирательность по зеркальному каналу</h3>
+      <p>
+        Подавление помехи на частоте зеркального канала f<sub>з</sub> = f<sub>c</sub> + 2f<sub>пч</sub>:
+      </p>
+      <div class="uoz-formula">δ<sub>K</sub> = √{ 1 + Q²<sub>э</sub>·[(f<sub>c</sub>+2f<sub>пч</sub>)/f<sub>c</sub> − f<sub>c</sub>/(f<sub>c</sub>+2f<sub>пч</sub>)]² }</div>
+      <p>
+        Для увеличения δ<sub>K</sub> нужно увеличивать f<sub>пч</sub> и добротность Q<sub>э</sub>.
+      </p>
+
+      <h3>Вносимая расстройка антенной</h3>
+      <p>
+        При ёмкостной связи эквивалентная ёмкость антенной цепи C'<sub>A</sub> = C<sub>A</sub>C<sub>св</sub>/(C<sub>A</sub>+C<sub>св</sub>) подключается к контуру и расстраивает его.
+        Допустимая вносимая ёмкость:
+      </p>
+      <div class="uoz-formula">ΔC<sub>доп</sub> ≤ C<sub>э min</sub> / Q<sub>э</sub></div>
+      <p>
+        Чем больше C<sub>св</sub>, тем сильнее расстройка. При смене C1 → C2 → C3
+        расстройка нарастает; задание 5 посвящено её измерению.
+      </p>
+
+    </div>
+  </div><!-- /card-theory4 -->
+
+
+  <!-- ===== 2. ЗАДАНИЯ ===== -->
+  <div class="uoz-card" id="card-tasks4">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-tasks4')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-task">🔬</span>
+      <span class="uoz-card-title">
+        Задания к лабораторной работе
+        <span class="uoz-card-subtitle">7 заданий — K<sub>u0</sub>(f), виды связи, резонансные характеристики, расстройка антенной</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <p style="margin-top:.7rem">
+        Цель работы: исследование одноконтурных ВЦ с ненастроенной антенной и электронной
+        (варикапной) перестройкой в диапазоне 250–2000 кГц при трёх видах связи.
+        Настройка контура — потенциометр «НАСТРОЙКА» (управление варикапом);
+        связь — кнопки C1, C2, C3 (C1 &lt; C2 &lt; C3) и M.
+        Измеряемая величина: U<sub>рез</sub> = (U<sub>вых</sub>)<sub>max</sub>.
+      </p>
+
+      <ul class="uoz-task-list">
+        <li>
+          <span class="uoz-task-num">1</span>
+          <div>
+            <strong>Внешнеёмкостная связь — K<sub>u0</sub>(f<sub>c</sub>).</strong>
+            Для каждого из C1, C2, C3: определить f<sub>c min</sub> и f<sub>c max</sub>
+            диапазона настройки («НАСТРОЙКА» в крайних положениях),
+            затем в 4 промежуточных точках измерить U<sub>рез</sub>.
+            Построить U<sub>рез</sub> / (U<sub>рез</sub>)<sub>min</sub> = f(f<sub>c</sub>) для трёх кривых на одном графике.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">2</span>
+          <div>
+            <strong>Индуктивная связь — K<sub>u0</sub>(f<sub>c</sub>).</strong>
+            Подключить M. По методике задания 1 снять зависимость U<sub>рез</sub>(f<sub>c</sub>).
+            Построить нормированную зависимость на отдельном графике вместе с заданием 3.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">3</span>
+          <div>
+            <strong>Комбинированная связь — K<sub>u0</sub>(f<sub>c</sub>).</strong>
+            Подключить M и C1 одновременно. По методике задания 1 снять зависимость U<sub>рез</sub>(f<sub>c</sub>).
+            Сравнить с заданием 2 на том же графике. Убедиться в выравнивании характеристики.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">4</span>
+          <div>
+            <strong>Собственная частота антенны f<sub>A</sub> (индуктивная связь).</strong>
+            Подключить M. Установить «НАСТРОЙКА» в крайнее правое положение (f<sub>0</sub> максимальна).
+            Уменьшая f<sub>c</sub> ниже f<sub>c min</sub>, найти резонанс антенной цепи —
+            это и есть f<sub>A</sub> (режим удлинённой антенны). Зафиксировать значение.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">5</span>
+          <div>
+            <strong>Вносимая расстройка антенной (C1, C2, C3).</strong>
+            Подключить C1, настроить контур на начало диапазона (f<sub>c1</sub>).
+            Не меняя «НАСТРОЙКУ», зафиксировать резонансные частоты f<sub>c2</sub> и f<sub>c3</sub>
+            при переключении на C2 и C3. Вычислить: Δf<sub>вн2</sub> = f<sub>c1</sub> − f<sub>c2</sub>,
+            Δf<sub>вн3</sub> = f<sub>c1</sub> − f<sub>c3</sub>. Повторить для конца диапазона.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">6</span>
+          <div>
+            <strong>Резонансные характеристики — ёмкостная связь.</strong>
+            Для C1, C2, C3: снять U<sub>вых</sub>(f<sub>c</sub>) на f<sub>min</sub> и f<sub>max</sub> диапазона.
+            Построить нормированные кривые U<sub>вых</sub>/U<sub>рез</sub> = f(f<sub>c</sub> − f<sub>рез</sub>).
+            По ним определить полосу пропускания ΔF<sub>0.707</sub>.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">7</span>
+          <div>
+            <strong>Резонансные характеристики — индуктивная связь.</strong>
+            Подключить M. Снять U<sub>вых</sub>(f<sub>c</sub>) на f<sub>min</sub> и f<sub>max</sub>.
+            Построить нормированные кривые. Сравнить полосы ΔF<sub>0.707</sub>
+            с результатами задания 6.
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div><!-- /card-tasks4 -->
+
+
+  <!-- ===== 3. КОНТРОЛЬНЫЕ ВОПРОСЫ ===== -->
+  <div class="uoz-card" id="card-questions4">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-questions4')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-q">❓</span>
+      <span class="uoz-card-title">
+        Контрольные вопросы
+        <span class="uoz-card-subtitle">10 вопросов для допуска и защиты работы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+      <ol class="uoz-q-list">
+        <li>Назначение, принцип работы и схемы входных цепей. Достоинства и недостатки различных вариантов схем.</li>
+        <li>Что представляет собой обобщённая эквивалентная схема одноконтурных ВЦ? Как получить выражение для резонансного коэффициента передачи K<sub>u0</sub>?</li>
+        <li>Как определить избирательность ВЦ по зеркальному каналу и каналу прямого прохождения? Как рассчитать полосу пропускания ВЦ?</li>
+        <li>Как определить коэффициент шума входной цепи? Какие меры следует предпринимать для его уменьшения?</li>
+        <li>Как определить коэффициенты включения p<sub>1</sub> и p<sub>2</sub>, обеспечивающие максимальный K<sub>u0</sub>? Как при этом меняются избирательные свойства ВЦ? Из каких соображений на практике выбирают коэффициенты включения?</li>
+        <li>Как определяются резонансные коэффициенты передачи ВЦ с внешнеёмкостной и индуктивной связями? Какие режимы работы ВЦ с индуктивной связью целесообразно использовать?</li>
+        <li>Какие эффекты возникают во входных цепях, перестраиваемых с помощью варикапов? Что следует предпринимать для уменьшения влияния нелинейности варикапа?</li>
+        <li>Какова методика измерения коэффициента передачи входной цепи?</li>
+        <li>Какова методика измерения избирательности ВЦ по зеркальному каналу и каналу прямого прохождения?</li>
+        <li>Каковы принципы моделирования входных цепей в OrCAD? В чём преимущества и недостатки моделирования?</li>
+      </ol>
+    </div>
+  </div><!-- /card-questions4 -->
+
+</div><!-- /uoz-lab-meta -->
+
+<script>
+  function uozToggle(id) {
+    var card = document.getElementById(id);
+    var btn  = card.querySelector('.uoz-card-toggle');
+    var isOpen = card.classList.toggle('uoz-open');
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+</script>
+
+
+        
+        
+<div class="uos">
   <h2>Входная цепь УОС-04</h2>
 
   <div class="controls">
