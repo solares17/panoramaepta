@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="/panoramaepta/style.css">
 <link rel="stylesheet" href="/panoramaepta/styles/uoz.css">
+<link rel="stylesheet" href="/panoramaepta/styles/labstyles/uos1.css">
 </head>
 
 <body>
@@ -20,7 +21,276 @@
         <div class="info-text">
         <h2>Лабораторная работа №1 - Измерение КУ и фазовых сдвигов</h2>
         </div> 
+    <div class="uoz-lab-meta">
 
+  <!-- Заголовок -->
+  <div class="uoz-section-header">
+    <span class="uoz-tag">УОС-01</span>
+    <h2>Преобразователь частоты</h2>
+  </div>
+
+  <!-- ===== 1. ТЕОРИЯ ===== -->
+  <div class="uoz-card" id="card-theory">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-theory')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-theory">📡</span>
+      <span class="uoz-card-title">
+        Теоретические сведения
+        <span class="uoz-card-subtitle">Принципы преобразования частоты, типы смесителей, побочные каналы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <h3>Общие сведения</h3>
+      <p>
+        <strong>Преобразователь частоты (ПЧ)</strong> — устройство, переносящее спектр сигнала из одной
+        частотной области в другую с сохранением закона модуляции.
+        Состав ПЧ: <em>смеситель</em>, <em>гетеродин</em> и <em>полосовой фильтр</em>.
+        На выходе выделяется сигнал промежуточной частоты u<sub>пч</sub>(t).
+      </p>
+      <p>
+        Процесс преобразования описывается набором комбинационных частот:
+      </p>
+      <div class="uoz-formula">ω<sub>п</sub> = |±mω<sub>г</sub> ± nω<sub>с</sub>|,  m, n = 0, 1, 2, …</div>
+      <p>
+        Нужная составляющая (обычно ω<sub>г</sub> − ω<sub>с</sub>) выделяется полосовым фильтром.
+        Побочные составляющие подавляются им же.
+      </p>
+
+      <h3>Типы смесителей</h3>
+      <div class="uoz-mixer-grid">
+        <div class="uoz-mixer-card">
+          <strong>Тип 1 — Дифференциальный</strong>
+          <span>
+            Аналоговое перемножение сигналов на дифференциальном каскаде.
+            Метод «переменной крутизны». Удвоенная ЭДС, подавление гетеродина,
+            ослабление его шумов и чётных гармоник сигнала.
+          </span>
+        </div>
+        <div class="uoz-mixer-card">
+          <strong>Тип 2 — Двойной балансный</strong>
+          <span>
+            Три дифференциальных каскада. Истинное аналоговое перемножение.
+            При малых U<sub>c</sub>, U<sub>г</sub> ≪ φ<sub>T</sub> выход пропорционален
+            произведению: u<sub>вых</sub> ∝ u<sub>c</sub>(t)·u<sub>г</sub>(t).
+          </span>
+        </div>
+        <div class="uoz-mixer-card">
+          <strong>Тип 3 — Кольцевой диодный</strong>
+          <span>
+            Четыре диода в кольце. Подавляет ω<sub>c</sub> и ω<sub>г</sub> на выходе.
+            Эффективен до нескольких МГц. При больших уровнях в каждое плечо
+            включают несколько диодов последовательно.
+          </span>
+        </div>
+      </div>
+
+      <h3>Ключевые соотношения</h3>
+      <p>Для дифференциального каскада при малом входном сигнале (|U<sub>c</sub>| ≪ φ<sub>T</sub>):</p>
+      <div class="uoz-formula">u<sub>вых</sub>(t) = −R<sub>н</sub> · u<sub>c</sub>(t) · i<sub>y</sub> / 2φ<sub>T</sub></div>
+      <p>Для двойного балансного смесителя при малых сигналах:</p>
+      <div class="uoz-formula">u<sub>вых</sub>(t) ≈ (R<sub>н</sub>i<sub>0</sub> / 4φ<sub>T</sub>²) · u<sub>c</sub>(t) · u<sub>г</sub>(t)</div>
+      <p>После перемножения гармоник на выходе:</p>
+      <div class="uoz-formula">cos(ω<sub>г</sub>t) · cos(ω<sub>с</sub>t) = ½[cos(ω<sub>г</sub>−ω<sub>с</sub>)t + cos(ω<sub>г</sub>+ω<sub>с</sub>)t]</div>
+
+      <h3>Побочные каналы приема</h3>
+      <p>
+        Частоты помех, дающих ПЧ на выходе, определяются из:
+      </p>
+      <div class="uoz-formula">ω<sub>пч</sub> = |±mω<sub>г</sub> ± nω<sub>п</sub>| → ω<sub>п</sub> = (m/n)ω<sub>г</sub> ± ω<sub>пч</sub>/n</div>
+      <p>Наиболее значимые каналы (f<sub>пч</sub> = 465 кГц):</p>
+
+      <table class="uoz-table">
+        <thead>
+          <tr><th>Канал</th><th>m</th><th>n</th><th>Частота помехи</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Основной</td>    <td>1</td><td>1</td><td>f<sub>с</sub> = f<sub>г</sub> − f<sub>пч</sub></td></tr>
+          <tr><td>Зеркальный</td>  <td>1</td><td>1</td><td>f<sub>з</sub> = f<sub>г</sub> + f<sub>пч</sub></td></tr>
+          <tr><td>2f<sub>г</sub>−</td><td>2</td><td>1</td><td>f<sub>п1</sub> = 2f<sub>г</sub> − f<sub>пч</sub></td></tr>
+          <tr><td>2f<sub>г</sub>+</td><td>2</td><td>1</td><td>f<sub>п2</sub> = 2f<sub>г</sub> + f<sub>пч</sub></td></tr>
+          <tr><td>3f<sub>г</sub>−</td><td>3</td><td>1</td><td>f<sub>п3</sub> = 3f<sub>г</sub> − f<sub>пч</sub></td></tr>
+          <tr><td>Прямое прохождение</td><td>0</td><td>1</td><td>f<sub>с</sub> = f<sub>пч</sub> = 465 кГц</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Спектрограмма SVG -->
+      <div class="uoz-spectr-wrap" title="Спектрограмма основного и побочных каналов приема">
+        <svg viewBox="0 0 560 120" xmlns="http://www.w3.org/2000/svg"
+             width="540" height="120" font-family="'JetBrains Mono',monospace" font-size="9">
+          <!-- Ось частот -->
+          <line x1="20" y1="90" x2="540" y2="90" stroke="#252d3d" stroke-width="1.5"/>
+          <!-- Стрелка оси -->
+          <polygon points="540,90 534,87 534,93" fill="#252d3d"/>
+          <text x="543" y="93" fill="#6b7a99" font-size="9">ω</text>
+
+          <!-- Метки оси -->
+          <text x="14"  y="103" fill="#6b7a99" text-anchor="middle">0</text>
+          <text x="80"  y="103" fill="#6b7a99" text-anchor="middle">fпч</text>
+          <text x="150" y="103" fill="#3d8bff" text-anchor="middle">fс</text>
+          <text x="200" y="103" fill="#6b7a99" text-anchor="middle">fг</text>
+          <text x="250" y="103" fill="#f5a623" text-anchor="middle">fз</text>
+          <text x="350" y="103" fill="#a878ff" text-anchor="middle">2fг</text>
+          <text x="500" y="103" fill="#a878ff" text-anchor="middle">3fг</text>
+
+          <!-- Пунктир разметки ±fпч вокруг 2fг -->
+          <line x1="300" y1="90" x2="300" y2="50" stroke="#252d3d" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="400" y1="90" x2="400" y2="50" stroke="#252d3d" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="450" y1="90" x2="450" y2="50" stroke="#252d3d" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="550" y1="90" x2="550" y2="50" stroke="#252d3d" stroke-width="1" stroke-dasharray="3,3"/>
+
+          <!-- Столбец fпч — прямое прохождение -->
+          <rect x="74" y="60" width="12" height="30" fill="rgba(107,122,153,.4)" rx="2"/>
+          <text x="80" y="56" fill="#6b7a99" text-anchor="middle" font-size="8">пп</text>
+
+          <!-- Основной канал fс -->
+          <rect x="144" y="30" width="12" height="60" fill="rgba(61,139,255,.7)" rx="2"/>
+          <text x="150" y="26" fill="#3d8bff" text-anchor="middle" font-size="8">осн.</text>
+
+          <!-- fг -->
+          <rect x="194" y="55" width="12" height="35" fill="rgba(107,122,153,.3)" rx="2"/>
+
+          <!-- Зеркальный fз -->
+          <rect x="244" y="35" width="12" height="55" fill="rgba(245,166,35,.6)" rx="2"/>
+          <text x="250" y="31" fill="#f5a623" text-anchor="middle" font-size="8">зерк.</text>
+
+          <!-- 2fг-fпч -->
+          <rect x="294" y="65" width="12" height="25" fill="rgba(168,120,255,.5)" rx="2"/>
+          <text x="300" y="61" fill="#a878ff" text-anchor="middle" font-size="8">п1</text>
+
+          <!-- 2fг+fпч -->
+          <rect x="394" y="65" width="12" height="25" fill="rgba(168,120,255,.5)" rx="2"/>
+          <text x="400" y="61" fill="#a878ff" text-anchor="middle" font-size="8">п2</text>
+
+          <!-- 3fг-fпч -->
+          <rect x="444" y="70" width="12" height="20" fill="rgba(168,120,255,.3)" rx="2"/>
+          <text x="450" y="66" fill="#a878ff" text-anchor="middle" font-size="8">п3</text>
+
+          <!-- 3fг+fпч (за краем — намёк) -->
+          <rect x="524" y="72" width="8" height="18" fill="rgba(168,120,255,.2)" rx="2"/>
+
+          <!-- Скобки ±fпч -->
+          <text x="322" y="52" fill="#6b7a99" font-size="8" text-anchor="middle">←fпч→</text>
+        </svg>
+      </div>
+      <p style="font-size:.78rem; color:var(--uoz-muted); text-align:center; margin-top:-.2rem">
+        Рис. — Спектрограмма основного и побочных каналов приёма (схематично)
+      </p>
+
+    </div>
+  </div><!-- /card-theory -->
+
+
+  <!-- ===== 2. ЗАДАНИЯ ===== -->
+  <div class="uoz-card" id="card-tasks">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-tasks')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-task">🔬</span>
+      <span class="uoz-card-title">
+        Задания к лабораторной работе
+        <span class="uoz-card-subtitle">5 заданий — измерения, зеркальный и побочные каналы, прямое прохождение</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <p style="margin-top:.7rem">
+        Цель работы: экспериментальное исследование процесса преобразования частоты на основе
+        аналогового перемножения (дифф. каскад), двойного балансного смесителя и диодного кольцевого смесителя.
+        Для каждого задания установить f<sub>пч</sub> = f<sub>г</sub> − f<sub>с</sub> = <strong>465 кГц</strong>.
+      </p>
+
+      <ul class="uoz-task-list">
+        <li>
+          <span class="uoz-task-num">1</span>
+          <div>
+            <strong>Амплитудные характеристики.</strong>
+            Установить f<sub>с</sub> ≈ 1000 кГц, U<sub>с</sub> = 150 мВ, подобрать f<sub>г</sub>.
+            Изменяя U<sub>с</sub> в диапазоне 10–150 мВ, измерить U<sub>пч</sub> для всех трёх типов смесителей.
+            Результаты занести в таблицу и построить графики U<sub>пч</sub> = f(U<sub>с</sub>).
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">2</span>
+          <div>
+            <strong>Стабильность коэффициента преобразования.</strong>
+            Установить U<sub>с</sub> ≈ 25–30 мВ.
+            В 5 точках диапазона f<sub>с</sub> = 300–3000 кГц получить преобразование при f<sub>пч</sub> = 465 кГц,
+            измерить U<sub>пч</sub> и вычислить К<sub>пр</sub> = U<sub>пч</sub>/U<sub>с</sub>
+            для каждого типа смесителя.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">3</span>
+          <div>
+            <strong>Зеркальный канал приёма.</strong>
+            Выбрать f<sub>г</sub> ∈ [500; 2000] кГц.
+            Последовательно получить преобразование по основному (f<sub>г</sub> − f<sub>с</sub> = 465 кГц)
+            и зеркальному (f<sub>с</sub> − f<sub>г</sub> = 465 кГц) каналам.
+            Измерить U<sub>пч</sub> для трёх смесителей при U<sub>с</sub> = const (задание 2).
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">4</span>
+          <div>
+            <strong>Побочные каналы приёма.</strong>
+            Выбрать f<sub>г</sub> ∈ [500; 1500] кГц.
+            Измерить U<sub>пч</sub> на частотах: f<sub>с</sub> = f<sub>г</sub> − 465,
+            f<sub>п1</sub> = 2f<sub>г</sub> − 465, f<sub>п2</sub> = 2f<sub>г</sub> + 465,
+            f<sub>п3</sub> = 3f<sub>г</sub> − 465, f<sub>п4</sub> = 3f<sub>г</sub> + 465 кГц.
+            Построить спектрограммы с нормировкой к U<sub>пч</sub> основного канала.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">5</span>
+          <div>
+            <strong>Прямое прохождение f<sub>с</sub> = f<sub>пч</sub>.</strong>
+            Установить f<sub>г</sub> ∈ [1400; 1500] кГц.
+            Измерить U<sub>пч</sub> при f<sub>с</sub> = f<sub>г</sub> − 465 кГц (основной канал)
+            и при f<sub>с</sub> = 465 кГц (прямое прохождение) для трёх смесителей.
+            Сравнить уровни подавления у разных типов.
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div><!-- /card-tasks -->
+
+
+  <!-- ===== 3. КОНТРОЛЬНЫЕ ВОПРОСЫ ===== -->
+  <div class="uoz-card" id="card-questions">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-questions')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-q">❓</span>
+      <span class="uoz-card-title">
+        Контрольные вопросы
+        <span class="uoz-card-subtitle">9 вопросов для допуска и защиты работы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+      <ol class="uoz-q-list">
+        <li>Каковы принципы построения и схемы преобразователей частоты? В чём достоинства и недостатки смесителей, выполненных по различным схемам?</li>
+        <li>Что представляет собой эквивалентная схема преобразователя частоты?</li>
+        <li>Как определяются внутренние параметры (коэффициент преобразования, входная и выходная проводимости) преобразователя частоты?</li>
+        <li>Вследствие чего появляются побочные каналы приёма при супергетеродинном приёме? Как определяются их частоты?</li>
+        <li>Как определяется коэффициент преобразования смесителя на транзисторе?</li>
+        <li>Какие искажения сигналов возможны в преобразователе частоты? Отчего возникают интерференционные искажения? Как выбирается промежуточная частота?</li>
+        <li>Какова методика измерения амплитудных характеристик преобразователя частоты?</li>
+        <li>Какова методика измерения уровня колебаний промежуточной частоты по побочным каналам приёма?</li>
+        <li>Каковы принципы моделирования преобразователей частоты в OrCAD? Каковы преимущества и ограничения моделирования по сравнению с экспериментом?</li>
+      </ol>
+    </div>
+  </div><!-- /card-questions -->
+
+</div><!-- /uoz-lab-meta -->
+
+<script>
+  function uozToggle(id) {
+    var card = document.getElementById(id);
+    var btn  = card.querySelector('.uoz-card-toggle');
+    var isOpen = card.classList.toggle('uoz-open');
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+</script>
 
 
         
