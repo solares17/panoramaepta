@@ -1,4 +1,4 @@
-<style>
+
   /* ---------- Шрифты ---------- */
   @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -292,4 +292,3 @@
     .uoz-card-body   { padding: 0 .85rem 1rem; }
     .uoz-card-icon   { width: 28px; height: 28px; font-size: .85rem; }
   }
-</style>
