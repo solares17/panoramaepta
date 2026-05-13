@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="/panoramaepta/style.css">
 <link rel="stylesheet" href="/panoramaepta/styles/uoz.css">
+<link rel="stylesheet" href="/panoramaepta/styles/labstyle/uos3.css">
 </head>
 
 <body>
@@ -19,17 +20,324 @@
     <div class="content-container">
         <div class="info-text">
         <h2>Лабораторная работа №1 - Измерение КУ и фазовых сдвигов</h2>
-        <p>
-        Для выполнения лабораторной работы ознакомьтесь с видео:
-        </p>
         </div> 
 
-    
-        <div class="info-text">
-        <p>
-        Эмуляция лабораторного стенда:
-        </p>
-        </div> 
+
+        <div class="uoz-lab-meta">
+
+  <!-- Заголовок -->
+  <div class="uoz-section-header">
+    <span class="uoz-tag">УОС-03</span>
+    <h2>Частотный детектор</h2>
+  </div>
+
+  <!-- ===== 1. ТЕОРИЯ ===== -->
+  <div class="uoz-card" id="card-theory3">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-theory3')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-theory">〰️</span>
+      <span class="uoz-card-title">
+        Теоретические сведения
+        <span class="uoz-card-subtitle">ЧМ-сигнал, методы детектирования, типы ЧД, основные параметры</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <h3>Общие сведения</h3>
+      <p>
+        <strong>Частотный детектор (ЧД)</strong> — устройство для получения на выходе напряжения,
+        изменяющегося по закону мгновенной частоты входного ЧМ-сигнала. ЧМ-сигнал записывается как:
+      </p>
+      <div class="uoz-formula">u<sub>c</sub>(t) = U<sub>c</sub> · sin[ ω<sub>c</sub>t + Δω<sub>m</sub>∫x(t)dt ]</div>
+      <p>
+        Для воспроизведения модулирующего сообщения x(t) с минимальными нелинейными искажениями
+        детекторная характеристика должна быть <em>линейной</em>.
+        Перед детектором обычно включают <strong>амплитудный ограничитель</strong>, устраняющий влияние
+        паразитной АМ входного сигнала.
+      </p>
+
+      <h3>Основные параметры</h3>
+      <table class="uoz-table">
+        <thead>
+          <tr><th>Параметр</th><th>Определение</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Детекторная характеристика</td>
+            <td>U<sub>вых</sub> = f(Δω) — должна быть линейной</td>
+          </tr>
+          <tr>
+            <td>Крутизна S<sub>ЧД</sub></td>
+            <td>du<sub>вых</sub> / d(Δω) на линейном участке</td>
+          </tr>
+          <tr>
+            <td>Коэффициент передачи k<sub>Ω</sub></td>
+            <td>U<sub>Ω</sub> / [ U<sub>c</sub> · (Δω<sub>m</sub>/ω<sub>c</sub>) ]</td>
+          </tr>
+          <tr>
+            <td>Частотная характеристика</td>
+            <td>U<sub>Ω</sub> = f(Ω) при постоянной амплитуде модуляции</td>
+          </tr>
+          <tr>
+            <td>Коэф. подавления паразит. АМ</td>
+            <td>Степень подавления паразитной амплитудной модуляции</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Расчётный коэффициент передачи по результатам измерений:
+      </p>
+      <div class="uoz-formula">k<sub>Ω</sub> = 2U<sub>Ω</sub> / [ U<sub>c</sub> · (Δf<sub>m</sub>/f<sub>c</sub>) ],  Δf<sub>m</sub> = f<sub>max</sub> − f<sub>ср</sub></div>
+
+      <h3>Методы детектирования</h3>
+      <div class="uoz-det-grid">
+        <div class="uoz-det-card">
+          <strong>ЧМ → АМ (тип 1)</strong>
+          <span>Расстроенный контур LC с резонансной частотой ω<sub>0</sub> ≠ ω<sub>c</sub>.
+          АЧХ контура преобразует девиацию частоты в изменение амплитуды,
+          затем — диодный детектор. Рабочая точка на скате АЧХ.</span>
+          <span class="uoz-pro">＋ Простота схемы и настройки</span>
+          <span class="uoz-con">− Высокий уровень нелинейных искажений</span>
+        </div>
+        <div class="uoz-det-card">
+          <strong>ЧМ → ФМ (тип 2)</strong>
+          <span>Фазовый детектор с одиночным контуром. ФЧХ избирательного контура
+          преобразует девиацию частоты в изменение фазы. Перед фазовым детектором —
+          широкополосный фазовращатель π/2.</span>
+          <span class="uoz-pro">＋ Характеристика проходит через ноль, меньше искажений</span>
+          <span class="uoz-con">− Требует фазовращателя и ограничителя АМ</span>
+        </div>
+        <div class="uoz-det-card">
+          <strong>Дробный (тип 3)</strong>
+          <span>Детектор отношений. Два связанных контура LC и L<sub>g</sub>C<sub>g</sub>,
+          настроенных на ω<sub>c</sub>. Выход: U<sub>вых</sub> = (U<sub>=</sub><sup>(2)</sup> − U<sub>=</sub><sup>(1)</sup>)/2.
+          Малочувствителен к паразитной АМ за счёт постоянства суммы U<sub>=</sub><sup>(1)</sup> + U<sub>=</sub><sup>(2)</sup>.</span>
+          <span class="uoz-pro">＋ Не требует отдельного ограничителя АМ</span>
+          <span class="uoz-con">− Сложнее в настройке, меньший k<sub>Ω</sub></span>
+        </div>
+      </div>
+
+      <h3>Детекторные характеристики (качественно)</h3>
+      <div class="uoz-svg-wrap">
+        <svg viewBox="0 0 540 190" xmlns="http://www.w3.org/2000/svg"
+             width="520" height="190" font-family="'JetBrains Mono',monospace" font-size="9">
+
+          <!-- === Тип 1: расстроенный контур === -->
+          <!-- Ось X -->
+          <line x1="20" y1="90" x2="155" y2="90" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="155,90 149,87 149,93" fill="#252d3d"/>
+          <!-- Ось Y -->
+          <line x1="87" y1="160" x2="87" y2="10" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="87,10 84,16 90,16" fill="#252d3d"/>
+          <!-- Кривая: нарастающий скат АЧХ (несимметричная S-образная) -->
+          <path d="M25,145 C45,140 60,110 87,80 C110,55 130,40 150,35"
+                fill="none" stroke="#a878ff" stroke-width="2"/>
+          <!-- Рабочая точка -->
+          <circle cx="87" cy="80" r="3.5" fill="#f5a623"/>
+          <!-- Метки -->
+          <text x="87" y="170" fill="#6b7a99" font-size="7.5" text-anchor="middle">ω<tspan font-size="6" dy="1">0</tspan></text>
+          <text x="30" y="10"  fill="#a878ff" font-size="8">Тип 1</text>
+          <text x="30" y="20"  fill="#a878ff" font-size="8">Расстроенный</text>
+          <text x="30" y="30"  fill="#a878ff" font-size="8">контур</text>
+          <text x="158" y="93" fill="#6b7a99" font-size="8">ω</text>
+          <text x="72"  y="13" fill="#6b7a99" font-size="7.5">U<tspan font-size="6" dy="1">=</tspan></text>
+
+          <!-- === Тип 2: фазовый детектор === -->
+          <line x1="200" y1="90" x2="340" y2="90" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="340,90 334,87 334,93" fill="#252d3d"/>
+          <line x1="270" y1="160" x2="270" y2="10" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="270,10 267,16 273,16" fill="#252d3d"/>
+          <!-- S-образная, проходит через 0 -->
+          <path d="M205,145 C225,145 240,120 270,90 C298,62 315,38 335,35"
+                fill="none" stroke="#3d8bff" stroke-width="2"/>
+          <!-- Рабочая точка в нуле -->
+          <circle cx="270" cy="90" r="3.5" fill="#3d8bff"/>
+          <!-- Метки -->
+          <text x="270" y="170" fill="#6b7a99" font-size="7.5" text-anchor="middle">ω<tspan font-size="6" dy="1">ср</tspan></text>
+          <text x="205" y="10"  fill="#3d8bff" font-size="8">Тип 2</text>
+          <text x="205" y="20"  fill="#3d8bff" font-size="8">Фазовый</text>
+          <text x="205" y="30"  fill="#3d8bff" font-size="8">детектор</text>
+          <text x="342" y="93" fill="#6b7a99" font-size="8">ω</text>
+          <text x="254" y="13" fill="#6b7a99" font-size="7.5">U<tspan font-size="6" dy="1">вых</tspan></text>
+          <!-- нулевая линия -->
+          <line x1="200" y1="90" x2="340" y2="90" stroke="#252d3d" stroke-width=".8" stroke-dasharray="3,3"/>
+
+          <!-- === Тип 3: дробный детектор === -->
+          <line x1="380" y1="90" x2="525" y2="90" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="525,90 519,87 519,93" fill="#252d3d"/>
+          <line x1="452" y1="160" x2="452" y2="10" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="452,10 449,16 455,16" fill="#252d3d"/>
+          <!-- Дробный — менее крутая S-образная -->
+          <path d="M385,140 C405,140 428,115 452,90 C476,66 496,45 520,42"
+                fill="none" stroke="#00cfb4" stroke-width="2"/>
+          <circle cx="452" cy="90" r="3.5" fill="#00cfb4"/>
+          <text x="452" y="170" fill="#6b7a99" font-size="7.5" text-anchor="middle">ω<tspan font-size="6" dy="1">ср</tspan></text>
+          <text x="385" y="10"  fill="#00cfb4" font-size="8">Тип 3</text>
+          <text x="385" y="20"  fill="#00cfb4" font-size="8">Дробный</text>
+          <text x="385" y="30"  fill="#00cfb4" font-size="8">детектор</text>
+          <text x="527" y="93" fill="#6b7a99" font-size="8">ω</text>
+          <text x="436" y="13" fill="#6b7a99" font-size="7.5">U<tspan font-size="6" dy="1">вых</tspan></text>
+          <line x1="380" y1="90" x2="525" y2="90" stroke="#252d3d" stroke-width=".8" stroke-dasharray="3,3"/>
+
+        </svg>
+      </div>
+      <p class="uoz-svg-caption">Рис. — Детекторные характеристики трёх типов ЧД (качественно)</p>
+
+      <h3>Влияние добротности контура</h3>
+      <p>
+        Чем выше добротность Q резонансного контура — тем круче детекторная характеристика
+        (больше S<sub>ЧД</sub>), но тем <em>уже</em> линейный участок.
+        Добротность регулируется подключением шунтирующих резисторов R1 и R2 (кнопки Q1, Q2):
+      </p>
+      <table class="uoz-table">
+        <thead>
+          <tr><th>Состояние Q1/Q2</th><th>Добротность</th><th>Линейный участок</th><th>Крутизна S<sub>ЧД</sub></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Q1 и Q2 отключены</td>  <td>Максимальная</td> <td>Узкий</td>  <td>Максимальная</td></tr>
+          <tr><td>Подключён R1 (Q1)</td>  <td>Средняя 1</td>    <td>Шире</td>   <td>Меньше</td></tr>
+          <tr><td>Подключён R2 (Q2)</td>  <td>Средняя 2</td>    <td>Шире</td>   <td>Меньше</td></tr>
+          <tr><td>Q1 и Q2 подключены</td> <td>Минимальная</td>  <td>Широкий</td><td>Минимальная</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Для детектора тип 1: R1 = 5,6 кОм, R2 = 10 кОм.<br>
+        Для детектора тип 2: R1 = 430 Ом, R2 = 1,2 кОм.
+      </p>
+
+      <h3>Состав установки</h3>
+      <p>
+        ЧМ-генератор: ГВЧ с варикапным управлением частотой f<sub>c</sub> = 2200–2900 кГц
+        (потенциометр «ЧАСТОТА» меняет U<sub>см</sub> на варикапах);
+        ГНЧ с f = 30 Гц ÷ 15 кГц и U<sub>м</sub> = 0–750 мВ.
+        Контрольные выходы: Вых 1 — U<sub>=</sub>, Вых 2 — U<sub>вых</sub>, Вых 3 — U<sub>c</sub>.
+      </p>
+
+    </div>
+  </div><!-- /card-theory3 -->
+
+
+  <!-- ===== 2. ЗАДАНИЯ ===== -->
+  <div class="uoz-card" id="card-tasks3">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-tasks3')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-task">🔬</span>
+      <span class="uoz-card-title">
+        Задания к лабораторной работе
+        <span class="uoz-card-subtitle">6 заданий — модуляционная характеристика ЧМ-генератора, детекторные и частотные характеристики</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <p style="margin-top:.7rem">
+        Цель работы: экспериментальное исследование процесса детектирования ЧМ-сигналов на основе
+        преобразования девиации частоты в изменение амплитуды (тип 1) и в изменение фазы (тип 2),
+        а также дробного детектора (тип 3). ГНЧ выключен для заданий 1–4 (нет модуляции).
+      </p>
+
+      <ul class="uoz-task-list">
+        <li>
+          <span class="uoz-task-num">1</span>
+          <div>
+            <strong>Модуляционная характеристика ЧМ-генератора.</strong>
+            ГНЧ выключен. Изменяя U<sub>см</sub> потенциометром «Частота ГВЧ» в диапазоне 1–12 В,
+            измерить частоту f<sub>c</sub>. Занести результаты в таблицу.
+            Построить график f<sub>c</sub> = f(U<sub>см</sub>). Этот график используется
+            для расчёта девиации Δf<sub>m</sub> во всех последующих заданиях.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">2</span>
+          <div>
+            <strong>Детекторная характеристика — расстроенный контур (тип 1).</strong>
+            ГНЧ выключен. Изменяя f<sub>c</sub> в диапазоне 2200–2900 кГц, измерить U<sub>=</sub> на нагрузке.
+            Провести для 4 значений добротности: Q1 и Q2 откл. → Q1 вкл. → Q2 вкл. → Q1+Q2 вкл.
+            По каждой кривой определить среднюю частоту f<sub>ср</sub> наиболее линейного участка
+            (на возрастающем скате).
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">3</span>
+          <div>
+            <strong>Детекторная характеристика — фазовый детектор (тип 2).</strong>
+            ГНЧ выключен. Аналогично заданию 2 для 4 значений добротности.
+            f<sub>c</sub> = 2200–2900 кГц. Определить f<sub>ср</sub> линейного участка
+            при U<sub>=</sub> = 0 (характеристика проходит через ноль).
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">4</span>
+          <div>
+            <strong>Детекторная характеристика — дробный детектор (тип 3).</strong>
+            ГНЧ выключен. Измерить U<sub>=</sub> при изменении f<sub>c</sub> = 2200–2900 кГц.
+            Построить график U<sub>=</sub> = f(f<sub>c</sub>).
+            Определить f<sub>ср</sub> линейного участка (U<sub>=</sub> = 0).
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">5</span>
+          <div>
+            <strong>Частотные характеристики детекторов.</strong>
+            ГНЧ включить. Установить f<sub>c</sub> = f<sub>ср</sub> (из заданий 2–4), U<sub>м</sub> = 200 мВ.
+            Измерить U<sub>Ω</sub> на выходе при изменении F<sub>м</sub> = 50 Гц ÷ 15 кГц.
+            Для типов 1 и 2 — при отключённых Q1 и Q2. Провести для трёх типов детекторов.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">6</span>
+          <div>
+            <strong>Коэффициенты передачи в зависимости от уровня модуляции.</strong>
+            Установить f<sub>c</sub> = f<sub>ср</sub>, F<sub>м</sub> ≈ 1 кГц. Изменяя U<sub>м</sub>
+            от 0 до 750 мВ, измерить U<sub>Ω</sub> на выходе для трёх типов детекторов
+            (для типов 1 и 2 — Q1 и Q2 откл.). Результаты занести в таблицы.
+            Рассчитать k<sub>Ω</sub> = 2U<sub>Ω</sub> / [U<sub>c</sub>·(Δf<sub>m</sub>/f<sub>c</sub>)].
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div><!-- /card-tasks3 -->
+
+
+  <!-- ===== 3. КОНТРОЛЬНЫЕ ВОПРОСЫ ===== -->
+  <div class="uoz-card" id="card-questions3">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-questions3')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-q">❓</span>
+      <span class="uoz-card-title">
+        Контрольные вопросы
+        <span class="uoz-card-subtitle">8 вопросов для допуска и защиты работы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+      <ol class="uoz-q-list">
+        <li>Какие функции выполняют частотные детекторы? По каким признакам классифицируются такие детекторы и каковы их основные параметры?</li>
+        <li>Каковы принципы работы и схемы частотных детекторов? Чем отличаются детекторы на расстроенном контуре, фазовый и дробный?</li>
+        <li>Как рассчитывают коэффициент передачи частотного детектора?</li>
+        <li>Что происходит при совместном действии сигнала и шума на частотный детектор? Как проявляются пороговые свойства ЧД?</li>
+        <li>Какие искажения возникают в частотных детекторах? Какие меры следует предпринимать для их уменьшения?</li>
+        <li>Какова методика измерения детекторной характеристики частотного детектора?</li>
+        <li>Какова методика измерения частотных характеристик частотных детекторов?</li>
+        <li>Каковы принципы моделирования частотных детекторов? В чём заключаются преимущества и недостатки моделирования в OrCAD?</li>
+      </ol>
+    </div>
+  </div><!-- /card-questions3 -->
+
+</div><!-- /uoz-lab-meta -->
+
+<script>
+  function uozToggle(id) {
+    var card = document.getElementById(id);
+    var btn  = card.querySelector('.uoz-card-toggle');
+    var isOpen = card.classList.toggle('uoz-open');
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+</script>
+
+
+
+
+        
 <div class="uos">
 
   <h2>Частотный детектор УОС-03</h2>
