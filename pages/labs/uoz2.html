@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="/panoramaepta/style.css">
 <link rel="stylesheet" href="/panoramaepta/styles/uoz.css">
+<link rel="stylesheet" href="/panoramaepta/styles/labstyle/uos2.css">
 </head>
 
 <body>
@@ -19,6 +20,274 @@
         <div class="info-text">
         <h2>Лабораторная работа №1 - Измерение КУ и фазовых сдвигов</h2>
         </div> 
+
+        <div class="uoz-lab-meta">
+
+  <!-- Заголовок -->
+  <div class="uoz-section-header">
+    <span class="uoz-tag">УОС-02</span>
+    <h2>Амплитудный детектор</h2>
+  </div>
+
+  <!-- ===== 1. ТЕОРИЯ ===== -->
+  <div class="uoz-card" id="card-theory2">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-theory2')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-theory">📻</span>
+      <span class="uoz-card-title">
+        Теоретические сведения
+        <span class="uoz-card-subtitle">Принципы АМ-детектирования, типы детекторов, основные характеристики и параметры</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <h3>Общие сведения</h3>
+      <p>
+        <strong>Амплитудный детектор (АД)</strong> — устройство для получения на выходе напряжения,
+        изменяющегося по закону огибающей входного АМ-сигнала. АМ-сигнал записывается как:
+      </p>
+      <div class="uoz-formula">u<sub>c</sub>(t) = u<sub>a</sub>(t)·cos(ω<sub>c</sub>t),  u<sub>a</sub>(t) = U<sub>c</sub>[1 + m<sub>a</sub>x(t)],  m<sub>a</sub> ≤ 1</div>
+      <p>
+        Детектирование возможно двумя путями: <em>нелинейное преобразование</em> (квадратичная ВАХ)
+        и <em>параметрическое перемножение</em> на опорное когерентное колебание u<sub>0</sub>(t) = U<sub>0</sub>cos(ω<sub>c</sub>t).
+        В обоих случаях после ФНЧ выделяется низкочастотный сигнал ∝ u<sub>a</sub>(t).
+      </p>
+
+      <h3>Основные параметры</h3>
+      <table class="uoz-table">
+        <thead>
+          <tr><th>Параметр</th><th>Определение</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Детекторная характеристика</td>
+            <td>U<sub>=</sub> = f(U<sub>c</sub>)</td>
+          </tr>
+          <tr>
+            <td>Крутизна S<sub>АД</sub></td>
+            <td>dU<sub>=</sub> / dU<sub>c</sub>  [безразм.]</td>
+          </tr>
+          <tr>
+            <td>Коэффициент передачи k<sub>Ω</sub></td>
+            <td>k<sub>Ω</sub> = U<sub>Ω</sub> / (m<sub>a</sub>·U<sub>c</sub>)</td>
+          </tr>
+          <tr>
+            <td>Коэф. нелинейных искажений k<sub>н</sub></td>
+            <td>√(U²<sub>2Ω</sub>+U²<sub>3Ω</sub>+…) / U<sub>1Ω</sub></td>
+          </tr>
+          <tr>
+            <td>Коэффициент фильтрации k<sub>ф</sub></td>
+            <td>k<sub>ф</sub> = U<sub>c</sub> / U<sub>ω</sub>  = ω<sub>c</sub>·C<sub>н</sub>·r<sub>g</sub></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Режимы работы диодного детектора</h3>
+      <p>
+        <strong>Режим «слабых» сигналов</strong> (квадратичный участок ВАХ):
+        детекторная характеристика квадратичная, нелинейные искажения велики.
+        Коэффициент искажений при гармонической модуляции:
+      </p>
+      <div class="uoz-formula">k<sub>н</sub> ≈ m<sub>a</sub> / 4  → при m<sub>a</sub> = 30%: k<sub>н</sub> ≈ 7,5%</div>
+      <p>
+        <strong>Режим «сильных» сигналов</strong> (линейный участок, диод в режиме отсечки):
+        детектор линейный, U<sub>вых</sub> = U<sub>c</sub>cosθ·[1 + m<sub>a</sub>x(t)].
+        Угол отсечки определяется только S и R<sub>н</sub>, не зависит от U<sub>c</sub>:
+      </p>
+      <div class="uoz-formula">θ ≈ ∛(3π / (S·R<sub>н</sub>))</div>
+      <p>Условия малых нелинейных искажений при работе на «сильных» сигналах:</p>
+      <div class="uoz-formula">R<sub>н</sub>C<sub>н</sub>·Ω<sub>max</sub> ≤ √(1 − m²<sub>a</sub>) / m<sub>a</sub></div>
+
+      <h3>Типы детекторов</h3>
+      <div class="uoz-det-grid">
+        <div class="uoz-det-card">
+          <strong>Тип 1 — Диодный</strong>
+          <span>Диод + нагрузочная RC-цепь. Заряд C<sub>н</sub> через открытый диод, разряд через R<sub>н</sub>.
+          Параметры: R1 = 20 кОм, R2 = 10 кОм, C1 = 4700 пФ, C2 = 1000 пФ.</span>
+          <span class="uoz-pro">＋ Простота, надёжность</span>
+          <span class="uoz-con">− Нелинейные искажения при слабых сигналах</span>
+        </div>
+        <div class="uoz-det-card">
+          <strong>Тип 2 — Транзисторный</strong>
+          <span>Детектирование за счёт нелинейной ВАХ базового/коллекторного тока.
+          Параметры: R1 = 20 кОм, R2 = 10 кОм, C1 = 4700 пФ, C2 = 1000 пФ.</span>
+          <span class="uoz-pro">＋ Одновременное усиление + детектирование</span>
+          <span class="uoz-con">− Сложнее в реализации, меньше входное Z</span>
+        </div>
+        <div class="uoz-det-card">
+          <strong>Тип 3 — Синхронный</strong>
+          <span>Перемножение входного АМ-сигнала на опорное колебание u<sub>0</sub>(t) = U<sub>0</sub>cos(ω<sub>c</sub>t).
+          U<sub>с</sub> генератора: f<sub>c</sub> = 465 кГц, U<sub>c</sub> = 0–1,0 В, m<sub>a</sub> = 30%.</span>
+          <span class="uoz-pro">＋ Минимальные нелинейные искажения, высокое Z<sub>вх</sub></span>
+          <span class="uoz-con">− Требует точной синхронизации опорного сигнала</span>
+        </div>
+      </div>
+
+      <h3>Детекторная характеристика (качественно)</h3>
+      <div class="uoz-svg-wrap">
+        <svg viewBox="0 0 480 170" xmlns="http://www.w3.org/2000/svg"
+             width="460" height="170" font-family="'JetBrains Mono',monospace" font-size="9">
+
+          <!-- Оси -->
+          <line x1="40" y1="140" x2="440" y2="140" stroke="#252d3d" stroke-width="1.5"/>
+          <polygon points="440,140 434,137 434,143" fill="#252d3d"/>
+          <text x="443" y="143" fill="#6b7a99" font-size="9">U<tspan font-size="7" dy="2">c</tspan></text>
+
+          <line x1="40" y1="150" x2="40" y2="20" stroke="#252d3d" stroke-width="1.5"/>
+          <polygon points="40,20 37,26 43,26" fill="#252d3d"/>
+          <text x="14" y="24" fill="#6b7a99" font-size="9">U<tspan font-size="7" dy="2">=</tspan></text>
+
+          <!-- Квадратичный участок (слабые сигналы) — кривая -->
+          <path d="M40,140 Q120,138 180,110" fill="none" stroke="rgba(61,139,255,.5)" stroke-width="2" stroke-dasharray="4,3"/>
+
+          <!-- Линейный участок (сильные сигналы) -->
+          <path d="M180,110 L400,30" fill="none" stroke="#3ddb8a" stroke-width="2"/>
+
+          <!-- Метки режимов -->
+          <text x="70"  y="130" fill="rgba(61,139,255,.7)" font-size="8">«слабые»</text>
+          <text x="70"  y="120" fill="rgba(61,139,255,.7)" font-size="8">квадр. участок</text>
+          <text x="260" y="60"  fill="#3ddb8a" font-size="8">«сильные»</text>
+          <text x="260" y="70"  fill="#3ddb8a" font-size="8">линейный участок</text>
+
+          <!-- Граница режимов -->
+          <line x1="180" y1="110" x2="180" y2="140" stroke="#f5a623" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="164" y="153" fill="#f5a623" font-size="7.5">U<tspan font-size="6" dy="1">c</tspan><tspan dy="-1">(1)</tspan></text>
+
+          <!-- Крутизна S (угол) -->
+          <line x1="280" y1="82" x2="320" y2="82" stroke="#6b7a99" stroke-width="1" stroke-dasharray="2,2"/>
+          <line x1="320" y1="82" x2="320" y2="56" stroke="#6b7a99" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="324" y="72" fill="#6b7a99" font-size="8">S<tspan font-size="7" dy="1">АД</tspan></text>
+
+          <!-- Диодный vs транзисторный -->
+          <rect x="350" y="22" width="85" height="38" rx="4" fill="rgba(26,32,51,.8)" stroke="#252d3d" stroke-width="1"/>
+          <line x1="358" y1="30" x2="372" y2="30" stroke="#3ddb8a" stroke-width="2"/>
+          <text x="377" y="33" fill="#d4dae8" font-size="8">Диодный</text>
+          <line x1="358" y1="44" x2="372" y2="44" stroke="#3d8bff" stroke-width="2" stroke-dasharray="4,2"/>
+          <text x="377" y="47" fill="#d4dae8" font-size="8">Транзист.</text>
+        </svg>
+      </div>
+      <p class="uoz-svg-caption">Рис. — Детекторная характеристика диодного детектора (качественно)</p>
+
+      <h3>Синхронный детектор — влияние рассинхронизации</h3>
+      <p>
+        При фазовом сдвиге ψ ≠ 0 между опорным и несущим колебаниями амплитуда
+        выходного сигнала:
+      </p>
+      <div class="uoz-formula">u<sub>вых</sub>(t) = 0,5·U<sub>c</sub>[1 + m<sub>a</sub>cos(Ωt)]·U<sub>0</sub>·cosψ</div>
+      <p>Максимум при ψ = 0. При ψ → π/2 сигнал пропадает. Разделительный конденсатор выбирается из условия:</p>
+      <div class="uoz-formula">C<sub>p</sub> &gt; 1 / (Ω<sub>min</sub>·R<sub>УНЧ</sub>),  R<sub>УНЧ</sub> ≥ 5·R<sub>н</sub></div>
+
+    </div>
+  </div><!-- /card-theory2 -->
+
+
+  <!-- ===== 2. ЗАДАНИЯ ===== -->
+  <div class="uoz-card" id="card-tasks2">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-tasks2')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-task">🔬</span>
+      <span class="uoz-card-title">
+        Задания к лабораторной работе
+        <span class="uoz-card-subtitle">5 заданий — детекторные характеристики, частотные характеристики, коэффициент передачи</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+
+      <p style="margin-top:.7rem">
+        Цель работы: экспериментальное исследование основных характеристик и параметров амплитудных
+        детекторов трёх типов. Генератор: f<sub>c</sub> = <strong>465 кГц</strong>, m<sub>a</sub> = <strong>30&nbsp;%</strong>,
+        разделительный конденсатор C<sub>р</sub> = 0,47&nbsp;мкФ, нагрузка R = 20&nbsp;кОм.
+      </p>
+
+      <ul class="uoz-task-list">
+        <li>
+          <span class="uoz-task-num">1</span>
+          <div>
+            <strong>Детекторная характеристика диодного детектора (тип 1).</strong>
+            Получить зависимость U<sub>=</sub> = f(U<sub>c</sub>) без модуляции для нагрузок
+            {R1, C1} и {R2, C1}.
+            В режиме «слабых» сигналов — U<sub>c</sub> от 0 до 400 мВ;
+            в режиме «сильных» — от 400 мВ до 2,0 В. Результаты занести в таблицы.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">2</span>
+          <div>
+            <strong>Детекторная характеристика транзисторного детектора (тип 2).</strong>
+            Получить U<sub>=</sub> = f(U<sub>c</sub>) без модуляции для нагрузок {R1, C1} и {R2, C1}
+            при U<sub>c</sub> от 0 до 30 мВ. Результаты занести в таблицы.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">3</span>
+          <div>
+            <strong>Детекторная характеристика синхронного детектора (тип 3).</strong>
+            Кнопкой «УРОВЕНЬ» установить режим «&gt;0,1 В». Получить U<sub>=</sub> = f(U<sub>c</sub>)
+            при U<sub>c</sub> от 0 до 180 мВ без модуляции. Результаты занести в таблицы.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">4</span>
+          <div>
+            <strong>Частотные характеристики детекторов.</strong>
+            Снять зависимость U<sub>Ω</sub> = f(F) при m<sub>a</sub> = 30 % и частоте модуляции
+            F = 30 Гц ÷ 15 кГц.
+            Для типа 1: U<sub>c</sub> ≈ 1–1,5 В, нагрузка R1, три значения C: C1, C2, C1+C2.
+            Для типа 2: U<sub>c</sub> ≈ 10–15 мВ, аналогично. Для типа 3: U<sub>c</sub> ≈ 100 мВ.
+          </div>
+        </li>
+        <li>
+          <span class="uoz-task-num">5</span>
+          <div>
+            <strong>Коэффициент передачи детекторов.</strong>
+            Измерить k<sub>Ω</sub> = U<sub>Ω</sub> / (m<sub>a</sub>·U<sub>c</sub>) при F ≈ 1 кГц, m<sub>a</sub> = 30 %.
+            Тип 1: нагрузка R1,C1, U<sub>c</sub> = 250 мВ ÷ 2,0 В.
+            Тип 2: нагрузка R1,C1, U<sub>c</sub> = 0 ÷ 30 мВ.
+            Тип 3: U<sub>c</sub> = 0 ÷ 100 мВ.
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div><!-- /card-tasks2 -->
+
+
+  <!-- ===== 3. КОНТРОЛЬНЫЕ ВОПРОСЫ ===== -->
+  <div class="uoz-card" id="card-questions2">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-questions2')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-q">❓</span>
+      <span class="uoz-card-title">
+        Контрольные вопросы
+        <span class="uoz-card-subtitle">10 вопросов для допуска и защиты работы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+      <ol class="uoz-q-list">
+        <li>Какие функции выполняют амплитудные детекторы? По каким признакам классифицируются и каковы их параметры?</li>
+        <li>Каковы принципы работы и схемы амплитудных детекторов? В чём их достоинства и недостатки? Каковы особенности синхронных детекторов?</li>
+        <li>Как можно представить эквивалентную схему детектора? Как определить коэффициент передачи и входное сопротивление диодного детектора?</li>
+        <li>Какие искажения возникают в детекторах? Какие меры следует принимать для их уменьшения?</li>
+        <li>Какие процессы происходят при детектировании двух ВЧ-напряжений с разными частотами? Как определяется отношение сигнал/помеха на выходе?</li>
+        <li>Что происходит при совместном действии сигнала и шума на амплитудный детектор? Как изменяется спектр на выходе?</li>
+        <li>Какова методика измерения детекторной характеристики?</li>
+        <li>Какова методика измерения частотных характеристик детекторов?</li>
+        <li>Какова методика измерения коэффициента передачи детектора?</li>
+        <li>Каковы принципы моделирования амплитудных детекторов? В чём преимущества и недостатки моделирования в OrCAD?</li>
+      </ol>
+    </div>
+  </div><!-- /card-questions2 -->
+
+</div><!-- /uoz-lab-meta -->
+
+<script>
+  function uozToggle(id) {
+    var card = document.getElementById(id);
+    var btn  = card.querySelector('.uoz-card-toggle');
+    var isOpen = card.classList.toggle('uoz-open');
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+</script>
 
 
         
