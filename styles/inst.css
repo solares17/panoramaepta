@@ -1,0 +1,125 @@
+/* === СЕТКА ГАЛЕРЕИ === */
+.equipment-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Карточка в галерее */
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 220px; /* Фиксированная высота для ровной сетки */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease; /* Плавное увеличение */
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1); /* Увеличиваем фото при наведении */
+}
+
+/* Плашка с названием поверх фото */
+.gallery-item-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 15px 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    pointer-events: none; /* Чтобы текст не мешал кликать на фото */
+}
+
+
+/* === МОДАЛЬНОЕ ОКНО === */
+.equip-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Темный полупрозрачный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    
+    /* Скрываем по умолчанию */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Класс, который добавляется при клике */
+.equip-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Само белое окошко */
+.equip-modal-content {
+    background: #ffffff;
+    width: 90%;
+    max-width: 500px; /* Не делаем его слишком широким */
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    
+    /* Анимация выезда окна снизу вверх */
+    transform: translateY(30px);
+    transition: transform 0.3s ease;
+}
+
+.equip-modal.active .equip-modal-content {
+    transform: translateY(0);
+}
+
+/* Фото в окне */
+.equip-modal-content img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+/* Текст в окне */
+.equip-modal-text {
+    padding: 25px;
+}
+
+.equip-modal-text h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 1.4rem;
+}
+
+.equip-modal-text p {
+    margin: 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Крестик закрытия */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    color: #ffffff;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6); /* Чтобы крестик было видно на светлых фото */
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: #ff4d4d; /* Краснеет при наведении */
+}
