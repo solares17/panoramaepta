@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="/panoramaepta/style.css">
 <link rel="stylesheet" href="/panoramaepta/styles/uoz.css">
+<link rel="stylesheet" href="/panoramaepta/styles/labstyle/uos6.css">
 </head>
 
 <body>
@@ -19,17 +20,329 @@
     <div class="content-container">
         <div class="info-text">
         <h2>Лабораторная работа №1 - Измерение КУ и фазовых сдвигов</h2>
-        <p>
-        Для выполнения лабораторной работы ознакомьтесь с видео:
-        </p>
         </div> 
 
+            <div class="uoz-lab-meta">
+ 
+  <div class="uoz-section-header">
+    <span class="uoz-tag">УОС-06</span>
+    <h2>Частотная автоподстройка частоты (ЧАПЧ)</h2>
+  </div>
+ 
+  <!-- ===== 1. ТЕОРИЯ ===== -->
+  <div class="uoz-card" id="card-theory6">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-theory6')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-theory">🔁</span>
+      <span class="uoz-card-title">
+        Теоретические сведения
+        <span class="uoz-card-subtitle">Принцип ЧАПЧ, полосы втягивания и удержания, ГУН, ЧД, ФНЧ в петле ОС</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+ 
+      <h3>Общие сведения</h3>
+      <p>
+        <strong>Система ЧАПЧ</strong> — система автоматического регулирования,
+        поддерживающая постоянство промежуточной частоты f<sub>п.ч.</sub> в тракте УПОС
+        при дрейфе частоты гетеродина (ГУН). Принцип: частотный детектор ЧД
+        вырабатывает постоянное напряжение U<sub>ЧД</sub>, пропорциональное расстройке
+        Δf<sub>г</sub> = f<sub>г</sub> − f<sub>г.ном</sub>; после ФНЧ и усилителя оно
+        поступает на управляющий вход ГУН, возвращая f<sub>г</sub> к номинальному значению.
+      </p>
+ 
+      <h3>Структурная схема</h3>
+      <div class="uoz-svg-wrap">
+        <svg viewBox="0 0 600 90" xmlns="http://www.w3.org/2000/svg"
+             width="580" height="90" font-family="'JetBrains Mono',monospace" font-size="9">
+ 
+          <!-- Блоки: Gс → ПЧ → ФПЧ → УПЧ → ЧД → ФНЧ → К → ГУН (обратная стрелка) -->
+ 
+          <!-- Gс -->
+          <rect x="10"  y="30" width="55" height="30" rx="5" fill="#1a2033" stroke="#252d3d" stroke-width="1.2"/>
+          <text x="37"  y="49" fill="#d4dae8" font-size="8.5" text-anchor="middle">G<tspan font-size="7" dy="1">с</tspan></text>
+ 
+          <!-- стрелки и блоки -->
+          <line x1="65"  y1="45" x2="80"  y2="45" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="80,45 75,42 75,48" fill="#252d3d"/>
+ 
+          <!-- ПЧ -->
+          <rect x="80"  y="30" width="55" height="30" rx="5" fill="#1a2033" stroke="#252d3d" stroke-width="1.2"/>
+          <text x="107" y="49" fill="#d4dae8" font-size="8.5" text-anchor="middle">ПЧ</text>
+ 
+          <line x1="135" y1="45" x2="150" y2="45" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="150,45 145,42 145,48" fill="#252d3d"/>
+ 
+          <!-- УПЧ -->
+          <rect x="150" y="30" width="55" height="30" rx="5" fill="#1a2033" stroke="#252d3d" stroke-width="1.2"/>
+          <text x="177" y="49" fill="#d4dae8" font-size="8.5" text-anchor="middle">УПЧ</text>
+ 
+          <line x1="205" y1="45" x2="220" y2="45" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="220,45 215,42 215,48" fill="#252d3d"/>
+ 
+          <!-- ЧД -->
+          <rect x="220" y="30" width="55" height="30" rx="5" fill="#1a2033" stroke="rgba(45,219,132,.5)" stroke-width="1.4"/>
+          <text x="247" y="49" fill="#2ddb84" font-size="8.5" text-anchor="middle">ЧД</text>
+ 
+          <line x1="275" y1="45" x2="290" y2="45" stroke="#2ddb84" stroke-width="1.2"/>
+          <polygon points="290,45 285,42 285,48" fill="#2ddb84"/>
+ 
+          <!-- ФНЧ -->
+          <rect x="290" y="30" width="55" height="30" rx="5" fill="#1a2033" stroke="rgba(45,219,132,.4)" stroke-width="1.4"/>
+          <text x="317" y="49" fill="#9dffd4" font-size="8.5" text-anchor="middle">ФНЧ</text>
+ 
+          <line x1="345" y1="45" x2="360" y2="45" stroke="#2ddb84" stroke-width="1.2"/>
+          <polygon points="360,45 355,42 355,48" fill="#2ddb84"/>
+ 
+          <!-- К (усилитель) -->
+          <rect x="360" y="30" width="55" height="30" rx="5" fill="#1a2033" stroke="rgba(45,219,132,.4)" stroke-width="1.4"/>
+          <text x="387" y="49" fill="#9dffd4" font-size="8.5" text-anchor="middle">К<tspan font-size="7" dy="1">u</tspan></text>
+ 
+          <line x1="415" y1="45" x2="430" y2="45" stroke="#2ddb84" stroke-width="1.2"/>
+          <polygon points="430,45 425,42 425,48" fill="#2ddb84"/>
+ 
+          <!-- ГУН -->
+          <rect x="430" y="30" width="55" height="30" rx="5" fill="#1a2033" stroke="rgba(45,219,132,.5)" stroke-width="1.4"/>
+          <text x="457" y="49" fill="#2ddb84" font-size="8.5" text-anchor="middle">ГУН</text>
+ 
+          <!-- Обратная связь: ГУН → вниз → влево → вверх → вход ПЧ -->
+          <line x1="457" y1="60" x2="457" y2="78" stroke="#2ddb84" stroke-width="1.2"/>
+          <line x1="107" y1="78" x2="457" y2="78" stroke="#2ddb84" stroke-width="1.2"/>
+          <line x1="107" y1="60" x2="107" y2="78" stroke="#2ddb84" stroke-width="1.2"/>
+          <polygon points="107,60 104,65 110,65" fill="#2ddb84"/>
+          <text x="270" y="88" fill="#2ddb84" font-size="7.5" text-anchor="middle">← петля обратной связи →</text>
+ 
+          <!-- Выход вправо -->
+          <line x1="485" y1="45" x2="520" y2="45" stroke="#252d3d" stroke-width="1.2"/>
+          <polygon points="520,45 515,42 515,48" fill="#252d3d"/>
+          <text x="525" y="48" fill="#6b7a99" font-size="8">u<tspan font-size="6" dy="1">п.ч.</tspan></text>
+ 
+          <!-- Подписи к блокам ЧД и ФНЧ -->
+          <text x="247" y="26" fill="#6b7a99" font-size="7" text-anchor="middle">U<tspan font-size="5.5" dy="1">ЧД</tspan></text>
+          <text x="457" y="26" fill="#6b7a99" font-size="7" text-anchor="middle">U<tspan font-size="5.5" dy="1">упр</tspan></text>
+        </svg>
+      </div>
+      <p class="uoz-svg-caption">Рис. — Структурная схема системы ЧАПЧ: ГУН управляется через ЧД → ФНЧ → усилитель К<sub>u</sub></p>
+ 
+      <h3>Основные характеристики и параметры</h3>
+      <table class="uoz-table">
+        <thead>
+          <tr><th>Параметр</th><th>Определение</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Остаточная расстройка Δf<sub>п.ч.ост</sub></td>
+            <td>Δf<sub>п.ч.ост</sub> = Δf<sub>с.нач</sub> / (1 + K<sub>0</sub>), где K<sub>0</sub> — петлевой K<sub>u</sub></td>
+          </tr>
+          <tr>
+            <td>Полоса удержания ΔF<sub>уд</sub></td>
+            <td>Диапазон расстроек, внутри которого ЧАПЧ удерживает синхронизм</td>
+          </tr>
+          <tr>
+            <td>Полоса втягивания ΔF<sub>вт</sub></td>
+            <td>Диапазон, из которого система может войти в синхронизм при включении ОС</td>
+          </tr>
+          <tr>
+            <td>Время установления t<sub>у</sub></td>
+            <td>Время от включения ОС до установления f<sub>п.ч.</sub> с погрешностью ≤10%</td>
+          </tr>
+          <tr>
+            <td>Петля гистерезиса</td>
+            <td>ΔF<sub>уд</sub> &gt; ΔF<sub>вт</sub>, появляется при K<sub>u</sub> &gt; 1</td>
+          </tr>
+        </tbody>
+      </table>
+ 
+      <h3>Остаточная расстройка</h3>
+      <p>
+        При замкнутой петле и начальной расстройке Δf<sub>с.нач</sub> остаточная расстройка:
+      </p>
+      <div class="uoz-formula">Δf<sub>п.ч.ост</sub> = Δf<sub>с.нач</sub> / (1 + K<sub>0</sub>)</div>
+      <p>
+        Угол захвата системы ЧАПЧ (при ФНЧ):
+      </p>
+      <div class="uoz-formula">φ<sub>уд</sub> = arctan[ 1 / (1 + K<sub>0</sub>) · Δf<sub>с</sub> / f<sub>c</sub> ]</div>
+      <p>
+        Чем больше K<sub>u</sub> (коэффициент усиления в петле ОС), тем меньше остаточная расстройка
+        и шире полосы удержания и втягивания.
+      </p>
+ 
+      <h3>Влияние ФНЧ в петле ОС</h3>
+      <div class="uoz-grid">
+        <div class="uoz-vcard">
+          <strong>ФНЧ 1-го порядка (R₁C₁)</strong>
+          <span>Полоса прозрачности ΔF<sub>ФНЧ</sub> = 16 Гц. Простая инерционная система.
+          Переходный процесс — апериодический при малых K<sub>u</sub>,
+          с небольшими колебаниями при больших.</span>
+          <span class="uoz-pro">＋ Простая настройка, устойчива при любом K<sub>u</sub></span>
+          <span class="uoz-con">− Полоса втягивания ΔF<sub>вт</sub> &lt; ΔF<sub>уд</sub> (гистерезис)</span>
+        </div>
+        <div class="uoz-vcard">
+          <strong>ФНЧ 2-го порядка (R₂C₂)</strong>
+          <span>Полоса прозрачности ΔF<sub>ФНЧ</sub> = 5 Гц. Более узкая полоса → меньшее t<sub>у</sub>
+          при большом K<sub>u</sub>. Переходный процесс может иметь колебательный характер
+          при K<sub>u</sub> = 10 и K<sub>u</sub> = 50.</span>
+          <span class="uoz-pro">＋ Меньше t<sub>у</sub> при высоком K<sub>u</sub></span>
+          <span class="uoz-con">− При больших K<sub>u</sub> возможен колебательный переходный процесс</span>
+        </div>
+      </div>
+ 
+      <h3>Состав установки</h3>
+      <p>
+        ГВЧ (f<sub>с</sub> = 1280–1360 кГц) → ПЧ → ФПЧ (f<sub>п.ч.ном</sub> = 465 кГц) → УПЧ →
+        ЧД (два расстроенных LC-контура) → ФНЧ1 или ФНЧ2 → усилитель К<sub>u</sub> → ГУН.
+        Измеряемые величины: f<sub>с</sub>, f<sub>п.ч.</sub>, U<sub>ЧД</sub> — на встроенном дисплее.
+        Контрольные выходы на задней стенке: <span class="uoz-badge">Вых 1</span> — U<sub>с</sub>,
+        <span class="uoz-badge">Вых 2</span> — U<sub>п.ч.</sub>,
+        <span class="uoz-badge">Вых 3</span> — U<sub>ЧД</sub>.
+        Генератор цикла (Gц) — для периодического замыкания петли ОС (исследование t<sub>у</sub>).
+      </p>
+ 
+      <p>
+        Коэффициенты усиления: K<sub>u</sub> = 1 (индикаторы «УСИЛЕНИЕ» не светятся),
+        <span class="uoz-badge">К1 → K<sub>u</sub> = 2,6</span>,
+        <span class="uoz-badge">К2 → K<sub>u</sub> = 10</span>,
+        <span class="uoz-badge">К3 → K<sub>u</sub> = 50</span>.
+      </p>
+ 
+    </div>
+  </div><!-- /card-theory6 -->
+ 
+ 
+  <!-- ===== 2. ЗАДАНИЯ ===== -->
+  <div class="uoz-card" id="card-tasks6">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-tasks6')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-task">🔬</span>
+      <span class="uoz-card-title">
+        Задания к лабораторной работе
+        <span class="uoz-card-subtitle">4 задания — детекторная характеристика ЧД, полосы при разных K<sub>u</sub>, остаточная расстройка, переходные процессы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+ 
+      <p style="margin-top:.7rem">
+        Цель работы: исследование зависимости полосы удержания и полосы втягивания от
+        коэффициента усиления K<sub>u</sub> в петле ОС и параметров ФНЧ;
+        определение времени установления t<sub>у</sub> процесса втягивания.
+        Диапазон перестройки f<sub>с</sub>:
+        <span class="uoz-badge">1280–1360 кГц</span>.
+        Номинальная промежуточная частота:
+        <span class="uoz-badge">f<sub>п.ч.ном</sub> = 465 кГц</span>.
+      </p>
+ 
+      <ul class="uoz-task-list">
+ 
+        <li>
+          <span class="uoz-task-num">1</span>
+          <div>
+            <strong>Детекторная характеристика ЧД при разомкнутой петле ОС.</strong>
+            Петля ОС разомкнута (индикатор «ВКЛ» поля «ЧАПЧ» не светится).
+            Изменяя f<sub>с</sub> от 1280 до 1360 кГц, измерить U<sub>ЧД</sub>(f<sub>с</sub>).
+            Частоты экстремумов и нуля определить с погрешностью ≤ 0,2 кГц.
+            Из нуля U<sub>ЧД</sub> получить f<sub>с.ном</sub>, f<sub>п.ч.ном</sub>, f<sub>г.ном</sub> = f<sub>с.ном</sub> + f<sub>п.ч.ном</sub>.
+            Построить график U<sub>ЧД</sub> = φ(f<sub>п.ч.</sub>).
+          </div>
+        </li>
+ 
+        <li>
+          <span class="uoz-task-num">2</span>
+          <div>
+            <strong>Регулировочная характеристика ЧАПЧ — зависимость Δf<sub>п.ч.</sub>(Δf<sub>с</sub>) при разных K<sub>u</sub>.</strong>
+            Замкнуть петлю ОС, включить ФНЧ1. Перестраивать f<sub>с</sub> в обоих направлениях:
+            от 1280 до 1360 кГц и обратно — с шагом 2 кГц.
+            Фиксировать перескоки и петлю гистерезиса.
+            Измерения провести для четырёх значений K<sub>u</sub>:
+            <ul class="uoz-subtask">
+              <li>K<sub>u</sub> = 1 (индикаторы «УСИЛЕНИЕ» не светятся)</li>
+              <li>K<sub>u</sub> = 2,6 (К1 светится)</li>
+              <li>K<sub>u</sub> = 10 (К2 светится)</li>
+              <li>K<sub>u</sub> = 50 (К3 светится)</li>
+            </ul>
+            Результаты занести в таблицы (f<sub>п.ч.</sub>, f<sub>с</sub>, Δf<sub>п.ч.</sub>, Δf<sub>с</sub>).
+            Построить четыре графика Δf<sub>п.ч.</sub> = φ(Δf<sub>с</sub>) на одном поле.
+            Определить полосы удержания ΔF<sub>уд</sub> и втягивания ΔF<sub>вт</sub> для каждого K<sub>u</sub>.
+          </div>
+        </li>
+ 
+        <li>
+          <span class="uoz-task-num">3</span>
+          <div>
+            <strong>Остаточная расстройка Δf<sub>п.ч.ост</sub> в зависимости от K<sub>u</sub>.</strong>
+            ФНЧ1 включён. Начальная расстройка Δf<sub>с.нач</sub> = <strong>10 кГц</strong>.
+            Измерить Δf<sub>п.ч.ост</sub> и U<sub>ЧД</sub> при:
+            <ul class="uoz-subtask">
+              <li>разомкнутой петле ОС (эталон)</li>
+              <li>замкнутой петле: K<sub>u</sub> = 1, 2,6, 10, 50</li>
+            </ul>
+            Результаты занести в таблицу. Сравнить с расчётом
+            Δf<sub>п.ч.ост</sub> = Δf<sub>с.нач</sub>/(1 + K<sub>0</sub>).
+          </div>
+        </li>
+ 
+        <li>
+          <span class="uoz-task-num">4</span>
+          <div>
+            <strong>Переходные процессы втягивания частоты — осциллограммы U<sub>ЧД</sub>(t).</strong>
+            Начальная расстройка Δf<sub>с.нач</sub> = 4–8 кГц.
+            Включить генератор цикла (Gц «ВКЛ»).
+            Осциллограф подключить к <span class="uoz-badge">Вых 3</span>,
+            синхронизацию — к «Вых. синхронизации».
+            <ul class="uoz-subtask">
+              <li><strong>4.1</strong> ФНЧ1 (ΔF = 16 Гц): снять и зарисовать осциллограммы U<sub>ЧД</sub>(t) для K<sub>u</sub> = 1; 2,6; 10; 50. Определить t<sub>у</sub>.</li>
+              <li><strong>4.2</strong> ФНЧ2 (ΔF = 5 Гц): снять и зарисовать осциллограммы для тех же четырёх K<sub>u</sub>. Сравнить с п. 4.1.</li>
+            </ul>
+          </div>
+        </li>
+ 
+      </ul>
+ 
+    </div>
+  </div><!-- /card-tasks6 -->
+ 
+ 
+  <!-- ===== 3. КОНТРОЛЬНЫЕ ВОПРОСЫ ===== -->
+  <div class="uoz-card" id="card-questions6">
+    <button class="uoz-card-toggle" onclick="uozToggle('card-questions6')" aria-expanded="false">
+      <span class="uoz-card-icon uoz-icon-q">❓</span>
+      <span class="uoz-card-title">
+        Контрольные вопросы
+        <span class="uoz-card-subtitle">10 вопросов для допуска и защиты работы</span>
+      </span>
+      <span class="uoz-chevron">▼</span>
+    </button>
+    <div class="uoz-card-body">
+      <ol class="uoz-q-list">
+        <li>Каково назначение системы ЧАПЧ в УПОС?</li>
+        <li>Каковы основные характеристики системы ЧАПЧ?</li>
+        <li>Что представляет собой структурная схема системы ЧАПЧ?</li>
+        <li>Каково назначение фильтра низкой частоты и усилителя в петле автоматической подстройки?</li>
+        <li>Как формулируется основное дифференциальное уравнение системы ЧАПЧ?</li>
+        <li>Как объяснить вид зависимости расстройки частоты на выходе УПЧ от расстройки частоты входного сигнала?</li>
+        <li>Как объяснить наличие гистерезиса в зависимости Δf<sub>п.ч.</sub> = φ(Δf<sub>с</sub>)?</li>
+        <li>Чем определяются «полоса удержания» и «полоса втягивания» системы ЧАПЧ?</li>
+        <li>Какие преимущества даёт использование ФНЧ более высоких порядков в петле ОС?</li>
+        <li>Как объяснить зависимость остаточной расстройки от коэффициента усиления K<sub>u</sub>?</li>
+      </ol>
+    </div>
+  </div><!-- /card-questions6 -->
+ 
+</div><!-- /uoz-lab-meta -->
+ 
+<script>
+  function uozToggle(id) {
+    var card = document.getElementById(id);
+    var btn  = card.querySelector('.uoz-card-toggle');
+    var isOpen = card.classList.toggle('uoz-open');
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+</script>
+
+
         
-        <div class="info-text">
-        <p>
-        Эмуляция лабораторного стенда:
-        </p>
-        </div> 
+
+
+        
        <div class="uos" id="uos-06-container"> 
   <h2>Автоматическая регулировка усиления УОС-06</h2> 
 
