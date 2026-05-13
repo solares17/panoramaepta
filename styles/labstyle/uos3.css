@@ -1,16 +1,16 @@
  @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
   :root {
-    --uoz-bg:        #0f1117;
-    --uoz-surface:   #161b26;
-    --uoz-border:    #252d3d;
-    --uoz-accent:    #3d8bff;
-    --uoz-accent2:   #00cfb4;
+    --uoz-bg:        #05a4ba;
+    --uoz-surface:   #0093a2;
+    --uoz-border:    #003154;
+    --uoz-accent:    #fff;
+    --uoz-accent2:   #fff;
     --uoz-warn:      #f5a623;
     --uoz-green:     #3ddb8a;
     --uoz-purple:    #a878ff;
     --uoz-text:      #d4dae8;
-    --uoz-muted:     #6b7a99;
+    --uoz-muted:     #fff;
     --uoz-code-bg:   #1a2033;
     --uoz-radius:    10px;
     --uoz-font:      'Golos Text', sans-serif;
