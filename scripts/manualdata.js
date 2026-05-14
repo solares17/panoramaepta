@@ -1,27 +1,27 @@
 const manuals = [
     {
         title: "Методическое пособие: УОС - 01. Преобразователь частоты",
-        img: "/panoramaepta/images/UOZ1.jpg",
+        img: "/LabHelperAFU/images/UOZ1.jpg",
         text: "В данной методичке описаны основные принципы работы рупорных антенн, порядок выполнения лабораторных работ и контрольные вопросы для подготовки.",
-        downloadUrl: "/panoramaepta/data/uos1.docx" // Укажи правильный путь к файлу
+        downloadUrl: "/panoramaepta/data/uos1.docx" 
     },
     {
         title: "Методическое пособие: УОС - 02. Амплитудный детектор",
-        img: "/panoramaepta/images/UOZ2.jpg",
+        img: "/LabHelperAFU/images/UOZ2.jpg",
         text: "Подробное руководство по изучению зеркально-параболических антенн. Включает теоретическую базу, формулы для расчета и практические задания.",
-        downloadUrl: "/panoramaepta/data/uos2.docx" // Укажи правильный путь к файлу
+        downloadUrl: "/panoramaepta/data/uos2.docx" 
     },
   {
         title: "Методическое пособие: УОС - 03. Частотный детектор",
-      img: "/panoramaepta/images/UOZ3.jpg",
+      img: "/LabHelperAFU/images/UOZ3.jpg",
         text: "Подробное руководство по изучению зеркально-параболических антенн. Включает теоретическую базу, формулы для расчета и практические задания.",
-        downloadUrl: "/panoramaepta/data/uos3.docx" // Укажи правильный путь к файлу
+        downloadUrl: "/panoramaepta/data/uos3.docx" 
     },
   {
         title: "Методическое пособие: УОС - 04. Входная цепь",
-      img: "/panoramaepta/images/UOZ4.jpg",
+      img: "/LabHelperAFU/images/UOZ4.jpg",
         text: "Подробное руководство по изучению зеркально-параболических антенн. Включает теоретическую базу, формулы для расчета и практические задания.",
-        downloadUrl: "/panoramaepta/data/uos4.docx" // Укажи правильный путь к файлу
+        downloadUrl: "/panoramaepta/data/uos4.docx" 
     },
 ];
 
