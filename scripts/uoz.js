@@ -108,8 +108,16 @@ const data = {
     { fc:3000, fg:1000, uc:0.027, channel:"p4", U_if:0.004 }
   ],
 
-  det2: [ ],
-  det3: [ ]
+  det2: [{ fc:500, fg:1000, uc:0.027, channel:"main", U_if:0.002 },
+    { fc:1500, fg:1000, uc:0.027, channel:"p1", U_if:0.001 },
+    { fc:2000, fg:1000, uc:0.027, channel:"p2", U_if:0.002 },
+    { fc:2500, fg:1000, uc:0.027, channel:"p3", U_if:0.003 },
+    { fc:3000, fg:1000, uc:0.027, channel:"p4", U_if:0.004 } ],
+  det3: [ { fc:500, fg:1000, uc:0.027, channel:"main", U_if:0.002 },
+    { fc:1500, fg:1000, uc:0.027, channel:"p1", U_if:0.001 },
+    { fc:2000, fg:1000, uc:0.027, channel:"p2", U_if:0.002 },
+    { fc:2500, fg:1000, uc:0.027, channel:"p3", U_if:0.003 },
+    { fc:3000, fg:1000, uc:0.027, channel:"p4", U_if:0.004 }]
 },
 
 5: {
